@@ -1,6 +1,6 @@
 module "security_group" {
   # source        = "git::https://github.com/ibrahima1289/aws.tf-modules/security-group.git?ref=main"
-  source        = "../../security-group" # Uncomment for local module instead of remote one
+  source        = "../../modules/security_identity_compliance/security-group" # Uncomment for local module instead of remote one
   name          = var.name
   description   = var.description
   vpc_id        = var.vpc_id
