@@ -1,0 +1,14 @@
+# This file is used to ignore files and directories in a Git repository for Terraform modules.
+.terraform.lock.hcl
+
+#Terraform State Files
+**/*.tfstate
+**/*.tfstate.backup
+**/*.tfstate.backup.d/*
+.git 
+
+#Terraform plan output 
+tfplan
+
+#terraform init files 
+**/.terraform
