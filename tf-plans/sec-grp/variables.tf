@@ -1,6 +1,6 @@
-variable "name" {
+variable "defined_name" {
   type        = string
-  description = "Name of the security group"
+  description = "The defined name of the security group"
 }
 
 variable "description" {

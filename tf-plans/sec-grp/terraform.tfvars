@@ -1,6 +1,6 @@
-name        = "multi-ingress-sg"
-description = "Security group with multiple ingress rules"
-vpc_id      = "vpc-12345678"
+defined_name = "multi-security-group"
+description  = "Security group with multiple ingress and egress rules"
+vpc_id       = "vpc-02158a7f2929c8ba7"
 
 ingress_rules = [
   {

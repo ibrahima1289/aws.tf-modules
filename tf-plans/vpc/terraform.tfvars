@@ -1,7 +1,9 @@
-vpc_cidr_block       = "10.0.0.0/16"
-public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
-private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24"]
 region               = "us-east-1"
+vpc_cidr_block       = "10.0.0.0/24"
+defined_name         = "my-vpc"
+public_subnet_cidrs  = ["10.0.0.0/26", "10.0.0.64/26"]
+private_subnet_cidrs = ["10.0.0.128/26", "10.0.0.192/26"]
 tags = {
-  Name = "VPC"
+  Environment = "dev"
+  Owner       = "IT Team"
 }

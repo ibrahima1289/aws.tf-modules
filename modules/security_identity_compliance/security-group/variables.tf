@@ -1,6 +1,13 @@
 variable "name" {
   description = "The name of the security group."
   type        = string
+  default     = "Default-SG"
+}
+
+variable "defined_name" {
+  description = "Explicit name for the security group. Overrides 'name' if set."
+  type        = string
+  default     = null
 }
 
 variable "description" {

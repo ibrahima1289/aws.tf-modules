@@ -1,6 +1,6 @@
 # Terraform module to create an AWS Security Group with dynamic ingress and egress rules.
 resource "aws_security_group" "sg" {
-  name        = var.name
+  name        = var.defined_name != null ? var.defined_name : var.name
   description = var.description
   vpc_id      = var.vpc_id
 
@@ -28,5 +28,5 @@ resource "aws_security_group" "sg" {
     }
   }
 
-  tags = var.tags
+  tags = merge(var.tags, { "Name" = var.defined_name != null ? var.defined_name : var.name })
 }
