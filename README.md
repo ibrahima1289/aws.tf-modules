@@ -1,15 +1,16 @@
 # Terraform Modules for AWS Services
 
-This repository contains reusable Terraform modules for AWS infrastructure components. Each module is documented in its own directory. See the links below for details and usage examples.
+This repository contains reusable Terraform modules for [AWS infrastructure components](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/amazon-web-services-cloud-platform.html). Each module is documented in its own directory. See the table below for details and usage examples.
 
 ## Modules
 
-| AWS Service Type | Module Name        | Documentation Link                                              |
-|------------------|-------------------|-----------------------------------------------------------------|
-| Networking       | VPC               | [VPC Module](modules/networking_content_delivery/vpc/README.md) |
-| Security         | Security Group    | [Security Group Module](modules/security_identity_compliance/security-group/README.md) |
-| Compute          | EC2               | [EC2 Module](modules/compute/ec2/README.md)                     |
-| Storage          | S3                | [S3 Module](modules/storage/s3/README.md)                       |
+| AWS Service Type | Module Name     | Documentation Link                                                    |
+|------------------|----------------|-----------------------------------------------------------------------|
+| Networking       | VPC            | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)   |
+| Security         | Security Group | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) |
+| Security         | IAM            | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)  |
+| Compute          | EC2            | [EC2 Module](modules/compute/ec2/README.md)                           |
+| Storage          | S3             | [S3 Module](modules/storage/s3/README.md)                             |
 
 > Each module directory contains its own README file with usage instructions, input/output variables, and examples.
 
@@ -19,7 +20,7 @@ To use a module, reference its path in your Terraform configuration. For example
 
 ```hcl
 module "vpc" {
-  source = "../modules/networking_content_delivery/vpc"
+  source = "../modules/networking_content_delivery/aws_vpc"
   # ...module variables...
 }
 ```

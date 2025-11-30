@@ -15,8 +15,8 @@ resource "aws_vpc" "main" {
   ipv6_netmask_length                  = var.ipv6_netmask_length
   assign_generated_ipv6_cidr_block     = var.assign_generated_ipv6_cidr_block
   ipv6_cidr_block_network_border_group = var.ipv6_cidr_block_network_border_group
-  
-  tags   = merge(var.tags, {
+
+  tags = merge(var.tags, {
     Name = var.defined_name != null ? var.defined_name : "Default-VPC"
   })
 }
@@ -34,12 +34,12 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  depends_on              = [aws_vpc.main]
-  region                  = var.region
-  for_each                = toset(var.private_subnet_cidrs)
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.private_subnet_is_ipv6 ? null : each.value
-  ipv6_cidr_block         = var.private_subnet_is_ipv6 ? each.value : null
-  availability_zone       = element(data.aws_availability_zones.available.names, index(var.private_subnet_cidrs, each.value) % length(data.aws_availability_zones.available.names))
-  tags                    = merge(var.tags, { "Name" = "Private Subnet ${each.value}" })
+  depends_on        = [aws_vpc.main]
+  region            = var.region
+  for_each          = toset(var.private_subnet_cidrs)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_subnet_is_ipv6 ? null : each.value
+  ipv6_cidr_block   = var.private_subnet_is_ipv6 ? each.value : null
+  availability_zone = element(data.aws_availability_zones.available.names, index(var.private_subnet_cidrs, each.value) % length(data.aws_availability_zones.available.names))
+  tags              = merge(var.tags, { "Name" = "Private Subnet ${each.value}" })
 }
