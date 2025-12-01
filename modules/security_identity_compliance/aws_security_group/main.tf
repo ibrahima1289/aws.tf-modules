@@ -4,7 +4,6 @@ resource "aws_security_group" "sg" {
   description = var.description
   vpc_id      = var.vpc_id
 
-  # Ensure the security group is created in the correct region
   dynamic "ingress" {
     for_each = var.ingress_rules
     content {
@@ -16,7 +15,6 @@ resource "aws_security_group" "sg" {
     }
   }
 
-  # Ensure the security group is created in the correct region
   dynamic "egress" {
     for_each = var.egress_rules
     content {
@@ -28,5 +26,5 @@ resource "aws_security_group" "sg" {
     }
   }
 
-  tags = merge(var.tags, { "Name" = var.defined_name != null ? var.defined_name : var.name })
+  tags = merge(var.tags, { "Name" = var.defined_name != null ? var.defined_name : var.name, created_date = local.created_date })
 }

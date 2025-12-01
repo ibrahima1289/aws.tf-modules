@@ -17,7 +17,8 @@ resource "aws_vpc" "main" {
   ipv6_cidr_block_network_border_group = var.ipv6_cidr_block_network_border_group
 
   tags = merge(var.tags, {
-    Name = var.defined_name != null ? var.defined_name : "Default-VPC"
+    Name = var.defined_name != null ? var.defined_name : "Default-VPC",
+    created_date = local.created_date
   })
 }
 
@@ -30,7 +31,7 @@ resource "aws_subnet" "public" {
   ipv6_cidr_block         = var.public_subnet_is_ipv6 ? each.value : null
   map_public_ip_on_launch = false
   availability_zone       = element(data.aws_availability_zones.available.names, index(var.public_subnet_cidrs, each.value) % length(data.aws_availability_zones.available.names))
-  tags                    = merge(var.tags, { "Name" = "Public Subnet ${each.value}" })
+  tags                    = merge(var.tags, { "Name" = "Public Subnet ${each.value}", created_date = local.created_date })
 }
 
 resource "aws_subnet" "private" {
@@ -41,5 +42,5 @@ resource "aws_subnet" "private" {
   cidr_block        = var.private_subnet_is_ipv6 ? null : each.value
   ipv6_cidr_block   = var.private_subnet_is_ipv6 ? each.value : null
   availability_zone = element(data.aws_availability_zones.available.names, index(var.private_subnet_cidrs, each.value) % length(data.aws_availability_zones.available.names))
-  tags              = merge(var.tags, { "Name" = "Private Subnet ${each.value}" })
+  tags              = merge(var.tags, { "Name" = "Private Subnet ${each.value}", created_date = local.created_date })
 }

@@ -20,6 +20,11 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "region" {
+  description = "The AWS region in which resources will be created."
+  type        = string
+}
+
 variable "ingress_rules" {
   description = "A list of ingress rules for the security group."
   type = list(object({

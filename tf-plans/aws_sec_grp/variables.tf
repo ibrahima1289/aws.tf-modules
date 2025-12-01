@@ -3,6 +3,11 @@ variable "defined_name" {
   description = "The defined name of the security group"
 }
 
+variable "region" {
+  type        = string
+  description = "AWS region where the security group will be created"
+}
+
 variable "description" {
   type        = string
   description = "Description of the security group"

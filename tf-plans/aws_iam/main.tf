@@ -7,5 +7,5 @@ module "iam" {
   user_group_memberships   = var.user_group_memberships
   policies                 = var.policies
   group_policy_attachments = var.group_policy_attachments
-  tags                     = var.tags
+  tags                     = merge(var.tags, { created_date = local.created_date })
 }

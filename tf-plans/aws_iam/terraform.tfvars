@@ -1,4 +1,4 @@
-region = "us-east-1"
+region = "us-west-2"
 users = [
   {
     name                            = "s3-user"

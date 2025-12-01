@@ -8,7 +8,7 @@ resource "aws_iam_user" "user" {
   path                 = lookup(each.value, "path", "/")
   force_destroy        = lookup(each.value, "force_destroy", false)
   permissions_boundary = lookup(each.value, "permissions_boundary", null)
-  tags                 = merge(var.tags, lookup(each.value, "tags", {}))
+  tags                 = merge(var.tags, lookup(each.value, "tags", {}), { created_date = local.created_date })
 }
 
 # Create multiple IAM groups
