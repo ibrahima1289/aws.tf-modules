@@ -9,8 +9,8 @@ This repository contains reusable Terraform modules for [AWS infrastructure comp
 | Networking       | VPC            | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)   |
 | Security         | Security Group | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) |
 | Security         | IAM            | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)  |
-| Compute          | EC2            | [EC2 Module](modules/compute/ec2/README.md)                           |
-| Storage          | S3             | [S3 Module](modules/storage/s3/README.md)                             |
+| Compute          | EC2            | [EC2 Module](modules/compute/aws_ec2/README.md)                           |
+| Storage          | S3             | [S3 Module](modules/storage/aws_s3/README.md)                             |
 
 > Each module directory contains its own README file with usage instructions, input/output variables, and examples.
 
