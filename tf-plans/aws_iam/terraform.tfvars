@@ -10,10 +10,6 @@ users = [
     access_key_pgp_key              = null
     access_key_status               = "Active"
     access_key_description          = "Access key for s3-user"
-    console_access                  = true
-    console_password_length         = 16
-    console_password_reset_required = true
-    console_pgp_key                 = null
   },
   {
     name                            = "ec2-user"
@@ -21,14 +17,10 @@ users = [
     force_destroy                   = false
     permissions_boundary            = null
     tags                            = { Owner = "ec2-team" }
-    create_access_key               = false
+    create_access_key               = true
     access_key_pgp_key              = null
-    access_key_status               = "Active"
+    access_key_status               = "Inactive"
     access_key_description          = "Access key for ec2-user"
-    console_access                  = true
-    console_password_length         = 16
-    console_password_reset_required = true
-    console_pgp_key                 = null
   },
   {
     name                            = "readonly-user"
@@ -38,12 +30,8 @@ users = [
     tags                            = { Owner = "readonly-team" }
     create_access_key               = false
     access_key_pgp_key              = null
-    access_key_status               = "Active"
+    access_key_status               = "Inactive"
     access_key_description          = "Access key for readonly-user"
-    console_access                  = true
-    console_password_length         = 16
-    console_password_reset_required = false
-    console_pgp_key                 = null
   }
 ]
 

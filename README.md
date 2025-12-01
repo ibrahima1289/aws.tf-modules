@@ -24,7 +24,7 @@ module "vpc" {
   # ...module variables...
 }
 ```
-
+> You can verify the estimated cost of the resources you want to create in order to have an idea how much it will cost you to provision the AWS services - see the [AWS Cost Calculator](https://calculator.aws/#/).
 ## Release Notes
 See [RELEASE.md](RELEASE.md) for the latest changes and version history.
 

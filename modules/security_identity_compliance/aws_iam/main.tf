@@ -41,15 +41,6 @@ resource "aws_iam_group_policy_attachment" "policy_attachment" {
   policy_arn = aws_iam_policy.policy[each.value.policy].arn
 }
 
-# Optionally create login profile (console access) for users
-resource "aws_iam_user_login_profile" "user_console" {
-  for_each                = { for u in var.users : u.name => u if lookup(u, "console_access", false) == true }
-  user                    = aws_iam_user.user[each.key].name
-  password_length         = lookup(each.value, "console_password_length", 16)
-  password_reset_required = lookup(each.value, "console_password_reset_required", true)
-  pgp_key                 = lookup(each.value, "console_pgp_key", null)
-}
-
 # Optionally create access keys for users
 resource "aws_iam_access_key" "user_key" {
   for_each   = { for u in var.users : u.name => u if lookup(u, "create_access_key", false) }
@@ -60,4 +51,19 @@ resource "aws_iam_access_key" "user_key" {
   lifecycle {
     create_before_destroy = true
   }
+}
+
+# Store the access key secret in AWS Secrets Manager
+resource "aws_secretsmanager_secret" "access_key_secret" {
+  for_each = aws_iam_access_key.user_key
+  name     = "iam-access-key-secret-${each.key}"
+}
+
+resource "aws_secretsmanager_secret_version" "access_key_secret_version" {
+  for_each      = aws_iam_access_key.user_key
+  secret_id     = aws_secretsmanager_secret.access_key_secret[each.key].id
+  secret_string = jsonencode({
+    access_key_id     = aws_iam_access_key.user_key[each.key].id
+    secret_access_key = aws_iam_access_key.user_key[each.key].secret
+  })
 }

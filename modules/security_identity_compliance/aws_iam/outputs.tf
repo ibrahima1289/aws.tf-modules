@@ -14,18 +14,17 @@ output "policy_arns" {
 }
 
 output "access_key_ids" {
-  description = "Map of user name to access key ID (if created)."
-  value       = { for k, v in aws_iam_access_key.user_key : k => v.id }
+  description = "Map of user name to access key ID (if created). No longer output; see Secrets Manager."
+  value       = null
 }
 
 output "access_key_secrets" {
-  description = "Map of user name to secret access key (if created, encrypted if pgp_key is set)."
-  value       = { for k, v in aws_iam_access_key.user_key : k => v.secret }
+  description = "Map of user name to secret access key (if created, encrypted if pgp_key is set). No longer output; see Secrets Manager."
+  value       = null
   sensitive   = true
 }
 
-output "console_passwords" {
-  description = "Map of user name to encrypted console password (if console access is enabled and pgp_key is set)."
-  value       = { for k, v in aws_iam_user_login_profile.user_console : k => v.encrypted_password }
-  sensitive   = true
+output "access_key_secret_arns" {
+  description = "Map of user name to the ARN of the AWS Secrets Manager secret storing the access key secret."
+  value       = { for k, v in aws_secretsmanager_secret.access_key_secret : k => v.arn }
 }
