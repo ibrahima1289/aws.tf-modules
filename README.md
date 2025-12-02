@@ -6,11 +6,13 @@ This repository contains reusable Terraform modules for [AWS infrastructure comp
 
 | AWS Service Type | Module Name     | Documentation Link                                                    |
 |------------------|----------------|-----------------------------------------------------------------------|
-| Networking       | VPC            | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)   |
-| Security         | Security Group | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) |
-| Security         | IAM            | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)  |
 | Compute          | EC2            | [EC2 Module](modules/compute/aws_ec2/README.md)                           |
+| Networking       | VPC            | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)   |
+| Security         | IAM            | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)  |
+| Security         | KMS            | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)      |
+| Security         | Security Group | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) |
 | Storage          | S3             | [S3 Module](modules/storage/aws_s3/README.md)                             |
+| Security         | KMS            | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)      |
 
 > Each module directory contains its own README file with usage instructions, input/output variables, and examples.
 
@@ -25,6 +27,14 @@ module "vpc" {
 }
 ```
 > You can verify the estimated cost of the resources you want to create in order to have an idea how much it will cost you to provision the AWS services - see the [AWS Cost Calculator](https://calculator.aws/#/).
+
+## Wrappers (Examples)
+Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible defaults and example `terraform.tfvars` files.
+
+- `tf-plans/aws_s3`: Wrapper for the S3 module.
+- `tf-plans/aws_kms`: Wrapper for the KMS module.
+
+All modules consistently tag resources with `created_date` sourced from `locals.created_date` (YYYY-MM-DD).
 ## Release Notes
 See [RELEASE.md](RELEASE.md) for the latest changes and version history.
 
@@ -55,6 +65,3 @@ We welcome contributions! To contribute to this repository:
 7. The maintainers will review your PR and provide feedback or merge it.
 
 > Please ensure your code follows the style and structure of the existing modules. Add or update documentation and tests as appropriate.
-
-## Links
-1. How to clone a repo --> see [here](https://github.com/ibrahima1289/kura-deployment-6-frontend?tab=readme-ov-file#3-find-and-upload-the-video-and-screenshot-files)
