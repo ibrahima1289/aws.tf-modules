@@ -7,6 +7,7 @@ This repository contains reusable Terraform modules for [AWS infrastructure comp
 | AWS Service Type | Module Name     | Documentation Link                                                    |
 |------------------|----------------|-----------------------------------------------------------------------|
 | Compute          | EC2            | [EC2 Module](modules/compute/aws_ec2/README.md)                           |
+| Compute          | Lambda         | [Lambda Module](modules/compute/aws_lambda/README.md)                     |
 | Networking       | VPC            | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)   |
 | Security         | IAM            | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)  |
 | Security         | KMS            | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)      |
@@ -33,6 +34,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 
 - `tf-plans/aws_s3`: Wrapper for the S3 module.
 - `tf-plans/aws_kms`: Wrapper for the KMS module.
+- `tf-plans/aws_lambda`: Wrapper for the Lambda module.
 
 All modules consistently tag resources with `created_date` sourced from `locals.created_date` (YYYY-MM-DD).
 ## Release Notes

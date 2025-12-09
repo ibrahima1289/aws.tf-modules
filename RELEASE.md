@@ -1,5 +1,11 @@
 # Release Notes
 
+## Module: compute/aws_lambda (2025-12-04)
+- Initial release of AWS Lambda module.
+- Supports Zip and Image package types, optional IAM role creation, environment variables, VPC config, DLQ, log retention, X-Ray tracing, ephemeral storage, permissions, event source mappings, and function URL.
+- Avoids null values by using conditional blocks.
+- All resources tagged with created_date; wrapper plan added in `tf-plans/aws_lambda`.
+
 ## v0.0.1 (2025-11-29)
 - VPC: IPv4/IPv6, subnets, options
 - Security Group: dynamic rules support
