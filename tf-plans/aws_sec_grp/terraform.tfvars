@@ -1,7 +1,7 @@
 defined_name = "multi-security-group"
-region      = "us-east-2"
+region       = "us-east-2"
 description  = "Security group with multiple ingress and egress rules"
-vpc_id       = "vpc-02b356e9c400e6087"
+vpc_id       = "vpc-046269abc5f7b3ea7"
 
 ingress_rules = [
   {
