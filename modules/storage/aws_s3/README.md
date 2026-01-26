@@ -35,8 +35,12 @@ Optional
   - `tags` (map(string)?, default=null)
   - `expiration_days` (number?, default=null)
   - `noncurrent_version_expiration_days` (number?, default=null)
+  - `transitions` (list(object)?, default=[]): `{ storage_class (string), days (number) }`
+  - `noncurrent_version_transitions` (list(object)?, default=[]): `{ storage_class (string), noncurrent_days (number) }`
+  - Allowed storage classes: `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER_IR`, `GLACIER`, `DEEP_ARCHIVE`.
 - `buckets[].replication` (object, default=null): `{ rules: [{ id (string), status (string), prefix (string?), destination_bucket_arn (string), storage_class (string?), replication_time_status (string?), replication_time_minutes (number?), delete_marker_replication_status (string?) }] }`.
 - `bucket_defaults` (object, default={}): Defaults for bucket settings:
+  - `ownership_controls_enable` (bool?, default=true)
   - `object_ownership` (string?, default="BucketOwnerPreferred")
   - `block_public_acls` (bool?, default=true)
   - `block_public_policy` (bool?, default=true)
@@ -47,7 +51,7 @@ Optional
   - `sse_algorithm` (string?, default="AES256")
   - `kms_key_id` (string?, default=null)
   - `bucket_key_enabled` (bool?, default=false)
-- `replication_role_arn` (string, default=null): IAM role ARN for replication (required only if replication is configured).
+- `replication_role_arn` (string, default=null): IAM role ARN for replication (required when replication rules exist and bucket-level `role_arn` is not specified).
 
 ## Outputs
 - `bucket_ids`: Map of bucket name to bucket ID.
@@ -77,6 +81,68 @@ module "aws_s3" {
   buckets = [
     {
       name = "my-app-logs"
+
+    ## Replication
+
+    To enable replication from a source bucket to a destination bucket:
+
+    - Ensure versioning is enabled on both buckets (`bucket_defaults.versioning_status = "Enabled"`).
+    - Provide an IAM role with S3 replication permissions either via `replication_role_arn` (module-level) or `buckets[].replication.role_arn` (per-bucket).
+    - Attach a bucket policy to the destination bucket allowing the replication role to write objects and override ownership.
+
+    Example:
+
+    ```
+    module "aws_s3" {
+      source  = "../../modules/storage/aws_s3"
+      region  = var.region
+      bucket_defaults = {
+        versioning_status = "Enabled"
+      }
+
+      replication_role_arn = "arn:aws:iam::123456789012:role/s3-replication-role"
+
+      buckets = [
+        {
+          name = "src-bucket"
+          replication = {
+            rules = [
+              {
+                id                     = "to-dest"
+                status                 = "Enabled"
+                destination_bucket_arn = "arn:aws:s3:::dest-bucket"
+                storage_class          = "STANDARD"
+              }
+            ]
+          }
+        },
+        {
+          name = "dest-bucket"
+          policy_json = <<JSON
+    {
+      "Version": "2012-10-17",
+      "Statement": [{
+        "Effect": "Allow",
+        "Principal": { "AWS": "arn:aws:iam::123456789012:role/s3-replication-role" },
+        "Action": [
+          "s3:PutObject",
+          "s3:PutObjectAcl",
+          "s3:ReplicateObject",
+          "s3:ObjectOwnerOverrideToBucketOwner"
+        ],
+        "Resource": ["arn:aws:s3:::dest-bucket/*"]
+      }]
+    }
+    JSON
+        }
+      ]
+    }
+    ```
+
+    Notes:
+    - Replication role must trust S3 and have permissions to read from source and write to destination.
+    - Destination bucket policy must allow the replication role actions shown above.
+    - If account-level S3 Block Public Access is enabled, avoid public principals (`"*"`).
       tags = { Team = "platform" }
       logging = {
         target_bucket = "my-central-logs"
@@ -84,26 +150,35 @@ module "aws_s3" {
       }
       lifecycle_rules = [
         {
-          id                          = "log-expiration"
-          status                      = "Enabled"
-          prefix                      = "app/"
-          expiration_days             = 30
-          noncurrent_version_expiration_days = 7
+          id      = "log-expiration"
+          status  = "Enabled"
+          prefix  = "app/"
+          transitions = [
+            { storage_class = "STANDARD_IA", days = 30 },
+            { storage_class = "DEEP_ARCHIVE", days = 180 }
+          ]
+          expiration_days = 365
+          noncurrent_version_transitions = [
+            { storage_class = "GLACIER", noncurrent_days = 60 }
+          ]
+          noncurrent_version_expiration_days = 120
         }
       ]
     },
     {
       name = "my-app-data"
       acl  = "private"
-      policy_json = jsonencode({
-        Version = "2012-10-17",
-        Statement = [{
-          Effect   = "Allow",
-          Action   = ["s3:GetObject"],
-          Resource = ["arn:aws:s3:::my-app-data/*"],
-          Principal = { AWS = "*" }
-        }]
-      })
+      policy_json = <<JSON
+        {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Effect": "Allow",
+            "Action": ["s3:GetObject"],
+            "Resource": ["arn:aws:s3:::my-app-data/*"],
+            "Principal": { "AWS": "arn:aws:iam::123456789012:role/consumer" }
+          }]
+        }
+      JSON
     }
   ]
 }

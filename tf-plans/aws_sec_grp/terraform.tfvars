@@ -1,7 +1,7 @@
 defined_name = "multi-security-group"
 region       = "ca-central-1"
 description  = "Security group with multiple ingress and egress rules"
-vpc_id       = "vpc-046269abc5f7b3ea7"
+vpc_id       = "vpc-056cd97ff3714931d"
 
 ingress_rules = [
   {

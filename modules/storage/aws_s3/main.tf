@@ -4,20 +4,28 @@
 # Data sources (optional)
 # data "aws_caller_identity" "current" {}
 
+locals {
+  # Map bucket name -> bucket object for safe lookups
+  buckets_by_name = { for b in var.buckets : b.name => b }
+}
+
+# Buckets: create S3 buckets and apply base tags
 resource "aws_s3_bucket" "s3_bucket" {
   for_each = { for b in var.buckets : b.name => b }
   bucket   = each.value.name
   tags     = merge(var.tags, lookup(each.value, "tags", {}), { created_date = local.created_date, Name = each.value.name })
 }
 
+# Ownership controls: set object ownership (optional)
 resource "aws_s3_bucket_ownership_controls" "ownership" {
-  for_each = aws_s3_bucket.s3_bucket
+  for_each = { for k, v in aws_s3_bucket.s3_bucket : k => v if lookup(var.bucket_defaults, "ownership_controls_enable", true) }
   bucket   = each.value.id
   rule {
     object_ownership = lookup(var.bucket_defaults, "object_ownership", "BucketOwnerPreferred")
   }
 }
 
+# Public access block: enforce private posture and block public ACLs/policies
 resource "aws_s3_bucket_public_access_block" "public_access" {
   for_each                = aws_s3_bucket.s3_bucket
   bucket                  = each.value.id
@@ -27,6 +35,7 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
   restrict_public_buckets = lookup(var.bucket_defaults, "restrict_public_buckets", true)
 }
 
+# Versioning: keep multiple object versions per bucket
 resource "aws_s3_bucket_versioning" "versioning" {
   for_each = aws_s3_bucket.s3_bucket
   bucket   = each.value.id
@@ -35,6 +44,7 @@ resource "aws_s3_bucket_versioning" "versioning" {
   }
 }
 
+# Encryption: default server-side encryption (AES256 or KMS)
 resource "aws_s3_bucket_server_side_encryption_configuration" "encryption" {
   for_each = { for k, v in aws_s3_bucket.s3_bucket : k => v if lookup(var.bucket_defaults, "sse_enable", true) }
   bucket   = each.value.id
@@ -47,6 +57,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encryption" {
   }
 }
 
+# Logging: write server access logs to a target bucket
 resource "aws_s3_bucket_logging" "logging" {
   for_each      = { for b in var.buckets : b.name => b if try(b.logging.target_bucket, null) != null }
   bucket        = aws_s3_bucket.s3_bucket[each.key].id
@@ -54,8 +65,9 @@ resource "aws_s3_bucket_logging" "logging" {
   target_prefix = lookup(each.value.logging, "target_prefix", "")
 }
 
+# Lifecycle: manage object transitions/expiration and noncurrent versions
 resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
-  for_each = { for b in var.buckets : b.name => b if length(lookup(b, "lifecycle_rules", [])) > 0 }
+  for_each = { for b in var.buckets : b.name => b if try(length(b.lifecycle_rules), 0) > 0 }
   bucket   = aws_s3_bucket.s3_bucket[each.key].id
   dynamic "rule" {
     for_each = each.value.lifecycle_rules
@@ -68,49 +80,84 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
       expiration {
         days = lookup(rule.value, "expiration_days", null)
       }
+      dynamic "transition" {
+        for_each = lookup(rule.value, "transitions", [])
+        content {
+          storage_class = transition.value.storage_class
+          days          = transition.value.days
+        }
+      }
       noncurrent_version_expiration {
         noncurrent_days = lookup(rule.value, "noncurrent_version_expiration_days", null)
+      }
+      dynamic "noncurrent_version_transition" {
+        for_each = lookup(rule.value, "noncurrent_version_transitions", [])
+        content {
+          storage_class   = noncurrent_version_transition.value.storage_class
+          noncurrent_days = noncurrent_version_transition.value.noncurrent_days
+        }
       }
     }
   }
 }
 
-# Bucket ACL (optional)
+# ACL: set a canned ACL on the bucket (optional)
 resource "aws_s3_bucket_acl" "acl" {
   for_each = { for b in var.buckets : b.name => b if lookup(b, "acl", null) != null }
   bucket   = aws_s3_bucket.s3_bucket[each.key].id
   acl      = each.value.acl
 }
 
-# Bucket policy (optional)
+# Policy: attach a bucket policy JSON (optional)
 resource "aws_s3_bucket_policy" "policy" {
   for_each = { for b in var.buckets : b.name => b if lookup(b, "policy_json", null) != null }
   bucket   = aws_s3_bucket.s3_bucket[each.key].id
   policy   = each.value.policy_json
 }
 
-# Replication (created only when rules are provided)
+# Static website: optionally configure website hosting (index/error or redirects)
+resource "aws_s3_bucket_website_configuration" "website" {
+  for_each = { for b in var.buckets : b.name => b if try(b.website, null) != null }
+  bucket   = aws_s3_bucket.s3_bucket[each.key].id
+
+  dynamic "index_document" {
+    for_each = lookup(each.value.website, "index_document", null) != null ? [1] : []
+    content {
+      suffix = each.value.website.index_document
+    }
+  }
+
+  dynamic "error_document" {
+    for_each = lookup(each.value.website, "error_document", null) != null ? [1] : []
+    content {
+      key = each.value.website.error_document
+    }
+  }
+
+  dynamic "redirect_all_requests_to" {
+    for_each = lookup(each.value.website, "redirect_all_requests_to", null) != null ? [1] : []
+    content {
+      host_name = each.value.website.redirect_all_requests_to.host_name
+      protocol  = lookup(each.value.website.redirect_all_requests_to, "protocol", null)
+    }
+  }
+}
+
+# Replication: cross-bucket replication; created only when rules are provided
 resource "aws_s3_bucket_replication_configuration" "replication" {
-  # Only create for buckets that have a non-null, non-empty replication.rules
+  # Only create when replication rules exist AND a role is provided (per-bucket or module-level)
   for_each = {
     for k, b in aws_s3_bucket.s3_bucket :
     k => b
-    if try(length(lookup(var.buckets[index(keys(aws_s3_bucket.s3_bucket), k)], "replication", null).rules), 0) > 0
+    if try(length(try(local.buckets_by_name[k].replication.rules, [])), 0) > 0
+    && (try(local.buckets_by_name[k].replication.role_arn, null) != null || var.replication_role_arn != null)
   }
 
   bucket = each.value.id
-  role   = lookup(
-    lookup(var.buckets[index(keys(aws_s3_bucket.s3_bucket), each.key)], "replication", {}),
-    "role_arn",
-    null
-  )
+  role   = coalesce(try(local.buckets_by_name[each.key].replication.role_arn, null), var.replication_role_arn)
 
   dynamic "rule" {
-    for_each = lookup(
-      lookup(var.buckets[index(keys(aws_s3_bucket.s3_bucket), each.key)], "replication", {}),
-      "rules",
-      []
-    )
+    for_each = try(local.buckets_by_name[each.key].replication.rules, [])
     content {
       id       = lookup(rule.value, "id", null)
       priority = lookup(rule.value, "priority", null)
@@ -119,7 +166,7 @@ resource "aws_s3_bucket_replication_configuration" "replication" {
       dynamic "delete_marker_replication" {
         for_each = [true]
         content {
-          status = lookup(rule.value, "delete_marker_replication_status", "Disabled")
+          status = lookup(rule.value, "delete_marker_replication_status", "Enabled")
         }
       }
 
@@ -132,13 +179,13 @@ resource "aws_s3_bucket_replication_configuration" "replication" {
       }
 
       destination {
-        bucket        = rule.value.destination_bucket_arn
+        bucket        = rules.value.destination_bucket_arn
         storage_class = lookup(rule.value, "storage_class", "STANDARD")
 
         dynamic "replication_time" {
           # Create only when both status and minutes provided
           for_each = (lookup(rule.value, "replication_time_status", null) != null
-            && lookup(rule.value, "replication_time_minutes", null) != null) ? [1] : []
+          && lookup(rule.value, "replication_time_minutes", null) != null) ? [1] : []
           content {
             status = rule.value.replication_time_status
             time {
@@ -150,7 +197,7 @@ resource "aws_s3_bucket_replication_configuration" "replication" {
         dynamic "metrics" {
           # Create only when both status and minutes provided
           for_each = (lookup(rule.value, "metrics_status", null) != null
-            && lookup(rule.value, "metrics_minutes", null) != null) ? [1] : []
+          && lookup(rule.value, "metrics_minutes", null) != null) ? [1] : []
           content {
             status = rule.value.metrics_status
             event_threshold {

@@ -1,7 +1,7 @@
 # Example variable values for the Route Table wrapper plan
 
 region = "ca-central-1"
-vpc_id = "vpc-08101d4a1dce70809"
+vpc_id = "vpc-056cd97ff3714931d"
 
 # Define multiple route tables by group
 route_tables = [
@@ -10,7 +10,7 @@ route_tables = [
     routes = [
       {
         destination_cidr_block = "0.0.0.0/0"
-        gateway_id             = "igw-06a7d6476a9e7f79f"
+        gateway_id             = "igw-0fc39450730782e42"
       }
     ]
     subnet_group = "public"
@@ -29,8 +29,8 @@ route_tables = [
 ]
 
 public_subnet_ids = [
-  "subnet-08d0b1eb9418fb2a0",
-  "subnet-077271af49a09843c"
+  "subnet-0be0da5a6707ead9f",
+  "subnet-015b2eac4d7bb6880"
 ]
 
 # private_subnet_ids = [

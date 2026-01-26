@@ -1,44 +1,59 @@
 variable "region" {
-  description = "AWS region to use for S3 resources."
+  description = "AWS region for the S3 plan."
   type        = string
 }
 
 variable "tags" {
-  description = "Global tags applied to all resources."
+  description = "Tags applied to all buckets in this plan."
   type        = map(string)
   default     = {}
 }
 
-variable "bucket_defaults" {
-  description = "Defaults for bucket settings like ownership, versioning, encryption, and public access block."
-  type = object({
-    object_ownership        = optional(string)
-    block_public_acls       = optional(bool)
-    block_public_policy     = optional(bool)
-    ignore_public_acls      = optional(bool)
-    restrict_public_buckets = optional(bool)
-    versioning_status       = optional(string)
-    sse_enable              = optional(bool)
-    sse_algorithm           = optional(string)
-    kms_key_id              = optional(string)
-    bucket_key_enabled      = optional(bool)
-  })
-  default = {}
+variable "access_principal_arn" {
+  description = "ARN of the principal allowed to write to the destination bucket (e.g., replication role or producer role)."
+  type        = string
 }
 
-variable "replication_role_arn" {
-  description = "IAM role ARN used for S3 replication configuration when replication is defined."
+variable "kms_key_id" {
+  description = "KMS key ARN for SSE-KMS; if null, SSE-S3 (AES256) will be used."
   type        = string
   default     = null
 }
 
+variable "bucket_defaults" {
+  description = "Optional overrides to the default bucket settings (ownership, public access blocks, versioning, SSE, etc.)."
+  type = object({
+    ownership_controls_enable = optional(bool)
+    object_ownership          = optional(string)
+    block_public_acls         = optional(bool)
+    block_public_policy       = optional(bool)
+    ignore_public_acls        = optional(bool)
+    restrict_public_buckets   = optional(bool)
+    versioning_status         = optional(string)
+    sse_enable                = optional(bool)
+    sse_algorithm             = optional(string)
+    kms_key_id                = optional(string)
+    bucket_key_enabled        = optional(bool)
+  })
+  default = {}
+}
+
 variable "buckets" {
-  description = "List of bucket configurations. Each item supports name, acl, policy_json, logging, lifecycle_rules, replication, and tags."
+  description = "List of bucket configurations. Supports name, acl, policy_json, logging, lifecycle_rules, replication, and tags. For lifecycle transitions, allowed storage classes: STANDARD, STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR, GLACIER, DEEP_ARCHIVE."
   type = list(object({
-    name        = string
-    acl         = optional(string)
-    policy_json = optional(string)
-    tags        = optional(map(string))
+    name          = string
+    storage_class = optional(string)
+    acl           = optional(string)
+    policy_json   = optional(string)
+    tags          = optional(map(string))
+    website = optional(object({
+      index_document = optional(string)
+      error_document = optional(string)
+      redirect_all_requests_to = optional(object({
+        host_name = string
+        protocol  = optional(string)
+      }))
+    }))
     logging = optional(object({
       target_bucket = string
       target_prefix = optional(string)
@@ -50,6 +65,15 @@ variable "buckets" {
       tags                               = optional(map(string))
       expiration_days                    = optional(number)
       noncurrent_version_expiration_days = optional(number)
+      # Allowed storage_class values: STANDARD | STANDARD_IA | ONEZONE_IA | INTELLIGENT_TIERING | GLACIER_IR | GLACIER | DEEP_ARCHIVE
+      transitions = optional(list(object({
+        storage_class = string
+        days          = number
+      })))
+      noncurrent_version_transitions = optional(list(object({
+        storage_class   = string
+        noncurrent_days = number
+      })))
     })))
     replication = optional(object({
       rules = list(object({
@@ -64,4 +88,10 @@ variable "buckets" {
       }))
     }))
   }))
+}
+
+variable "replication_role_arn" {
+  description = "IAM role ARN used for S3 replication configuration when replication is defined."
+  type        = string
+  default     = null
 }
