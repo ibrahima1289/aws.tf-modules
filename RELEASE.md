@@ -1,6 +1,12 @@
 # Release Notes
 
-## Module: compute/aws_lambda (2025-12-04)
+## Module: aws_route_53 (2026-01-26)
+ - Zones & safety: Public/private zones with VPCs; `prevent_destroy = true`.
+ - Records & routing: Standard and alias records; weighted, latency, failover, geolocation, CIDR, multivalue.
+ - Logging & tags: Optional query logging; immutable `CreatedDate` via `time_static`.
+ - Wrapper & fixes: Wrapper `for_each` scaling; provider via caller; `is_private` output and CIDR schema (`collection_id`, `location_name`) updates.
+
+## Module: aws_lambda (2025-12-04)
 - Initial release of AWS Lambda module.
 - Supports Zip and Image package types, optional IAM role creation, environment variables, VPC config, DLQ, log retention, X-Ray tracing, ephemeral storage, permissions, event source mappings, and function URL.
 - Avoids null values by using conditional blocks.

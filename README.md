@@ -9,6 +9,7 @@ This repository contains reusable Terraform modules for [AWS infrastructure comp
 | Compute          | EC2            | [EC2 Module](modules/compute/aws_ec2/README.md)                           |
 | Compute          | Lambda         | [Lambda Module](modules/compute/aws_lambda/README.md)                     |
 | Networking       | VPC            | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)   |
+| Networking/CDN   | Route 53       | [Route 53 Module](modules/networking_content_delivery/aws_route_53/README.md) |
 | Security         | IAM            | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)  |
 | Security         | KMS            | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)      |
 | Security         | Security Group | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) |
@@ -35,8 +36,9 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 - `tf-plans/aws_s3`: Wrapper for the S3 module.
 - `tf-plans/aws_kms`: Wrapper for the KMS module.
 - `tf-plans/aws_lambda`: Wrapper for the Lambda module.
+- `tf-plans/aws_route_53`: Wrapper for the Route 53 module.
 
-All modules consistently tag resources with `created_date` sourced from `locals.created_date` (YYYY-MM-DD).
+All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.
 ## Release Notes
 See [RELEASE.md](RELEASE.md) for the latest changes and version history.
 
