@@ -20,7 +20,7 @@ bucket_defaults = {
 }
 
 replication_role_arn = null
-access_principal_arn = "arn:aws:iam::829789961825:user/*"
+access_principal_arn = "arn:aws:iam::123456789012:user/*"
 
 buckets = [
   {
@@ -144,5 +144,12 @@ buckets = [
   },
   {
     name = "abe-s3-logging-bucket-v1"
+    encryption = {
+      enable             = true
+      algorithm          = "aws:kms"
+      kms_key_id         = "arn:aws:kms:us-east-1:123456789012:key/00000000-0000-0000-0000-000000000000"
+      bucket_key_enabled = true
+      customer_provided  = false
+    }
   }
 ]

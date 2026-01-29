@@ -17,6 +17,13 @@ variable "buckets" {
     acl           = optional(string)
     policy_json   = optional(string)
     tags          = optional(map(string))
+    encryption = optional(object({
+      enable             = optional(bool)
+      algorithm          = optional(string)
+      kms_key_id         = optional(string)
+      bucket_key_enabled = optional(bool)
+      customer_provided  = optional(bool)
+    }))
     website = optional(object({
       index_document = optional(string)
       error_document = optional(string)

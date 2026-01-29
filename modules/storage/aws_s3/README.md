@@ -27,6 +27,12 @@ Optional
 - `buckets[].acl` (string, default=null): Bucket ACL.
 - `buckets[].policy_json` (string, default=null): Bucket policy JSON.
 - `buckets[].tags` (map(string), default=null): Per-bucket tags.
+- `buckets[].encryption` (object, default=null): Per-bucket SSE settings. Overrides module defaults when set.
+  - `enable` (bool?, default=false)
+  - `algorithm` (string?, default="AES256") — `AES256` or `aws:kms`
+  - `kms_key_id` (string?, default=null) — required when `algorithm = "aws:kms"`
+  - `bucket_key_enabled` (bool?, default=false)
+  - `customer_provided` (bool?, default=false) — when true, the module will NOT set bucket-level SSE. SSE-C is applied per-object via client request headers.
 - `buckets[].logging` (object, default=null): `{ target_bucket (string), target_prefix (string?) }`.
 - `buckets[].lifecycle_rules` (list(object), default=[]): Each rule supports:
   - `id` (string)
@@ -73,6 +79,7 @@ module "aws_s3" {
     ignore_public_acls      = true
     restrict_public_buckets = true
     versioning_status       = "Enabled"
+    mfa_delete_status       = "Disabled"
     sse_enable              = true
     sse_algorithm           = "AES256"
     kms_key_id              = null
@@ -81,6 +88,13 @@ module "aws_s3" {
   buckets = [
     {
       name = "my-app-logs"
+      # Example: Override to SSE-KMS for this bucket
+      encryption = {
+        enable             = true
+        algorithm          = "aws:kms"
+        kms_key_id         = "arn:aws:kms:us-east-1:123456789012:key/00000000-0000-0000-0000-000000000000"
+        bucket_key_enabled = true
+      }
 
     ## Replication
 
@@ -183,3 +197,36 @@ module "aws_s3" {
   ]
 }
 ```
+
+### Notes on SSE-KMS
+- When `algorithm = "aws:kms"`, provide a valid `kms_key_id` ARN and ensure the key policy allows S3 to use the key and the caller to encrypt/decrypt as required.
+- If `bucket_defaults.sse_enable = true` and `buckets[].encryption.enable = true`, the per-bucket encryption settings take precedence for that bucket.
+
+### Notes on SSE-C (Customer-Provided Keys)
+- SSE-C cannot be configured as a bucket default. It is applied on a per-object basis by clients setting `x-amz-server-side-encryption-customer-algorithm: AES256` and related headers.
+- AWS services (e.g., S3 server access logging) cannot use customer-provided keys; use SSE-S3 or SSE-KMS for logging buckets.
+- To require SSE-C for uploads, include a bucket policy that denies `s3:PutObject` unless the SSE-C header is present. Example statement (merge with your existing policy):
+
+```
+{
+  "Sid": "DenyMissingSSECHeader",
+  "Effect": "Deny",
+  "Principal": { "AWS": "arn:aws:iam::123456789012:role/producer" },
+  "Action": "s3:PutObject",
+  "Resource": ["arn:aws:s3:::your-bucket/*"],
+  "Condition": {
+    "StringEquals": {
+      "s3:x-amz-server-side-encryption-customer-algorithm": "AES256"
+    }
+  }
+}
+```
+
+## Client-Side Encryption (CSE)
+Client-side encryption is performed by your application before uploading data to S3.
+
+- Enforcement: S3 cannot enforce CSE via bucket policy because it cannot verify the payload is encrypted.
+- How to implement: Use your language's crypto library or AWS Encryption SDK to encrypt data locally, then `PutObject` the ciphertext. Store non-sensitive metadata (algorithm, nonce, tag) to support decryption.
+- Examples:
+  - Python: see `examples/cse-python`.
+  - Node.js: see `examples/cse-node`.

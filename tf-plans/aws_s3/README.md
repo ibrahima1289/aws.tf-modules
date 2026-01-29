@@ -19,6 +19,29 @@ This plan composes the root S3 module and supplies two buckets (source and desti
 - `buckets` (list(object)): Buckets to create; mirrors the module’s schema.
 - `replication_role_arn` (string, default=null): Role for replication when `buckets[].replication` is configured.
 
+### Optional Per-Bucket Encryption (SSE-KMS)
+To enable SSE-KMS on a specific bucket, add an `encryption` block to that bucket in `terraform.tfvars`:
+
+```
+buckets = [
+  {
+    name = "abe-s3-source-bucket-v1"
+    encryption = {
+      enable             = true
+      algorithm          = "aws:kms"
+      kms_key_id         = "arn:aws:kms:us-east-1:123456789012:key/00000000-0000-0000-0000-000000000000"
+      bucket_key_enabled = true
+    }
+  }
+]
+```
+If `bucket_defaults.sse_enable = true`, buckets without an `encryption` block will use the default algorithm (e.g., `AES256`).
+
+### About SSE-C (Customer-Provided Keys)
+- S3 does not support configuring SSE-C as a bucket-level default. SSE-C is applied per-object via request headers and requires the client to supply the key for each PUT/GET.
+- AWS services (including S3 server access log delivery) cannot use your customer-provided keys; therefore, logging buckets cannot receive SSE-C encrypted logs.
+- If you need strong encryption for logs, use SSE-S3 (`AES256`) or SSE-KMS (`aws:kms`) on the logging bucket. The example tfvars configures SSE-KMS for the logging bucket only.
+
 ## Example tfvars
 ```
 region = "us-east-1"
@@ -107,6 +130,7 @@ terraform init
 terraform plan -var-file="tf-plans/aws_s3/terraform.tfvars"
 terraform apply -var-file="tf-plans/aws_s3/terraform.tfvars"
 ```
+
 
 ## Notes
 - Lifecycle: `expiration_days` must be greater than all transition `days` values; noncurrent expiration must be greater than all `noncurrent_days` values.

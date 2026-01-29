@@ -44,16 +44,38 @@ resource "aws_s3_bucket_versioning" "versioning" {
   }
 }
 
-# Encryption: default server-side encryption (AES256 or KMS)
+# Encryption: server-side encryption (AES256 or KMS), configurable per-bucket or via defaults
 resource "aws_s3_bucket_server_side_encryption_configuration" "encryption" {
-  for_each = { for k, v in aws_s3_bucket.s3_bucket : k => v if lookup(var.bucket_defaults, "sse_enable", true) }
-  bucket   = each.value.id
+  # Create encryption config when either module defaults enable it or the bucket explicitly enables it,
+  # excluding buckets marked for customer-provided keys (SSE-C), which cannot be set at bucket level.
+  for_each = {
+    for b in var.buckets : b.name => b
+    if (lookup(var.bucket_defaults, "sse_enable", false) || try(b.encryption.enable, false))
+    && !try(b.encryption.customer_provided, false)
+  }
+  bucket = aws_s3_bucket.s3_bucket[each.key].id
+
+  # Resolve algorithm and parameters with per-bucket overrides first, then fall back to module defaults
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm     = lookup(var.bucket_defaults, "sse_algorithm", "AES256")
-      kms_master_key_id = lookup(var.bucket_defaults, "kms_key_id", null)
+      sse_algorithm = coalesce(
+        try(each.value.encryption.algorithm, null),
+        lookup(var.bucket_defaults, "sse_algorithm", "AES256")
+      )
+      kms_master_key_id = (
+        coalesce(
+          try(each.value.encryption.algorithm, null),
+          lookup(var.bucket_defaults, "sse_algorithm", "AES256")
+        ) == "aws:kms"
+      ) ? coalesce(
+        try(each.value.encryption.kms_key_id, null),
+        lookup(var.bucket_defaults, "kms_key_id", null)
+      ) : null
     }
-    bucket_key_enabled = lookup(var.bucket_defaults, "bucket_key_enabled", false)
+    bucket_key_enabled = coalesce(
+      try(each.value.encryption.bucket_key_enabled, null),
+      lookup(var.bucket_defaults, "bucket_key_enabled", false)
+    )
   }
 }
 
