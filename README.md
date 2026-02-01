@@ -6,6 +6,7 @@ This repository contains reusable Terraform modules for [AWS infrastructure comp
 
 | AWS Service Type | Module Name     | Documentation Link                                                    |
 |------------------|----------------|-----------------------------------------------------------------------|
+| Compute          | ALB            | [ALB Module](modules/compute/aws_elb/aws_alb/README.md)                   |
 | Compute          | EC2            | [EC2 Module](modules/compute/aws_ec2/README.md)                           |
 | Compute          | Lambda         | [Lambda Module](modules/compute/aws_lambda/README.md)                     |
 | Networking       | VPC            | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)   |
@@ -33,12 +34,13 @@ module "vpc" {
 ## Wrappers (Examples)
 Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible defaults and example `terraform.tfvars` files.
 
+- `tf-plans/aws_alb`: Wrapper for the ALB module (supports multi-ALB via `albs`).
 - `tf-plans/aws_s3`: Wrapper for the S3 module.
 - `tf-plans/aws_kms`: Wrapper for the KMS module.
 - `tf-plans/aws_lambda`: Wrapper for the Lambda module.
 - `tf-plans/aws_route_53`: Wrapper for the Route 53 module.
 
-All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.
+All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider. The ALB module supports creating multiple ALBs in one apply via the `albs` input; when used, outputs are provided as maps keyed by ALB name.
 ## Release Notes
 See [RELEASE.md](RELEASE.md) for the latest changes and version history.
 
