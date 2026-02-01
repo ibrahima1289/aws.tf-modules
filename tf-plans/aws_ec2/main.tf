@@ -1,5 +1,5 @@
 module "ec2" {
-  source = "../../modules/compute/aws_ec2"
+  source = "../../modules/compute/aws_EC2s/aws_ec2"
 
   region                      = var.region
   ami_id                      = var.ami_id

@@ -11,15 +11,21 @@ This module creates and manages AWS IAM resources.
 
 ```hcl
 module "iam" {
-  source = "terraform-aws-modules/iam/aws"
+  source = "../../modules/security_identity_compliance/aws_iam"
 
-  # Add your configuration here
+  region                   = var.region
+  users                    = var.users
+  groups                   = var.groups
+  user_group_memberships   = var.user_group_memberships
+  policies                 = var.policies
+  group_policy_attachments = var.group_policy_attachments
+  tags                     = var.tags
 }
 ```
 
 ## Access Keys and Secrets Storage
 
-Access keys and secrets for IAM users are securely stored in AWS Secrets Manager. This ensures that sensitive information is managed and accessed securely.
+Access keys and secrets for IAM users can be stored securely in AWS Secrets Manager if your policies and provisioning flow implement it; this wrapper does not store them by default.
 
 ## License
 
