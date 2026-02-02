@@ -6,6 +6,18 @@
 - Outputs: map outputs keyed by ALB name; single-ALB outputs preserved.
 - Robustness: null-iteration guards, `created_date` tags; Terraform >= 1.3, AWS Provider >= 5.0.
 
+## Module: [NLB Module](modules/compute/aws_elb/aws_nlb/README.md) (2026-02-01)
+- New NLB module + wrapper with safe defaults.
+- Multi-NLB via `nlbs`: per-NLB target groups and listeners.
+- Outputs: map outputs keyed by NLB name; Route53 alias support via zone IDs.
+- Robustness: guards to avoid nulls; `created_date` tags; Terraform >= 1.3, AWS Provider >= 5.0.
+
+## Module: [GWLB Module](modules/compute/aws_elb/aws_glb/README.md) (2026-02-01)
+- New GWLB module + wrapper for gateway traffic (GENEVE).
+- Multi-GLB via `glbs`: per-GLB target groups (GENEVE) and listeners.
+- Outputs: map outputs keyed by GWLB name; zone IDs for Route53 aliases.
+- Robustness: guarded iterations, TCP health checks, `created_date` tags.
+
 ## Module: [Route 53 Module](modules/networking_content_delivery/aws_route_53/README.md) (2026-01-26)
  - Zones & safety: Public/private zones with VPCs; `prevent_destroy = true`.
  - Records & routing: Standard and alias records; weighted, latency, failover, geolocation, CIDR, multivalue.

@@ -7,6 +7,8 @@ This repository contains reusable Terraform modules for [AWS infrastructure comp
 | AWS Service Type | Module Name     | Documentation Link                                                    |
 |------------------|----------------|-----------------------------------------------------------------------|
 | Compute          | ALB            | [ALB Module](modules/compute/aws_elb/aws_alb/README.md)                   |
+| Compute          | NLB            | [NLB Module](modules/compute/aws_elb/aws_nlb/README.md)                   |
+| Compute          | GWLB           | [GWLB Module](modules/compute/aws_elb/aws_glb/README.md)                  |
 | Compute          | EC2            | [EC2 Module](modules/compute/aws_ec2/README.md)                           |
 | Compute          | Lambda         | [Lambda Module](modules/compute/aws_lambda/README.md)                     |
 | Networking       | VPC            | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)   |
@@ -35,6 +37,8 @@ module "vpc" {
 Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible defaults and example `terraform.tfvars` files.
 
 - `tf-plans/aws_alb`: Wrapper for the ALB module (supports multi-ALB via `albs`).
+- `tf-plans/aws_nlb`: Wrapper for the NLB module (supports multi-NLB via `nlbs`).
+- `tf-plans/aws_glb`: Wrapper for the GWLB module (supports multi-GLB via `glbs`).
 - `tf-plans/aws_s3`: Wrapper for the S3 module.
 - `tf-plans/aws_kms`: Wrapper for the KMS module.
 - `tf-plans/aws_lambda`: Wrapper for the Lambda module.
