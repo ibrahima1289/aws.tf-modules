@@ -1,5 +1,16 @@
 # Release Notes
 
+## Docs: Resource Guides Linked (2026-02-05)
+- README modules table now includes a new "Resource Guide" column.
+- Added links for ALB/NLB/GWLB to consolidated ELB overview: modules/compute/aws_elb/aws-elb.md.
+- Other modules will gain resource guides over time; placeholders present.
+
+## Module: [ASG Module](modules/compute/aws_EC2s/aws_auto_scaling_grp/README.md) (2026-02-03)
+- New Auto Scaling Group module + `tf-plans/aws_asg` wrapper.
+- Multi-ASG via `asgs`: per-ASG launch template or mixed instances policy.
+- Outputs: map outputs keyed by ASG key; safe lifecycle ignoring desired capacity.
+- Robustness: null-iteration guards, `created_date` tags; health checks, capacity rebalance.
+
 ## Module: [ALB Module](modules/compute/aws_elb/aws_alb/README.md) (2026-02-01)
 - New ALB module + wrapper with safe defaults.
 - Multi-ALB via `albs`: per-ALB target groups, listeners, rules.

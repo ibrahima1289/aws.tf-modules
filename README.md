@@ -4,20 +4,21 @@ This repository contains reusable Terraform modules for [AWS infrastructure comp
 
 ## Modules
 
-| AWS Service Type | Module Name     | Documentation Link                                                    |
-|------------------|----------------|-----------------------------------------------------------------------|
-| Compute          | ALB            | [ALB Module](modules/compute/aws_elb/aws_alb/README.md)                   |
-| Compute          | NLB            | [NLB Module](modules/compute/aws_elb/aws_nlb/README.md)                   |
-| Compute          | GWLB           | [GWLB Module](modules/compute/aws_elb/aws_glb/README.md)                  |
-| Compute          | EC2            | [EC2 Module](modules/compute/aws_ec2/README.md)                           |
-| Compute          | Lambda         | [Lambda Module](modules/compute/aws_lambda/README.md)                     |
-| Networking       | VPC            | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)   |
-| Networking/CDN   | Route 53       | [Route 53 Module](modules/networking_content_delivery/aws_route_53/README.md) |
-| Security         | IAM            | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)  |
-| Security         | KMS            | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)      |
-| Security         | Security Group | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) |
-| Storage          | S3             | [S3 Module](modules/storage/aws_s3/README.md)                             |
-| Security         | KMS            | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)      |
+| AWS Service Type | Module Name     | Documentation Link                                                    | Resource Guide                                  |
+|------------------|-----------------|-----------------------------------------------------------------------|-------------------------------------------------|
+| Compute          | ALB             | [ALB Module](modules/compute/aws_elb/aws_alb/README.md)               | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
+| Compute          | NLB             | [NLB Module](modules/compute/aws_elb/aws_nlb/README.md)               | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
+| Compute          | GWLB            | [GWLB Module](modules/compute/aws_elb/aws_glb/README.md)              | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
+| Compute          | ASG             | [ASG Module](modules/compute/aws_EC2s/aws_auto_scaling_grp/README.md) | -                                               |
+| Compute          | EC2             | [EC2 Module](modules/compute/aws_ec2/README.md)                        | -                                               |
+| Compute          | Lambda          | [Lambda Module](modules/compute/aws_lambda/README.md)                  | -                                               |
+| Networking       | VPC             | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)    | -                                               |
+| Networking/CDN   | Route 53        | [Route 53 Module](modules/networking_content_delivery/aws_route_53/README.md) | -                                      |
+| Security         | IAM             | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)   | -                                               |
+| Security         | KMS             | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)   | -                                               |
+| Security         | Security Group  | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) | -                    |
+| Storage          | S3              | [S3 Module](modules/storage/aws_s3/README.md)                          | -                                               |
+| Security         | KMS             | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)   | -                                               |
 
 > Each module directory contains its own README file with usage instructions, input/output variables, and examples.
 
@@ -39,12 +40,14 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 - `tf-plans/aws_alb`: Wrapper for the ALB module (supports multi-ALB via `albs`).
 - `tf-plans/aws_nlb`: Wrapper for the NLB module (supports multi-NLB via `nlbs`).
 - `tf-plans/aws_glb`: Wrapper for the GWLB module (supports multi-GLB via `glbs`).
+- `tf-plans/aws_asg`: Wrapper for the ASG module (supports multi-ASG via `asgs`).
 - `tf-plans/aws_s3`: Wrapper for the S3 module.
 - `tf-plans/aws_kms`: Wrapper for the KMS module.
 - `tf-plans/aws_lambda`: Wrapper for the Lambda module.
 - `tf-plans/aws_route_53`: Wrapper for the Route 53 module.
 
-All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider. The ALB module supports creating multiple ALBs in one apply via the `albs` input; when used, outputs are provided as maps keyed by ALB name.
+All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.
+Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`) expose outputs as maps keyed by the resource key.
 ## Release Notes
 See [RELEASE.md](RELEASE.md) for the latest changes and version history.
 
