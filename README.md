@@ -1,6 +1,7 @@
 # Terraform Modules for AWS Services
 
-[![Terraform Modules CI](https://github.com/your-username/aws.tf-modules/actions/workflows/terraform-modules-ci.yml/badge.svg?branch=main)](https://github.com/your-username/aws.tf-modules/actions/workflows/terraform-modules-ci.yml)
+[![Terraform Modules CI](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml/badge.svg?branch=main)](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml)
+[![Contributors](https://img.shields.io/github/contributors/ibrahima1289/aws.tf-modules.svg)](https://github.com/ibrahima1289/aws.tf-modules/graphs/contributors)
 
 
 This repository contains reusable Terraform modules for [AWS infrastructure components](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/amazon-web-services-cloud-platform.html) and markdown for services information summary and potential usage. <br>
@@ -69,7 +70,7 @@ We welcome contributions! To contribute to this repository:
 1. **Fork the repository** on GitHub.
 2. **Clone your fork** to your local machine:
    ```sh
-   git clone https://github.com/your-username/aws.tf-modules.git
+   git clone https://github.com/ibrahima1289/aws.tf-modules.git
    cd aws.tf-modules
    ```
 3. **Create a new branch** for your feature or bugfix:
