@@ -23,7 +23,6 @@ locals {
         tags                  = var.tags
         lifecycle_hooks       = var.lifecycle_hooks
         scaling_policies      = var.scaling_policies
-        key                   = var.asg_name
       }
     ] : []
   )
