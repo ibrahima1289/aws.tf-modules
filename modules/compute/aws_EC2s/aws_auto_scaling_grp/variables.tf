@@ -128,14 +128,14 @@ variable "scaling_policies" {
       cooldown           = optional(number)
     })))
     step = optional(list(object({
-      name                       = string
-      adjustment_type            = optional(string)
-      metric_aggregation_type    = optional(string)
-      estimated_instance_warmup  = optional(number)
+      name                      = string
+      adjustment_type           = optional(string)
+      metric_aggregation_type   = optional(string)
+      estimated_instance_warmup = optional(number)
       step_adjustments = list(object({
-        scaling_adjustment            = number
-        metric_interval_lower_bound   = optional(number)
-        metric_interval_upper_bound   = optional(number)
+        scaling_adjustment          = number
+        metric_interval_lower_bound = optional(number)
+        metric_interval_upper_bound = optional(number)
       }))
       alarms = optional(list(object({
         name                = string
@@ -151,9 +151,9 @@ variable "scaling_policies" {
       alarm_arns = optional(list(string))
     })))
     target_tracking = optional(list(object({
-      name              = string
-      target_value      = number
-      disable_scale_in  = optional(bool)
+      name             = string
+      target_value     = number
+      disable_scale_in = optional(bool)
       predefined_metric_specification = optional(object({
         predefined_metric_type = string
         resource_label         = optional(string)
@@ -163,7 +163,7 @@ variable "scaling_policies" {
         namespace   = string
         statistic   = string
         unit        = optional(string)
-        dimensions  = optional(list(object({
+        dimensions = optional(list(object({
           name  = string
           value = string
         })))
@@ -198,30 +198,21 @@ variable "scaling_policies" {
 variable "asgs" {
   description = "Optional list of ASG configurations to create multiple auto scaling groups."
   type = list(object({
-    name                  = string
-    subnets               = list(string)
-    min_size              = number
-    max_size              = number
-    desired_capacity      = optional(number)
-    health_check_type     = optional(string)
+    name                      = string
+    subnets                   = list(string)
+    min_size                  = number
+    max_size                  = number
+    desired_capacity          = optional(number)
+    health_check_type         = optional(string)
     health_check_grace_period = optional(number)
-    termination_policies  = optional(list(string))
-    capacity_rebalance    = optional(bool)
-    target_group_arns     = optional(list(string))
+    termination_policies      = optional(list(string))
+    capacity_rebalance        = optional(bool)
+    target_group_arns         = optional(list(string))
     launch_template = optional(object({
       id      = string
       version = optional(string)
     }))
     mixed_instances_policy = optional(object({
-    lifecycle_hooks = optional(list(object({
-      name                    = string
-      lifecycle_transition    = string
-      notification_target_arn = optional(string)
-      role_arn                = optional(string)
-      default_result          = optional(string)
-      heartbeat_timeout       = optional(number)
-      notification_metadata   = optional(string)
-    })))
       launch_template = object({
         id      = string
         version = optional(string)
@@ -255,14 +246,14 @@ variable "asgs" {
         cooldown           = optional(number)
       })))
       step = optional(list(object({
-        name                       = string
-        adjustment_type            = optional(string)
-        metric_aggregation_type    = optional(string)
-        estimated_instance_warmup  = optional(number)
+        name                      = string
+        adjustment_type           = optional(string)
+        metric_aggregation_type   = optional(string)
+        estimated_instance_warmup = optional(number)
         step_adjustments = list(object({
-          scaling_adjustment            = number
-          metric_interval_lower_bound   = optional(number)
-          metric_interval_upper_bound   = optional(number)
+          scaling_adjustment          = number
+          metric_interval_lower_bound = optional(number)
+          metric_interval_upper_bound = optional(number)
         }))
         alarms = optional(list(object({
           name                = string
@@ -278,9 +269,9 @@ variable "asgs" {
         alarm_arns = optional(list(string))
       })))
       target_tracking = optional(list(object({
-        name              = string
-        target_value      = number
-        disable_scale_in  = optional(bool)
+        name             = string
+        target_value     = number
+        disable_scale_in = optional(bool)
         predefined_metric_specification = optional(object({
           predefined_metric_type = string
           resource_label         = optional(string)
@@ -290,7 +281,7 @@ variable "asgs" {
           namespace   = string
           statistic   = string
           unit        = optional(string)
-          dimensions  = optional(list(object({
+          dimensions = optional(list(object({
             name  = string
             value = string
           })))

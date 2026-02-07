@@ -8,39 +8,39 @@ locals {
   asgs_list = length(var.asgs) > 0 ? var.asgs : (
     var.asg_name != null ? [
       {
-        name                  = var.asg_name
-        subnets               = var.subnets
-        min_size              = var.min_size
-        max_size              = var.max_size
-        desired_capacity      = var.desired_capacity
-        health_check_type     = var.health_check_type
+        name                      = var.asg_name
+        subnets                   = var.subnets
+        min_size                  = var.min_size
+        max_size                  = var.max_size
+        desired_capacity          = var.desired_capacity
+        health_check_type         = var.health_check_type
         health_check_grace_period = var.health_check_grace_period
-        termination_policies  = var.termination_policies
-        capacity_rebalance    = var.capacity_rebalance
-        target_group_arns     = var.target_group_arns
-        launch_template       = var.launch_template
-        mixed_instances_policy = var.mixed_instances_policy
-        tags                  = var.tags
-        lifecycle_hooks       = var.lifecycle_hooks
-        scaling_policies      = var.scaling_policies
+        termination_policies      = var.termination_policies
+        capacity_rebalance        = var.capacity_rebalance
+        target_group_arns         = var.target_group_arns
+        launch_template           = var.launch_template
+        mixed_instances_policy    = var.mixed_instances_policy
+        tags                      = var.tags
+        lifecycle_hooks           = var.lifecycle_hooks
+        scaling_policies          = var.scaling_policies
       }
     ] : []
   )
-  asgs_map  = { for a in local.asgs_list : a.name => a }
+  asgs_map = { for a in local.asgs_list : a.name => a }
 
   # Flatten lifecycle hooks across ASGs and key by "<asg_name>:<hook_name>"
   lifecycle_hooks_flat = flatten([
     for asg_key, asg in local.asgs_map : [
       for h in coalesce(try(asg.lifecycle_hooks, []), []) : {
-        asg_key               = asg_key
-        asg_name              = asg.name
-        hook_name             = h.name
-        lifecycle_transition  = h.lifecycle_transition
+        asg_key                 = asg_key
+        asg_name                = asg.name
+        hook_name               = h.name
+        lifecycle_transition    = h.lifecycle_transition
         notification_target_arn = try(h.notification_target_arn, null)
-        role_arn              = try(h.role_arn, null)
-        default_result        = try(h.default_result, "CONTINUE")
-        heartbeat_timeout     = try(h.heartbeat_timeout, null)
-        notification_metadata = try(h.notification_metadata, null)
+        role_arn                = try(h.role_arn, null)
+        default_result          = try(h.default_result, "CONTINUE")
+        heartbeat_timeout       = try(h.heartbeat_timeout, null)
+        notification_metadata   = try(h.notification_metadata, null)
       }
     ]
   ])

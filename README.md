@@ -1,5 +1,8 @@
 # Terraform Modules for AWS Services
 
+[![Terraform Modules CI](https://github.com/your-username/aws.tf-modules/actions/workflows/terraform-modules-ci.yml/badge.svg?branch=main)](https://github.com/your-username/aws.tf-modules/actions/workflows/terraform-modules-ci.yml)
+
+
 This repository contains reusable Terraform modules for [AWS infrastructure components](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/amazon-web-services-cloud-platform.html) and markdown for services information summary and potential usage. <br>
 Each module is documented in its own directory. <br> 
 See the table below for details and usage examples.

@@ -7,11 +7,11 @@ resource "aws_autoscaling_group" "asg" {
   # Create one ASG per entry in `asgs_map`
   for_each = local.asgs_map
 
-  name                  = each.value.name
-  vpc_zone_identifier   = each.value.subnets
-  min_size              = each.value.min_size
-  max_size              = each.value.max_size
-  desired_capacity      = try(each.value.desired_capacity, null)
+  name                = each.value.name
+  vpc_zone_identifier = each.value.subnets
+  min_size            = each.value.min_size
+  max_size            = each.value.max_size
+  desired_capacity    = try(each.value.desired_capacity, null)
 
   # Health checks
   health_check_type         = try(each.value.health_check_type, null)
@@ -71,7 +71,7 @@ resource "aws_autoscaling_group" "asg" {
       for k, v in merge(var.tags, try(each.value.tags, {}), {
         Name         = each.value.name,
         created_date = local.created_date
-      }) : {
+        }) : {
         key   = k,
         value = v
       }
@@ -94,14 +94,14 @@ resource "aws_autoscaling_group" "asg" {
 resource "aws_autoscaling_lifecycle_hook" "hook" {
   for_each = local.lifecycle_hooks_map
 
-  name                   = each.value.hook_name
-  autoscaling_group_name = aws_autoscaling_group.asg[each.value.asg_key].name
-  lifecycle_transition   = each.value.lifecycle_transition
-  default_result         = try(each.value.default_result, null)
-  heartbeat_timeout      = try(each.value.heartbeat_timeout, null)
+  name                    = each.value.hook_name
+  autoscaling_group_name  = aws_autoscaling_group.asg[each.value.asg_key].name
+  lifecycle_transition    = each.value.lifecycle_transition
+  default_result          = try(each.value.default_result, null)
+  heartbeat_timeout       = try(each.value.heartbeat_timeout, null)
   notification_target_arn = try(each.value.notification_target_arn, null)
-  role_arn               = try(each.value.role_arn, null)
-  notification_metadata  = try(each.value.notification_metadata, null)
+  role_arn                = try(each.value.role_arn, null)
+  notification_metadata   = try(each.value.notification_metadata, null)
 }
 
 # Simple Scaling policies
@@ -120,11 +120,11 @@ resource "aws_autoscaling_policy" "simple" {
 resource "aws_autoscaling_policy" "step" {
   for_each = local.step_policies_map
 
-  name                   = each.value.name
-  autoscaling_group_name = aws_autoscaling_group.asg[each.value.asg_key].name
-  policy_type            = "StepScaling"
-  adjustment_type        = try(each.value.adjustment_type, null)
-  metric_aggregation_type = try(each.value.metric_aggregation_type, null)
+  name                      = each.value.name
+  autoscaling_group_name    = aws_autoscaling_group.asg[each.value.asg_key].name
+  policy_type               = "StepScaling"
+  adjustment_type           = try(each.value.adjustment_type, null)
+  metric_aggregation_type   = try(each.value.metric_aggregation_type, null)
   estimated_instance_warmup = try(each.value.estimated_instance_warmup, null)
 
   dynamic "step_adjustment" {
@@ -151,14 +151,8 @@ resource "aws_cloudwatch_metric_alarm" "step_alarm" {
   threshold           = each.value.threshold
   alarm_actions       = [aws_autoscaling_policy.step[each.value.policy_key].arn]
 
-  dynamic "dimensions" {
-    for_each = coalesce(try(each.value.dimensions, {}), {})
-    iterator = d
-    content {
-      name  = d.key
-      value = d.value
-    }
-  }
+  # Dimensions are provided as a map attribute, not a nested block
+  dimensions = try(each.value.dimensions, null)
 }
 
 # Target Tracking Scaling policies
@@ -189,11 +183,12 @@ resource "aws_autoscaling_policy" "target_tracking" {
         statistic   = customized_metric_specification.value.statistic
         unit        = try(customized_metric_specification.value.unit, null)
 
-        dynamic "dimensions" {
+        # Dimensions should be specified via metric_dimension blocks
+        dynamic "metric_dimension" {
           for_each = coalesce(try(customized_metric_specification.value.dimensions, []), [])
           content {
-            name  = dimensions.value.name
-            value = dimensions.value.value
+            name  = metric_dimension.value.name
+            value = metric_dimension.value.value
           }
         }
       }
@@ -212,9 +207,9 @@ resource "aws_autoscaling_policy" "predictive" {
   dynamic "predictive_scaling_configuration" {
     for_each = [1]
     content {
-      mode                          = try(each.value.mode, null)
-      max_capacity_breach_behavior  = try(each.value.max_capacity_breach_behavior, null)
-      max_capacity_buffer           = try(each.value.max_capacity_buffer, null)
+      mode                         = try(each.value.mode, null)
+      max_capacity_breach_behavior = try(each.value.max_capacity_breach_behavior, null)
+      max_capacity_buffer          = try(each.value.max_capacity_buffer, null)
 
       metric_specification {
         target_value = each.value.metric_specification.target_value
@@ -222,7 +217,7 @@ resource "aws_autoscaling_policy" "predictive" {
         dynamic "predefined_load_metric_specification" {
           for_each = try(each.value.metric_specification.predefined_load_metric_specification, null) != null ? [each.value.metric_specification.predefined_load_metric_specification] : []
           content {
-            predefined_metric_type = predefined_load_metric_specification.value.predefined_metric_type
+            predefined_metric_type = predefined_load_metric_specification.value.predefined_load_metric_type
             resource_label         = try(predefined_load_metric_specification.value.resource_label, null)
           }
         }
@@ -238,7 +233,7 @@ resource "aws_autoscaling_policy" "predictive" {
         dynamic "predefined_scaling_metric_specification" {
           for_each = try(each.value.metric_specification.predefined_scaling_metric_specification, null) != null ? [each.value.metric_specification.predefined_scaling_metric_specification] : []
           content {
-            predefined_metric_type = predefined_scaling_metric_specification.value.predefined_metric_type
+            predefined_metric_type = predefined_scaling_metric_specification.value.predefined_scaling_metric_type
             resource_label         = try(predefined_scaling_metric_specification.value.resource_label, null)
           }
         }
