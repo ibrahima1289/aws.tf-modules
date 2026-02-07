@@ -3,10 +3,10 @@ region = "us-east-1"
 
 zones = {
   public_full_options = {
-    zone_name        = "example-2026.com"
-    is_private       = false
-    comment          = "Public zone managed by Terraform"
-    force_destroy    = true # Allow deletion even with non-Terraform records
+    zone_name     = "example-2026.com"
+    is_private    = false
+    comment       = "Public zone managed by Terraform"
+    force_destroy = true # Allow deletion even with non-Terraform records
 
     # enable_query_log         = true
     # cloudwatch_log_group_arn = "arn:aws:logs:us-east-1:123456789012:log-group:/aws/route53/example"

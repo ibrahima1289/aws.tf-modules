@@ -32,9 +32,9 @@ albs = [
     }
     target_groups = [
       {
-        name        = "tg-web-1"
-        port        = 80
-        protocol    = "HTTP"
+        name     = "tg-web-1"
+        port     = 80
+        protocol = "HTTP"
         health_check = {
           enabled           = true
           path              = "/health"

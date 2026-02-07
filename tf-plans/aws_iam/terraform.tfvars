@@ -1,37 +1,37 @@
 region = "us-west-2"
 users = [
   {
-    name                            = "s3-user"
-    path                            = "/"
-    force_destroy                   = false
-    permissions_boundary            = null
-    tags                            = { Owner = "s3-team" }
-    create_access_key               = true
-    access_key_pgp_key              = null
-    access_key_status               = "Active"
-    access_key_description          = "Access key for s3-user"
+    name                   = "s3-user"
+    path                   = "/"
+    force_destroy          = false
+    permissions_boundary   = null
+    tags                   = { Owner = "s3-team" }
+    create_access_key      = true
+    access_key_pgp_key     = null
+    access_key_status      = "Active"
+    access_key_description = "Access key for s3-user"
   },
   {
-    name                            = "ec2-user"
-    path                            = "/"
-    force_destroy                   = false
-    permissions_boundary            = null
-    tags                            = { Owner = "ec2-team" }
-    create_access_key               = true
-    access_key_pgp_key              = null
-    access_key_status               = "Inactive"
-    access_key_description          = "Access key for ec2-user"
+    name                   = "ec2-user"
+    path                   = "/"
+    force_destroy          = false
+    permissions_boundary   = null
+    tags                   = { Owner = "ec2-team" }
+    create_access_key      = true
+    access_key_pgp_key     = null
+    access_key_status      = "Inactive"
+    access_key_description = "Access key for ec2-user"
   },
   {
-    name                            = "readonly-user"
-    path                            = "/"
-    force_destroy                   = false
-    permissions_boundary            = null
-    tags                            = { Owner = "readonly-team" }
-    create_access_key               = false
-    access_key_pgp_key              = null
-    access_key_status               = "Inactive"
-    access_key_description          = "Access key for readonly-user"
+    name                   = "readonly-user"
+    path                   = "/"
+    force_destroy          = false
+    permissions_boundary   = null
+    tags                   = { Owner = "readonly-team" }
+    create_access_key      = false
+    access_key_pgp_key     = null
+    access_key_status      = "Inactive"
+    access_key_description = "Access key for readonly-user"
   }
 ]
 

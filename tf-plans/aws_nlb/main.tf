@@ -9,8 +9,8 @@ module "aws_nlb" {
   tags   = var.tags
 
   # Single-NLB (optional, when `nlbs` not set)
-  nlb_name                    = var.nlb_name
-  subnets                     = var.subnet_ids
+  nlb_name = var.nlb_name
+  subnets  = var.subnet_ids
 
   # Access logs and defaults
   access_logs = var.access_logs

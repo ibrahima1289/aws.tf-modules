@@ -15,9 +15,9 @@ variable "vpc_id" {
 variable "route_tables" {
   description = "List of route table definitions (name/tags/routes/subnet_group or subnet_ids/set_as_main)."
   type = list(object({
-    name        = optional(string)
-    tags        = optional(map(string))
-    routes      = optional(list(object({
+    name = optional(string)
+    tags = optional(map(string))
+    routes = optional(list(object({
       destination_cidr_block      = optional(string)
       destination_ipv6_cidr_block = optional(string)
       destination_prefix_list_id  = optional(string)

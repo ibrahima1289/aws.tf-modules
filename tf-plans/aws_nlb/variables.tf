@@ -32,10 +32,10 @@ variable "nlb_name" {
 variable "nlbs" {
   description = "Optional list of NLB configurations to create multiple load balancers."
   type = list(object({
-    name            = string
-    subnets         = list(string)
-    internal        = optional(bool)
-    ip_address_type = optional(string)
+    name                       = string
+    subnets                    = list(string)
+    internal                   = optional(bool)
+    ip_address_type            = optional(string)
     enable_deletion_protection = optional(bool)
     cross_zone_load_balancing  = optional(bool)
     access_logs = optional(object({
@@ -45,12 +45,12 @@ variable "nlbs" {
     }))
     tags = optional(map(string))
     target_groups = optional(list(object({
-      name        = string
-      port        = number
-      protocol    = string
-      target_type = optional(string)
-      preserve_client_ip    = optional(bool)
-      deregistration_delay  = optional(number)
+      name                 = string
+      port                 = number
+      protocol             = string
+      target_type          = optional(string)
+      preserve_client_ip   = optional(bool)
+      deregistration_delay = optional(number)
       health_check = optional(object({
         enabled             = optional(bool)
         port                = optional(number)
@@ -70,10 +70,10 @@ variable "nlbs" {
       tags = optional(map(string))
     })))
     listeners = optional(list(object({
-      port            = number
-      protocol        = string
-      ssl_policy      = optional(string)
-      certificate_arn = optional(string)
+      port                         = number
+      protocol                     = string
+      ssl_policy                   = optional(string)
+      certificate_arn              = optional(string)
       default_forward_target_group = string
     })))
   }))

@@ -6,7 +6,7 @@ vpc_id = "vpc-056cd97ff3714931d"
 # Define multiple route tables by group
 route_tables = [
   {
-    name   = "public-rt"
+    name = "public-rt"
     routes = [
       {
         destination_cidr_block = "0.0.0.0/0"
@@ -15,7 +15,7 @@ route_tables = [
     ]
     subnet_group = "public"
     set_as_main  = false
-  }#,
+  } #,
   # {
   #   name   = "private-rt"
   #   routes = [
@@ -37,4 +37,4 @@ public_subnet_ids = [
 #   "subnet-fedcba9876543210",
 #   "subnet-1234567890abcdef"
 # ]
- 
+

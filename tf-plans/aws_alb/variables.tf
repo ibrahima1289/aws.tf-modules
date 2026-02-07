@@ -38,11 +38,11 @@ variable "lb_name" {
 variable "albs" {
   description = "Optional list of ALB configurations to create multiple load balancers."
   type = list(object({
-    name            = string
-    subnets         = list(string)
-    security_groups = optional(list(string))
-    internal        = optional(bool)
-    ip_address_type = optional(string)
+    name                       = string
+    subnets                    = list(string)
+    security_groups            = optional(list(string))
+    internal                   = optional(bool)
+    ip_address_type            = optional(string)
     enable_deletion_protection = optional(bool)
     enable_http2               = optional(bool)
     drop_invalid_header_fields = optional(bool)
@@ -54,10 +54,10 @@ variable "albs" {
     }))
     tags = optional(map(string))
     target_groups = optional(list(object({
-      name        = string
-      port        = number
-      protocol    = string
-      target_type = optional(string)
+      name                 = string
+      port                 = number
+      protocol             = string
+      target_type          = optional(string)
       deregistration_delay = optional(number)
       health_check = optional(object({
         enabled             = optional(bool)
@@ -76,10 +76,10 @@ variable "albs" {
       tags = optional(map(string))
     })))
     listeners = optional(list(object({
-      port            = number
-      protocol        = string
-      ssl_policy      = optional(string)
-      certificate_arn = optional(string)
+      port                         = number
+      protocol                     = string
+      ssl_policy                   = optional(string)
+      certificate_arn              = optional(string)
       default_forward_target_group = string
       additional_rules = optional(list(object({
         priority = number

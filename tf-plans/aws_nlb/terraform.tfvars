@@ -6,22 +6,22 @@ tags = {
   Team        = "platform"
 }
 
-vpc_id     = "vpc-0123456789abcdef0"
+vpc_id = "vpc-0123456789abcdef0"
 
 subnet_ids = [
   "subnet-aaa",
-  "subnet-bbb", 
+  "subnet-bbb",
   "subnet-ccc"
 ]
 
 # Optional multi-NLB configuration.
 nlbs = [
   {
-    name     = "nlb-1"
+    name                      = "nlb-1"
     cross_zone_load_balancing = true
-    subnets  = [
-      "subnet-aaa", 
-      "subnet-bbb", 
+    subnets = [
+      "subnet-aaa",
+      "subnet-bbb",
       "subnet-ccc"
     ]
     internal = false
@@ -46,7 +46,7 @@ nlbs = [
     ]
   },
   {
-    name = "nlb-2"
+    name                      = "nlb-2"
     cross_zone_load_balancing = false
     subnets = [
       "subnet-aaa",
