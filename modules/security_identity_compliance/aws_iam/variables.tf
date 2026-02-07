@@ -6,15 +6,15 @@ variable "region" {
 variable "users" {
   description = "List of user objects. Each object supports: name (required), path, force_destroy, permissions_boundary, tags, create_access_key, access_key_pgp_key, access_key_status, access_key_description."
   type = list(object({
-    name                          = string
-    path                          = optional(string)
-    force_destroy                 = optional(bool)
-    permissions_boundary          = optional(string)
-    tags                          = optional(map(string))
-    create_access_key             = optional(bool)
-    access_key_pgp_key            = optional(string)
-    access_key_status             = optional(string)
-    access_key_description        = optional(string)
+    name                   = string
+    path                   = optional(string)
+    force_destroy          = optional(bool)
+    permissions_boundary   = optional(string)
+    tags                   = optional(map(string))
+    create_access_key      = optional(bool)
+    access_key_pgp_key     = optional(string)
+    access_key_status      = optional(string)
+    access_key_description = optional(string)
   }))
 }
 

@@ -60,8 +60,8 @@ resource "aws_secretsmanager_secret" "access_key_secret" {
 }
 
 resource "aws_secretsmanager_secret_version" "access_key_secret_version" {
-  for_each      = aws_iam_access_key.user_key
-  secret_id     = aws_secretsmanager_secret.access_key_secret[each.key].id
+  for_each  = aws_iam_access_key.user_key
+  secret_id = aws_secretsmanager_secret.access_key_secret[each.key].id
   secret_string = jsonencode({
     access_key_id     = aws_iam_access_key.user_key[each.key].id
     secret_access_key = aws_iam_access_key.user_key[each.key].secret

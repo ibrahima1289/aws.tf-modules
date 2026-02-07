@@ -14,13 +14,13 @@
 ############################################
 
 resource "aws_internet_gateway" "this" {
-	count  = var.enable_internet_gateway ? 1 : 0
-	vpc_id = var.vpc_id
+  count  = var.enable_internet_gateway ? 1 : 0
+  vpc_id = var.vpc_id
 
-	tags = merge(
-		local.base_tags,
-		var.name != null ? { Name = var.name } : {},
-		var.tags,
-	)
+  tags = merge(
+    local.base_tags,
+    var.name != null ? { Name = var.name } : {},
+    var.tags,
+  )
 }
 

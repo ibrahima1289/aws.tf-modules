@@ -31,9 +31,9 @@ resource "aws_route53_zone" "route53" {
   tags = local.standard_tags
 
   lifecycle {
-      # Lifecycle meta-arguments must be static. 
-      # Should be set to true for safety.
-      prevent_destroy = false
+    # Lifecycle meta-arguments must be static. 
+    # Should be set to true for safety.
+    prevent_destroy = false
   }
 }
 

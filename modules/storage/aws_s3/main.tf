@@ -50,7 +50,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encryption" {
   # excluding buckets marked for customer-provided keys (SSE-C), which cannot be set at bucket level.
   for_each = {
     for b in var.buckets : b.name => b
-    if (lookup(var.bucket_defaults, "sse_enable", false) || try(b.encryption.enable, false))
+    if(lookup(var.bucket_defaults, "sse_enable", false) || try(b.encryption.enable, false))
     && !try(b.encryption.customer_provided, false)
   }
   bucket = aws_s3_bucket.s3_bucket[each.key].id
@@ -67,7 +67,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encryption" {
           try(each.value.encryption.algorithm, null),
           lookup(var.bucket_defaults, "sse_algorithm", "AES256")
         ) == "aws:kms"
-      ) ? coalesce(
+        ) ? coalesce(
         try(each.value.encryption.kms_key_id, null),
         lookup(var.bucket_defaults, "kms_key_id", null)
       ) : null

@@ -35,8 +35,8 @@ variable "tags" {
 variable "route_tables" {
   description = "List of route table definitions. Each entry may specify name, tags, routes, subnet group or explicit subnet_ids, and set_as_main."
   type = list(object({
-    name        = optional(string)
-    tags        = optional(map(string))
+    name = optional(string)
+    tags = optional(map(string))
 
     # Routes
     routes = optional(list(object({

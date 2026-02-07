@@ -17,7 +17,7 @@ resource "aws_vpc" "main" {
   ipv6_cidr_block_network_border_group = var.ipv6_cidr_block_network_border_group
 
   tags = merge(var.tags, {
-    Name = var.defined_name != null ? var.defined_name : "Default-VPC",
+    Name         = var.defined_name != null ? var.defined_name : "Default-VPC",
     created_date = local.created_date
   })
 }

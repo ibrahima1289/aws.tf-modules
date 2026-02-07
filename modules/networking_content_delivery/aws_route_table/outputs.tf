@@ -9,7 +9,7 @@ output "route_table_ids" {
 
 output "association_subnet_ids" {
   description = "Map of route table keys to associated subnet IDs."
-  value       = {
+  value = {
     for k, rt in aws_route_table.route_table :
     k => [for item in local.rt_assoc_list : item.subnet if item.rt_key == k]
   }
