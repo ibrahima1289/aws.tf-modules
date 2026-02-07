@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 ALLOWED_EXTENSIONS = {".tf", ".md"}
-IGNORE_DIR_NAMES = {"examples", "examples-client-side-encryption", ".terraform"}
+IGNORE_DIR_NAMES = {"examples", ".terraform"}
 
 
 def find_disallowed_files(modules_root: Path) -> List[Path]:

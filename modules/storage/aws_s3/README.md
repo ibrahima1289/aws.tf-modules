@@ -202,6 +202,8 @@ module "aws_s3" {
 - When `algorithm = "aws:kms"`, provide a valid `kms_key_id` ARN and ensure the key policy allows S3 to use the key and the caller to encrypt/decrypt as required.
 - If `bucket_defaults.sse_enable = true` and `buckets[].encryption.enable = true`, the per-bucket encryption settings take precedence for that bucket.
 
+For a practical example, see the wrapper plan’s encryption section in [tf-plans/aws_s3/README.md](aws.tf-modules/tf-plans/aws_s3/README.md).
+
 ### Notes on SSE-C (Customer-Provided Keys)
 - SSE-C cannot be configured as a bucket default. It is applied on a per-object basis by clients setting `x-amz-server-side-encryption-customer-algorithm: AES256` and related headers.
 - AWS services (e.g., S3 server access logging) cannot use customer-provided keys; use SSE-S3 or SSE-KMS for logging buckets.
@@ -228,5 +230,5 @@ Client-side encryption is performed by your application before uploading data to
 - Enforcement: S3 cannot enforce CSE via bucket policy because it cannot verify the payload is encrypted.
 - How to implement: Use your language's crypto library or AWS Encryption SDK to encrypt data locally, then `PutObject` the ciphertext. Store non-sensitive metadata (algorithm, nonce, tag) to support decryption.
 - Examples:
-  - Python: see `examples/cse-python`.
-  - Node.js: see `examples/cse-node`.
+  - Python: see [tf-plans/aws_s3/examples-client-side-encryption/cse-python/README.md](aws.tf-modules/tf-plans/aws_s3/examples-client-side-encryption/cse-python/README.md).
+  - Node.js: see [tf-plans/aws_s3/examples-client-side-encryption/cse-node/README.md](aws.tf-modules/tf-plans/aws_s3/examples-client-side-encryption/cse-node/README.md).
