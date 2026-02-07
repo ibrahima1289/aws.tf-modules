@@ -1,5 +1,17 @@
 # Release Notes
 
+## Repository Updates (2026-02-07)
+- README: Added "Sources and References" section (Copilot, Gemini, ChatGPT, AWS docs, Terraform provider).
+- README: Resource Guide links populated for ASG/EC2/Lambda/VPC/Route 53/IAM/KMS/Security Group/S3; wrappers list converted to a table and sorted to match modules.
+- Tests: New `tests/terraform_module_check.py` to enforce `.tf`/`.md` only (ignoring `examples`), run `terraform fmt -check -recursive`, and `terraform validate` per module.
+- CI: Added GitHub Actions workflow [terraform-modules-ci.yml](.github/workflows/terraform-modules-ci.yml) to run the test on push/PR to `main` (Python + Terraform setup).
+
+## Module: [ASG Module](modules/compute/aws_EC2s/aws_auto_scaling_grp/README.md) (2026-02-07)
+- Lifecycle hooks: Optional `aws_autoscaling_lifecycle_hook` per ASG, with per-entry configuration and outputs.
+- Scaling policies: Added Simple, Step (with optional CloudWatch alarms), Target Tracking, and Predictive policies; ARNs exposed in outputs.
+- Single-mode synthesis: Support passing single-ASG inputs without `asgs` by synthesizing an entry in locals.
+- Wrapper updates: Added `lifecycle_hooks` and `scaling_policies` inputs; README and `terraform.tfvars` examples annotated.
+
 ## Docs: Resource Guides Linked (2026-02-05)
 - README modules table now includes a new "Resource Guide" column.
 - Added links for ALB/NLB/GWLB to consolidated ELB overview: modules/compute/aws_elb/aws-elb.md.

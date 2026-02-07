@@ -1,0 +1,51 @@
+name: Terraform Modules Checks
+# CI workflow to enforce Terraform module hygiene:
+# - Only allowed file types in module folders
+# - Terraform formatting (fmt -check)
+# - Terraform validation per module
+
+on:
+  # Run on pushes to main and pull requests targeting main
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+concurrency:
+  # Cancel previous runs for the same ref to avoid redundant work
+  group: terraform-modules-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    # Single job running on Ubuntu runner
+    runs-on: ubuntu-latest
+    # Prevent hanging runs; 20 minutes is ample for fmt/validate
+    timeout-minutes: 10
+    steps:
+      # Checkout repository contents
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # Install Python to run the check script
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Install Terraform CLI for fmt and validate
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.6.6'
+
+      # Print tool versions to aid debugging
+      - name: Show tool versions
+        run: |
+          python --version
+          terraform -version
+
+      # Execute the Python test script (fails the job on non-zero exit)
+      - name: Run Terraform module checks
+        run: |
+          python tests/terraform_module_check.py
