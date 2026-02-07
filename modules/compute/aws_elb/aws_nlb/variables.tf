@@ -64,12 +64,12 @@ variable "access_logs" {
 variable "target_groups" {
   description = "Target group definitions to register behind the NLB."
   type = list(object({
-    name        = string
-    vpc_id      = string
-    port        = number
-    protocol    = string # TCP | TLS | UDP | TCP_UDP
-    target_type = optional(string) # instance | ip | lambda
-    preserve_client_ip = optional(bool) # only valid for target_type = "ip"
+    name                 = string
+    vpc_id               = string
+    port                 = number
+    protocol             = string           # TCP | TLS | UDP | TCP_UDP
+    target_type          = optional(string) # instance | ip | lambda
+    preserve_client_ip   = optional(bool)   # only valid for target_type = "ip"
     deregistration_delay = optional(number) # seconds
     health_check = optional(object({
       enabled             = optional(bool)
@@ -95,11 +95,11 @@ variable "target_groups" {
 variable "listeners" {
   description = "Listener definitions for the NLB (ports, protocols, default actions)."
   type = list(object({
-    port            = number
-    protocol        = string # TCP | TLS | UDP | TCP_UDP
-    ssl_policy      = optional(string)     # only for TLS
-    certificate_arn = optional(string)     # required for TLS
-    default_forward_target_group = string  # name of a target group defined above
+    port                         = number
+    protocol                     = string           # TCP | TLS | UDP | TCP_UDP
+    ssl_policy                   = optional(string) # only for TLS
+    certificate_arn              = optional(string) # required for TLS
+    default_forward_target_group = string           # name of a target group defined above
   }))
   default = []
 }
@@ -122,13 +122,13 @@ variable "nlbs" {
     }))
     tags = optional(map(string))
     target_groups = optional(list(object({
-      name        = string
-      vpc_id      = string
-      port        = number
-      protocol    = string
-      target_type = optional(string)
-      preserve_client_ip    = optional(bool)
-      deregistration_delay  = optional(number)
+      name                 = string
+      vpc_id               = string
+      port                 = number
+      protocol             = string
+      target_type          = optional(string)
+      preserve_client_ip   = optional(bool)
+      deregistration_delay = optional(number)
       health_check = optional(object({
         enabled             = optional(bool)
         port                = optional(number)
@@ -148,10 +148,10 @@ variable "nlbs" {
       tags = optional(map(string))
     })))
     listeners = optional(list(object({
-      port            = number
-      protocol        = string
-      ssl_policy      = optional(string)
-      certificate_arn = optional(string)
+      port                         = number
+      protocol                     = string
+      ssl_policy                   = optional(string)
+      certificate_arn              = optional(string)
       default_forward_target_group = string
     })))
   }))

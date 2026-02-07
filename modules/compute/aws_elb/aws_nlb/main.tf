@@ -7,12 +7,12 @@ resource "aws_lb" "nlb" {
   # Create one NLB per entry in `nlbs_map`
   for_each = local.nlbs_map
 
-  name                       = each.value.name
-  internal                   = try(each.value.internal, false)
-  load_balancer_type         = "network"
-  subnets                    = each.value.subnets
-  enable_deletion_protection = try(each.value.enable_deletion_protection, true)
-  ip_address_type            = try(each.value.ip_address_type, "ipv4")
+  name                             = each.value.name
+  internal                         = try(each.value.internal, false)
+  load_balancer_type               = "network"
+  subnets                          = each.value.subnets
+  enable_deletion_protection       = try(each.value.enable_deletion_protection, true)
+  ip_address_type                  = try(each.value.ip_address_type, "ipv4")
   enable_cross_zone_load_balancing = try(each.value.cross_zone_load_balancing, true)
 
   # Access logs (only if enabled)
@@ -55,8 +55,8 @@ resource "aws_lb_target_group" "tg" {
   dynamic "stickiness" {
     for_each = try(each.value.stickiness, null) != null && try(each.value.stickiness.enabled, false) ? [1] : []
     content {
-      enabled  = true
-      type     = try(each.value.stickiness.type, "source_ip")
+      enabled = true
+      type    = try(each.value.stickiness.type, "source_ip")
     }
   }
 

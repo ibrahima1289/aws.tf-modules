@@ -55,7 +55,7 @@ variable "target_groups" {
     name        = string
     vpc_id      = string
     port        = number
-    protocol    = string # GENEVE (typical 6081)
+    protocol    = string           # GENEVE (typical 6081)
     target_type = optional(string) # instance | ip
     health_check = optional(object({
       enabled             = optional(bool)
@@ -74,9 +74,9 @@ variable "target_groups" {
 variable "listeners" {
   description = "Listener definitions for the GWLB (ports, protocols, default actions)."
   type = list(object({
-    port            = number
-    protocol        = string # GENEVE
-    default_forward_target_group = string  # name of a target group defined above
+    port                         = number
+    protocol                     = string # GENEVE
+    default_forward_target_group = string # name of a target group defined above
   }))
   default = []
 }
@@ -114,8 +114,8 @@ variable "glbs" {
       tags = optional(map(string))
     })))
     listeners = optional(list(object({
-      port            = number
-      protocol        = string
+      port                         = number
+      protocol                     = string
       default_forward_target_group = string
     })))
   }))
