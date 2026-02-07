@@ -1,24 +1,6 @@
 # Terraform Modules for AWS Services
 
 [![Terraform Modules CI](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml/badge.svg?branch=main)](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml) 
- <div id="top"></div>
-<!--
-*** Source for the icon used:
-*** https://github.com/othneildrew/Best-README-Template
--->
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Issues][issues-shield]][issues-url]
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/maisha-ahmed/kura-gr5.svg?style=for-the-badge
-[contributors-url]: https://github.com/maisha-ahmed/kura-gr5/graphs/contributors
-[issues-shield]: https://img.shields.io/github/issues/maisha-ahmed/kura-gr5.svg?style=for-the-badge
-[issues-url]: https://github.com/maisha-ahmed/kura-gr5/issues
-
- <h1 align=center>Final Project: Inventory Management Application</h1>
-
 
 This repository contains reusable Terraform modules for [AWS infrastructure components](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/amazon-web-services-cloud-platform.html) and markdown for services information summary and potential usage. <br>
 Each module is documented in its own directory. <br> 
