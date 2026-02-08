@@ -80,6 +80,12 @@ Wrapper plans are available under tf-plans/ to demonstrate usage with sensible d
 All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.
 Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`) expose outputs as maps keyed by the resource key.
 
+## CI & Workflows
+
+- **Auto open PR**: [auto-open-pr.yml](.github/workflows/auto-open-pr.yml) creates a PR to `main` first when code is pushed to any non-`main` branch (skips if a PR already exists).
+- **Terraform checks**: [terraform-modules-ci.yml](.github/workflows/terraform-modules-ci.yml) then runs the hygiene script (file types + `terraform fmt -check -recursive`) on push/PR to `main`.
+- **PR Merged** by humans only!
+
 ## Release Notes
 See [RELEASE.md](RELEASE.md) for the latest changes and version history.
 

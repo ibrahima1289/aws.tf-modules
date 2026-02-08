@@ -1,5 +1,16 @@
 # Release Notes
 
+## Repository Updates (2026-02-08)
+- Docs: README badges added, repo structure moved up, and S3 README links to encryption and CSE examples.
+- CI/Workflows: Added auto-open PR on non-main pushes and auto-approve after Terraform checks pass.
+- Tests: Simplified checker to file-type + `terraform fmt` only; removed `terraform validate`; ignored S3 `examples-client-side-encryption`.
+- ASG Fixes: Corrected CloudWatch alarm dimensions, target tracking `metric_dimension` blocks, and predictive scaling metric type names.
+
+## Fixes: ASG Module (2026-02-08)
+- CloudWatch alarms: Replaced unsupported `dimensions {}` nested block with `dimensions` map on `aws_cloudwatch_metric_alarm`.
+- Target tracking: Replaced nested `dimensions` with `metric_dimension` blocks inside `customized_metric_specification`.
+- Predictive scaling: Corrected attribute names (`predefined_load_metric_type`, `predefined_scaling_metric_type`).
+
 ## Repository Updates (2026-02-07)
 - README: Added "Sources and References" section (Copilot, Gemini, ChatGPT, AWS docs, Terraform provider).
 - README: Resource Guide links populated for ASG/EC2/Lambda/VPC/Route 53/IAM/KMS/Security Group/S3; wrappers list converted to a table and sorted to match modules.
