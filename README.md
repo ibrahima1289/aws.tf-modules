@@ -88,7 +88,7 @@ See [RELEASE.md](RELEASE.md) for the latest changes and version history.
 We welcome contributions! To contribute to this repository:
 
 1. **Fork the repository** on GitHub.
-2. **Clone your fork** to your local machine:
+2. **Clone your forked version** to your local machine:
    ```sh
    git clone https://github.com/ibrahima1289/aws.tf-modules.git
    cd aws.tf-modules
