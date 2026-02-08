@@ -6,8 +6,8 @@ name: Terraform Modules Checks
 
 on:
   # Run on pushes to main and pull requests targeting main
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
