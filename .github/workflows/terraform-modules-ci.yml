@@ -8,8 +8,12 @@ on:
   # Run on pushes to main and pull requests targeting main
   # push:
   #   branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+  workflow_run:
+    workflows: ["Auto Open PR to Main"]
+    types:
+      - completed
 
 concurrency:
   # Cancel previous runs for the same ref to avoid redundant work
