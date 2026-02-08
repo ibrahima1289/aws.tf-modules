@@ -3,8 +3,29 @@
 [![Contributors](https://img.shields.io/github/contributors/ibrahima1289/aws.tf-modules.svg)](https://github.com/ibrahima1289/aws.tf-modules/graphs/contributors) [![Terraform Modules CI](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml/badge.svg?branch=main)](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml)
 
 This repository contains reusable Terraform modules for [AWS infrastructure components](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/amazon-web-services-cloud-platform.html) and markdown for services information summary and potential usage. <br>
-Each module is documented in its own directory. <br> 
-See the table below for details and usage examples.
+Each module is documented in its own directory. See the table below for details and usage examples.
+
+## Repository Structure
+
+```
+aws.tf-modules/
+├─ modules/
+│  ├─ compute/                      # ALB, NLB, GWLB, ASG, EC2, Lambda
+│  ├─ networking_content_delivery/  # VPC, Route 53, Route Table, Internet Gateway
+│  ├─ security_identity_compliance/ # IAM, KMS, Security Group
+│  └─ storage/                      # S3
+├─ tf-plans/                        # Wrapper examples for each module
+│  ├─ aws_*/ 
+│  └─ ...
+├─ tests/                           # Repo hygiene + fmt checks
+│  ├─ terraform_module_check.py
+│  └─ README.md
+├─ .github/workflows/               # CI workflow
+│  └─ terraform-modules-ci.yml
+├─ README.md
+├─ RELEASE.md
+└─ LICENSE
+```
 
 ## Modules
 
@@ -58,6 +79,7 @@ Wrapper plans are available under tf-plans/ to demonstrate usage with sensible d
 
 All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.
 Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`) expose outputs as maps keyed by the resource key.
+
 ## Release Notes
 See [RELEASE.md](RELEASE.md) for the latest changes and version history.
 
