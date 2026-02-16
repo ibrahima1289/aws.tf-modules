@@ -1,6 +1,6 @@
-# Providers: AWS and Time
+# Providers: AWS
 # - AWS: configured via `var.region`
-# - Time: used to stamp `CreatedDate` via time_static
+# - CreatedDate stamped via Terraform's built-in `timestamp()` function
 
 terraform {
   required_version = ">= 1.3.0"
