@@ -104,10 +104,10 @@ resource "aws_apigatewayv2_domain_name" "domain" {
     security_policy = try(each.value.security_policy, "TLS_1_2")
   }
 
-  # Tag the custom domain with CreatedDate and any global tags
+  # Tag the custom domain with created_date and any global tags
   tags = merge(
     var.tags,
-    { CreatedDate = local.created_date }
+    { created_date = local.created_date }
   )
 }
 
