@@ -1,6 +1,6 @@
 # AWS API Gateway (HTTP/WebSocket) Terraform Module
 
-This module provisions one or more Amazon API Gateway v2 (HTTP/WebSocket) APIs with integrations, routes, and stages. It avoids null values by setting safe defaults and only rendering optional blocks when provided. All resources are tagged with a stable `CreatedDate` from a time provider.
+This module provisions one or more Amazon API Gateway v2 (HTTP/WebSocket) APIs with integrations, routes, and stages. It avoids null values by setting safe defaults and only rendering optional blocks when provided. All resources are tagged with a stable `CreatedDate` timestamp.
 
 ## Requirements
 - Terraform >= 1.3
