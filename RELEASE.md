@@ -1,10 +1,10 @@
 # Release Notes
 
-## Repository Updates (2026-02-08)
-- Docs: README badges added, repo structure moved up, and S3 README links to encryption and CSE examples.
-- CI/Workflows: Added auto-open PR on non-main pushes and auto-approve after Terraform checks pass.
-- Tests: Simplified checker to file-type + `terraform fmt` only; removed `terraform validate`; ignored S3 `examples-client-side-encryption`.
-- ASG Fixes: Corrected CloudWatch alarm dimensions, target tracking `metric_dimension` blocks, and predictive scaling metric type names.
+## Repository Updates (2026-02-09)
+- New: API Gateway v2 module and wrapper added (HTTP/WebSocket APIs) — integrates routes, integrations, stages, and `CreatedDate` tagging.
+- Docs: Root README updated with links to API Gateway module and wrapper; module README includes usage and variable tables.
+- CI/Consistency: Module aligns with wrapper patterns (maps, guarded optional blocks) to avoid nulls and enable multi-resource creation.
+- Tests/No-op: No schema changes to existing modules; formatting-only hygiene remains.
 
 ## Fixes: ASG Module (2026-02-08)
 - CloudWatch alarms: Replaced unsupported `dimensions {}` nested block with `dimensions` map on `aws_cloudwatch_metric_alarm`.

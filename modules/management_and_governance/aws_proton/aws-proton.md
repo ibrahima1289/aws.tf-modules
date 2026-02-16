@@ -1,5 +1,15 @@
 # AWS Proton
 
+> Discontinuation Notice — Updated: 2026-02-11
+>
+> AWS Proton is scheduled to be discontinued. Please refer to the official AWS announcement for the exact discontinuation date and migration guidance.
+>
+> Scheduled discontinuation date: [TBD — insert official date]
+>
+> Recommended action: evaluate alternatives (e.g., AWS CodePipeline/CodeBuild, CloudFormation/CDK, Service Catalog) and plan migrations for any Proton environments/services.
+>
+> Official announcement: [AWS Proton discontinuation][aws-proton-eol]
+
 AWS Proton is a fully managed deployment service for container and serverless applications. It enables platform teams to define, bundle, and share standardized environments and application stacks (including compute, networking, code pipelines, and monitoring tools) for their development teams. This helps platform teams maintain governance and consistency, while giving developers the agility to self-service their deployments.
 
 ## Core Concepts
@@ -60,3 +70,9 @@ Proton templates are stored in Git repositories (e.g., AWS CodeCommit, GitHub, G
 *   **Version Control for Infrastructure:** Treating infrastructure definitions as code, allowing for auditing, rollbacks, and collaboration.
 
 AWS Proton is particularly valuable for larger organizations with dedicated platform teams who want to streamline and standardize the deployment of cloud-native applications for numerous development teams.
+
+---
+
+References
+
+[aws-proton-eol]: https://aws.amazon.com/about-aws/whats-new/ "Replace this placeholder with the official AWS discontinuation URL"

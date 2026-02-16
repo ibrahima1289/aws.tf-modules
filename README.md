@@ -35,15 +35,15 @@ aws.tf-modules/
 | Compute          | NLB             | [NLB Module](modules/compute/aws_elb/aws_nlb/README.md)               | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
 | Compute          | GWLB            | [GWLB Module](modules/compute/aws_elb/aws_glb/README.md)              | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
 | Compute          | ASG             | [ASG Module](modules/compute/aws_EC2s/aws_auto_scaling_grp/README.md) | [ASG Overview](modules/compute/aws_EC2s/aws_auto_scaling_grp/aws-auto-scaling-grp.md) |
-| Compute          | EC2             | [EC2 Module](modules/compute/aws_ec2/README.md)                        | [EC2 Overview](modules/compute/aws_EC2s/aws_ec2/aws-ec2.md)                           |
-| Compute          | Lambda          | [Lambda Module](modules/compute/aws_lambda/README.md)                  | [Lambda Overview](modules/compute/aws_serverless/aws_lambda/aws-lambda.md)           |
+| Compute          | EC2             | [EC2 Module](modules/compute/aws_EC2s/aws_ec2/README.md)               | [EC2 Overview](modules/compute/aws_EC2s/aws_ec2/aws-ec2.md)                           |
+| Compute          | Lambda          | [Lambda Module](modules/compute/aws_serverless/aws_lambda/README.md)   | [Lambda Overview](modules/compute/aws_serverless/aws_lambda/aws-lambda.md)           |
 | Networking       | VPC             | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)    | [VPC Overview](modules/networking_content_delivery/aws_vpc/aws-vpc.md)               |
 | Networking/CDN   | Route 53        | [Route 53 Module](modules/networking_content_delivery/aws_route_53/README.md) | [Route 53 Overview](modules/networking_content_delivery/aws_route_53/aws-route-53.md) |
+| Networking/CDN   | API Gateway     | [API Gateway Module](modules/networking_content_delivery/aws_api_gateway/README.md) | [API Gateway Overview](modules/networking_content_delivery/aws_api_gateway/aws-api-gateway.md) |
 | Security         | IAM             | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)   | [IAM Overview](modules/security_identity_compliance/aws_iam/aws-iam.md)              |
 | Security         | KMS             | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)   | [KMS Overview](modules/security_identity_compliance/aws_kms/aws-kms.md)              |
 | Security         | Security Group  | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) | [Security Groups Overview](modules/security_identity_compliance/aws_security_group/aws-security-groups.md) |
 | Storage          | S3              | [S3 Module](modules/storage/aws_s3/README.md)                          | [S3 Overview](modules/storage/aws_s3/aws-s3.md)                                       |
-| Security         | KMS             | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)   | -                                               |
 
 > Each module directory contains its own README file with usage instructions, input/output variables, and examples.
 
@@ -76,6 +76,7 @@ Wrapper plans are available under tf-plans/ to demonstrate usage with sensible d
 | [tf-plans/aws_s3](tf-plans/aws_s3/README.md) | S3 | Buckets; SSE-KMS/SSE-S3 options; logging examples |
 | [tf-plans/aws_internet_gateway](tf-plans/aws_internet_gateway/README.md) | Internet Gateway | IGW attach examples; route integration |
 | [tf-plans/aws_route_table](tf-plans/aws_route_table/README.md) | Route Table | Routes, associations; VPC/Subnet wiring |
+| [tf-plans/aws_api_gateway](tf-plans/aws_api_gateway/README.md) | API Gateway | HTTP/WebSocket APIs; integrations, routes, stages |
 
 All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.
 Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`) expose outputs as maps keyed by the resource key.
