@@ -32,8 +32,8 @@ output "custom_domains" {
   value = {
     for k, v in aws_apigatewayv2_domain_name.domain :
     k => {
-      domain_name          = v.domain_name
-      target_domain_name   = v.domain_name_configuration[0].target_domain_name
+      domain_name           = v.domain_name
+      target_domain_name    = v.domain_name_configuration[0].target_domain_name
       target_hosted_zone_id = v.domain_name_configuration[0].hosted_zone_id
     }
   }
