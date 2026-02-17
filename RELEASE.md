@@ -1,5 +1,17 @@
 # Release Notes
 
+## Module: [SNS Module](modules/application_integration/aws_sns/README.md) (2026-02-17)
+- New SNS module and `tf-plans/aws_sns` wrapper for standard/FIFO topics, optional subscriptions, and DLQ support via subscription redrive policies.
+- Multi-topic support via `topics` map; per-topic options and subscriptions normalized in locals to avoid nulls and support safe for_each scaling.
+- Consistent `CreatedDate` tagging and tag merging (global + per-topic) aligned with other modules.
+- Root README updated with SNS module/wrapper links and SNS overview doc.
+
+## Module: [SQS Module](modules/application_integration/aws_sqs/README.md) (2026-02-16)
+- New SQS module and `tf-plans/aws_sqs` wrapper for standard/FIFO queues, DLQs, encryption, and policies.
+- Multi-queue support via `queues` map; per-queue options with safe defaults and guarded optional blocks to avoid nulls.
+- Consistent `CreatedDate` tagging and tagging merge (global + per-queue) aligned with other modules.
+- Root README updated with SQS module/wrapper links and SQS overview doc.
+
 ## Repository Updates (2026-02-09)
 - New: API Gateway v2 module and wrapper added (HTTP/WebSocket APIs) — integrates routes, integrations, stages, and `CreatedDate` tagging.
 - Docs: Root README updated with links to API Gateway module and wrapper; module README includes usage and variable tables.

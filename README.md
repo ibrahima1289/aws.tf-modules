@@ -44,6 +44,8 @@ aws.tf-modules/
 | Security         | KMS             | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)   | [KMS Overview](modules/security_identity_compliance/aws_kms/aws-kms.md)              |
 | Security         | Security Group  | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) | [Security Groups Overview](modules/security_identity_compliance/aws_security_group/aws-security-groups.md) |
 | Storage          | S3              | [S3 Module](modules/storage/aws_s3/README.md)                          | [S3 Overview](modules/storage/aws_s3/aws-s3.md)                                       |
+| App Integration  | SQS             | [SQS Module](modules/application_integration/aws_sqs/README.md)        | [SQS Overview](modules/application_integration/aws_sqs/aws-sqs.md)                   |
+| App Integration  | SNS             | [SNS Module](modules/application_integration/aws_sns/README.md)        | [SNS Overview](modules/application_integration/aws_sns/aws-sns.md)                   |
 
 > Each module directory contains its own README file with usage instructions, input/output variables, and examples.
 
@@ -77,6 +79,8 @@ Wrapper plans are available under tf-plans/ to demonstrate usage with sensible d
 | [tf-plans/aws_internet_gateway](tf-plans/aws_internet_gateway/README.md) | Internet Gateway | IGW attach examples; route integration |
 | [tf-plans/aws_route_table](tf-plans/aws_route_table/README.md) | Route Table | Routes, associations; VPC/Subnet wiring |
 | [tf-plans/aws_api_gateway](tf-plans/aws_api_gateway/README.md) | API Gateway | HTTP/WebSocket APIs; integrations, routes, stages |
+| [tf-plans/aws_sqs](tf-plans/aws_sqs/README.md) | SQS | Standard/FIFO queues; DLQs, encryption, policies |
+| [tf-plans/aws_sns](tf-plans/aws_sns/README.md) | SNS | Topics and subscriptions; FIFO, filters, DLQs |
 
 All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.
 Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`) expose outputs as maps keyed by the resource key.
