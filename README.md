@@ -1,6 +1,6 @@
 # Terraform Modules for AWS Services
 
-[![Terraform Modules CI](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml/badge.svg?branch=main)](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml) [![Contributors](https://img.shields.io/github/contributors/ibrahima1289/aws.tf-modules.svg?color=orange)](https://github.com/ibrahima1289/aws.tf-modules/graphs/contributors) 
+[![Contributors](https://img.shields.io/github/contributors/ibrahima1289/aws.tf-modules.svg)](https://github.com/ibrahima1289/aws.tf-modules/graphs/contributors) [![Terraform Modules CI](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml/badge.svg?branch=main)](https://github.com/ibrahima1289/aws.tf-modules/actions/workflows/terraform-modules-ci.yml)
 
 > This repository contains reusable Terraform modules for [AWS infrastructure components](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/amazon-web-services-cloud-platform.html) and markdown for services information summary and potential usage. <br>
 > Each module is documented in its own directory. See the table below for details and usage examples.
@@ -31,21 +31,34 @@ aws.tf-modules/
 
 | AWS Service Type | Module Name     | Documentation Link                                                    | Resource Guide                                  |
 |------------------|-----------------|-----------------------------------------------------------------------|-------------------------------------------------|
+| **Compute** | | | |
 | Compute          | ALB             | [ALB Module](modules/compute/aws_elb/aws_alb/README.md)               | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
-| Compute          | NLB             | [NLB Module](modules/compute/aws_elb/aws_nlb/README.md)               | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
-| Compute          | GWLB            | [GWLB Module](modules/compute/aws_elb/aws_glb/README.md)              | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
 | Compute          | ASG             | [ASG Module](modules/compute/aws_EC2s/aws_auto_scaling_grp/README.md) | [ASG Overview](modules/compute/aws_EC2s/aws_auto_scaling_grp/aws-auto-scaling-grp.md) |
-| Compute          | EC2             | [EC2 Module](modules/compute/aws_EC2s/aws_ec2/README.md)               | [EC2 Overview](modules/compute/aws_EC2s/aws_ec2/aws-ec2.md)                           |
-| Compute          | Lambda          | [Lambda Module](modules/compute/aws_serverless/aws_lambda/README.md)   | [Lambda Overview](modules/compute/aws_serverless/aws_lambda/aws-lambda.md)           |
-| Networking       | VPC             | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)    | [VPC Overview](modules/networking_content_delivery/aws_vpc/aws-vpc.md)               |
-| Networking/CDN   | Route 53        | [Route 53 Module](modules/networking_content_delivery/aws_route_53/README.md) | [Route 53 Overview](modules/networking_content_delivery/aws_route_53/aws-route-53.md) |
+| Compute          | Batch           | [Batch Module](modules/compute/aws_containers/aws_batch/README.md)    | - |
+| Compute          | EC2             | [EC2 Module](modules/compute/aws_ec2/README.md)                        | [EC2 Overview](modules/compute/aws_EC2s/aws_ec2/aws-ec2.md) |
+| Compute          | GWLB            | [GWLB Module](modules/compute/aws_elb/aws_glb/README.md)              | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
+| Compute          | Lambda          | [Lambda Module](modules/compute/aws_lambda/README.md)                  | [Lambda Overview](modules/compute/aws_serverless/aws_lambda/aws-lambda.md) |
+| Compute          | NLB             | [NLB Module](modules/compute/aws_elb/aws_nlb/README.md)               | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
+| **Networking/CDN** | | | |
 | Networking/CDN   | API Gateway     | [API Gateway Module](modules/networking_content_delivery/aws_api_gateway/README.md) | [API Gateway Overview](modules/networking_content_delivery/aws_api_gateway/aws-api-gateway.md) |
-| Security         | IAM             | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)   | [IAM Overview](modules/security_identity_compliance/aws_iam/aws-iam.md)              |
-| Security         | KMS             | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)   | [KMS Overview](modules/security_identity_compliance/aws_kms/aws-kms.md)              |
+| Networking/CDN   | Internet Gateway | [Internet Gateway Module](modules/networking_content_delivery/aws_internet_gateway/README.md) | [Internet Gateway Overview](modules/networking_content_delivery/aws_internet_gateway/aws-internet-gateway.md) |
+| Networking/CDN   | Route 53        | [Route 53 Module](modules/networking_content_delivery/aws_route_53/README.md) | [Route 53 Overview](modules/networking_content_delivery/aws_route_53/aws-route-53.md) |
+| Networking/CDN   | Route Table     | [Route Table Module](modules/networking_content_delivery/aws_route_table/README.md) | [Route Table Overview](modules/networking_content_delivery/aws_route_table/aws-route-table.md) |
+| Networking/CDN   | VPC             | [VPC Module](modules/networking_content_delivery/aws_vpc/README.md)    | [VPC Overview](modules/networking_content_delivery/aws_vpc/aws-vpc.md) |
+| **Application Integration** | | | |
+| Application Integration | MQ          | [MQ Module](modules/application_integration/aws_mq/README.md) | [MQ Overview](modules/application_integration/aws_mq/aws-mq.md) |
+| Application Integration | SNS         | [SNS Module](modules/application_integration/aws_sns/README.md) | [SNS Overview](modules/application_integration/aws_sns/aws-sns.md) |
+| Application Integration | SQS         | [SQS Module](modules/application_integration/aws_sqs/README.md) | [SQS Overview](modules/application_integration/aws_sqs/aws-sqs.md) |
+| Application Integration | Step Functions | [Step Functions Module](modules/application_integration/aws_step_function/README.md) | - |
+| **Analytics** | | | |
+| Analytics        | Kinesis         | [Kinesis Module](modules/analytics/aws_kinesis/README.md) | [Kinesis Overview](modules/analytics/aws_kinesis/aws-kinesis.md) |
+| Analytics        | MSK             | [MSK Module](modules/analytics/aws-msk/README.md) | [MSK Overview](modules/analytics/aws-msk/aws-msk.md) |
+| **Storage** | | | |
+| Storage          | S3              | [S3 Module](modules/storage/aws_s3/README.md)                          | [S3 Overview](modules/storage/aws_s3/aws-s3.md) |
+| **Security** | | | |
+| Security         | IAM             | [IAM Module](modules/security_identity_compliance/aws_iam/README.md)   | [IAM Overview](modules/security_identity_compliance/aws_iam/aws-iam.md) |
+| Security         | KMS             | [KMS Module](modules/security_identity_compliance/aws_kms/README.md)   | [KMS Overview](modules/security_identity_compliance/aws_kms/aws-kms.md) |
 | Security         | Security Group  | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) | [Security Groups Overview](modules/security_identity_compliance/aws_security_group/aws-security-groups.md) |
-| Storage          | S3              | [S3 Module](modules/storage/aws_s3/README.md)                          | [S3 Overview](modules/storage/aws_s3/aws-s3.md)                                       |
-| App Integration  | SQS             | [SQS Module](modules/application_integration/aws_sqs/README.md)        | [SQS Overview](modules/application_integration/aws_sqs/aws-sqs.md)                   |
-| App Integration  | SNS             | [SNS Module](modules/application_integration/aws_sns/README.md)        | [SNS Overview](modules/application_integration/aws_sns/aws-sns.md)                   |
 
 > Each module directory contains its own README file with usage instructions, input/output variables, and examples.
 
@@ -67,20 +80,27 @@ Wrapper plans are available under tf-plans/ to demonstrate usage with sensible d
 | Wrapper | Module | Description |
 |---------|--------|-------------|
 | [tf-plans/aws_alb](tf-plans/aws_alb/README.md) | ALB | Application Load Balancer; multi-ALB via `albs` |
-| [tf-plans/aws_nlb](tf-plans/aws_nlb/README.md) | NLB | Network Load Balancer; multi-NLB via `nlbs`; cross-zone option |
-| [tf-plans/aws_glb](tf-plans/aws_glb/README.md) | GWLB | Gateway Load Balancer; multi-GLB via `glbs` |
-| [tf-plans/aws_asg](tf-plans/aws_asg/README.md) | ASG | Auto Scaling Groups; multi-ASG via `asgs`; hooks & policies |
-| [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |
-| [tf-plans/aws_lambda](tf-plans/aws_lambda/README.md) | Lambda | Functions; Zip/Image; VPC/IAM integrations |
-| [tf-plans/aws_route_53](tf-plans/aws_route_53/README.md) | Route 53 | Zones & records; alias examples |
-| [tf-plans/aws_iam](tf-plans/aws_iam/README.md) | IAM | Users, groups, policies; access keys & console options |
-| [tf-plans/aws_kms](tf-plans/aws_kms/README.md) | KMS | Keys, aliases, grants; rotation options |
-| [tf-plans/aws_s3](tf-plans/aws_s3/README.md) | S3 | Buckets; SSE-KMS/SSE-S3 options; logging examples |
-| [tf-plans/aws_internet_gateway](tf-plans/aws_internet_gateway/README.md) | Internet Gateway | IGW attach examples; route integration |
-| [tf-plans/aws_route_table](tf-plans/aws_route_table/README.md) | Route Table | Routes, associations; VPC/Subnet wiring |
 | [tf-plans/aws_api_gateway](tf-plans/aws_api_gateway/README.md) | API Gateway | HTTP/WebSocket APIs; integrations, routes, stages |
-| [tf-plans/aws_sqs](tf-plans/aws_sqs/README.md) | SQS | Standard/FIFO queues; DLQs, encryption, policies |
-| [tf-plans/aws_sns](tf-plans/aws_sns/README.md) | SNS | Topics and subscriptions; FIFO, filters, DLQs |
+| [tf-plans/aws_asg](tf-plans/aws_asg/README.md) | ASG | Auto Scaling Groups; multi-ASG via `asgs`; hooks & policies |
+| [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
+| [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |
+| [tf-plans/aws_glb](tf-plans/aws_glb/README.md) | GWLB | Gateway Load Balancer; multi-GLB via `glbs` |
+| [tf-plans/aws_iam](tf-plans/aws_iam/README.md) | IAM | Users, groups, policies; access keys & console options |
+| [tf-plans/aws_internet_gateway](tf-plans/aws_internet_gateway/README.md) | Internet Gateway | IGW attach examples; route integration |
+| [tf-plans/aws_kinesis](tf-plans/aws_kinesis/README.md) | Kinesis | Data streams; shards, retention, encryption |
+| [tf-plans/aws_kms](tf-plans/aws_kms/README.md) | KMS | Keys, aliases, grants; rotation options |
+| [tf-plans/aws_lambda](tf-plans/aws_lambda/README.md) | Lambda | Functions; Zip/Image; VPC/IAM integrations |
+| [tf-plans/aws_mq](tf-plans/aws_mq/README.md) | MQ | Message brokers; ActiveMQ/RabbitMQ |
+| [tf-plans/aws_msk](tf-plans/aws_msk/README.md) | MSK | Managed Kafka clusters; configurations |
+| [tf-plans/aws_nlb](tf-plans/aws_nlb/README.md) | NLB | Network Load Balancer; multi-NLB via `nlbs`; cross-zone option |
+| [tf-plans/aws_route_53](tf-plans/aws_route_53/README.md) | Route 53 | Zones & records; alias examples |
+| [tf-plans/aws_route_table](tf-plans/aws_route_table/README.md) | Route Table | Routes, associations; VPC/Subnet wiring |
+| [tf-plans/aws_s3](tf-plans/aws_s3/README.md) | S3 | Buckets; SSE-KMS/SSE-S3 options; logging examples |
+| [tf-plans/aws_sec_grp](tf-plans/aws_sec_grp/README.md) | Security Group | Security rules; ingress/egress configurations |
+| [tf-plans/aws_sns](tf-plans/aws_sns/README.md) | SNS | Topics; subscriptions; message publishing |
+| [tf-plans/aws_sqs](tf-plans/aws_sqs/README.md) | SQS | Queues; FIFO/standard; DLQ support |
+| [tf-plans/aws_step_function](tf-plans/aws_step_function/README.md) | Step Functions | State machines; STANDARD/EXPRESS types; logging, tracing, encryption |
+| [tf-plans/aws_vpc](tf-plans/aws_vpc/README.md) | VPC | Virtual networks; subnets, CIDR blocks
 
 All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.
 Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`) expose outputs as maps keyed by the resource key.
@@ -99,7 +119,7 @@ See [RELEASE.md](RELEASE.md) for the latest changes and version history.
 We welcome contributions! To contribute to this repository:
 
 1. **Fork the repository** on GitHub.
-2. **Clone your forked version** to your local machine (or, use the browser):
+2. **Clone your forked version** to your local machine:
    ```sh
    git clone https://github.com/ibrahima1289/aws.tf-modules.git
    cd aws.tf-modules
