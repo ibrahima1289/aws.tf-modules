@@ -41,6 +41,7 @@ aws.tf-modules/
 | Compute          | NLB             | [NLB Module](modules/compute/aws_elb/aws_nlb/README.md)               | [ELB Overview](modules/compute/aws_elb/aws-elb.md) |
 | **Networking/CDN** | | | |
 | Networking/CDN   | API Gateway     | [API Gateway Module](modules/networking_content_delivery/aws_api_gateway/README.md) | [API Gateway Overview](modules/networking_content_delivery/aws_api_gateway/aws-api-gateway.md) |
+| Networking/CDN   | CloudFront      | [CloudFront Module](modules/networking_content_delivery/aws_cloudFront/README.md) | [CloudFront Overview](modules/networking_content_delivery/aws_cloudFront/aws-cloudfront.md) |
 | Networking/CDN   | Internet Gateway | [Internet Gateway Module](modules/networking_content_delivery/aws_internet_gateway/README.md) | [Internet Gateway Overview](modules/networking_content_delivery/aws_internet_gateway/aws-internet-gateway.md) |
 | Networking/CDN   | Route 53        | [Route 53 Module](modules/networking_content_delivery/aws_route_53/README.md) | [Route 53 Overview](modules/networking_content_delivery/aws_route_53/aws-route-53.md) |
 | Networking/CDN   | Route Table     | [Route Table Module](modules/networking_content_delivery/aws_route_table/README.md) | [Route Table Overview](modules/networking_content_delivery/aws_route_table/aws-route-table.md) |
@@ -83,6 +84,7 @@ Wrapper plans are available under tf-plans/ to demonstrate usage with sensible d
 | [tf-plans/aws_api_gateway](tf-plans/aws_api_gateway/README.md) | API Gateway | HTTP/WebSocket APIs; integrations, routes, stages |
 | [tf-plans/aws_asg](tf-plans/aws_asg/README.md) | ASG | Auto Scaling Groups; multi-ASG via `asgs`; hooks & policies |
 | [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
+| [tf-plans/aws_cloudfront](tf-plans/aws_cloudfront/README.md) | CloudFront | CDN distributions; S3/custom origins; cache behaviors; SSL/TLS certificates |
 | [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |
 | [tf-plans/aws_glb](tf-plans/aws_glb/README.md) | GWLB | Gateway Load Balancer; multi-GLB via `glbs` |
 | [tf-plans/aws_iam](tf-plans/aws_iam/README.md) | IAM | Users, groups, policies; access keys & console options |

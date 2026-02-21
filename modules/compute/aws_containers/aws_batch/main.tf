@@ -8,8 +8,8 @@
 resource "aws_batch_compute_environment" "compute_env" {
   for_each = local.compute_environments
 
-  name                     = each.value.name
-  type                     = each.value.type
+  name = each.value.name
+  type = each.value.type
 
   # Service role for Batch to manage resources (required for MANAGED type)
   service_role = try(each.value.service_role, null)
