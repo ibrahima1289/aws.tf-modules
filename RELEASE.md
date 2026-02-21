@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-02-21)
+- New: [CloudFront module](modules/networking_content_delivery/aws_cloudFront/README.md) and [wrapper](tf-plans/aws_cloudfront/README.md) added—supports CDN distributions with S3/custom origins, cache behaviors, SSL certificates, and origin failover.
+- Docs: Comprehensive READMEs with detailed variable tables for origins, cache behaviors, viewer certificates; includes common patterns (SPA support, multi-origin failover, path-based routing).
+- Wrapper: Example `terraform.tfvars` demonstrates S3 static website (active) with commented examples for API distributions, multi-origin failover, and geographic restrictions; includes managed cache policy IDs.
+- Consistency: Module follows established patterns (multi-resource maps, dynamic blocks with safe defaults, `CreatedDate` tagging) and supports modern cache policies and legacy forwarded values.
+
 ## Repository Updates (2026-02-19)
 - New: [Batch module](modules/compute/aws_containers/aws_batch/README.md) and [wrapper](tf-plans/aws_batch/README.md) added—supports compute environments (EC2/SPOT/FARGATE), job queues, and job definitions.
 - Docs: Comprehensive README files with variable tables, usage examples, and IAM role requirements; wrapper includes EC2/SPOT/FARGATE configuration patterns.
