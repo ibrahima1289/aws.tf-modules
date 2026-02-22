@@ -54,6 +54,8 @@ aws.tf-modules/
 | **Analytics** | | | |
 | Analytics        | Kinesis         | [Kinesis Module](modules/analytics/aws_kinesis/README.md) | [Kinesis Overview](modules/analytics/aws_kinesis/aws-kinesis.md) |
 | Analytics        | MSK             | [MSK Module](modules/analytics/aws-msk/README.md) | [MSK Overview](modules/analytics/aws-msk/aws-msk.md) |
+| **Databases** | | | |
+| Databases        | ElastiCache     | [ElastiCache Module](modules/databases/non-relational/aws_elasticache/README.md) | - |
 | **Storage** | | | |
 | Storage          | S3              | [S3 Module](modules/storage/aws_s3/README.md)                          | [S3 Overview](modules/storage/aws_s3/aws-s3.md) |
 | **Security** | | | |
@@ -86,6 +88,7 @@ Wrapper plans are available under tf-plans/ to demonstrate usage with sensible d
 | [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
 | [tf-plans/aws_cloudfront](tf-plans/aws_cloudfront/README.md) | CloudFront | CDN distributions; S3/custom origins; cache behaviors; SSL/TLS certificates |
 | [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |
+| [tf-plans/aws_elasticache](tf-plans/aws_elasticache/README.md) | ElastiCache | Redis/Memcached/Valkey clusters; replication groups; HA, cluster mode, encryption |
 | [tf-plans/aws_glb](tf-plans/aws_glb/README.md) | GWLB | Gateway Load Balancer; multi-GLB via `glbs` |
 | [tf-plans/aws_iam](tf-plans/aws_iam/README.md) | IAM | Users, groups, policies; access keys & console options |
 | [tf-plans/aws_internet_gateway](tf-plans/aws_internet_gateway/README.md) | Internet Gateway | IGW attach examples; route integration |
