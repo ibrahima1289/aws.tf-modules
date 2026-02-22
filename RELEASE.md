@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-02-22)
+- New: [ElastiCache module](modules/databases/non-relational/aws_elasticache/README.md) and [wrapper](tf-plans/aws_elasticache/README.md) added—supports Redis, Memcached, and Valkey engines with standalone clusters and replication groups.
+- Docs: Comprehensive variable tables for clusters and replication groups; includes encryption, snapshots, log delivery, cluster mode, and authentication options.
+- Wrapper: Example `terraform.tfvars` demonstrates Memcached caching (active) with commented examples for standalone Redis, Redis HA with failover, Redis cluster mode (sharded), and Valkey replication.
+- Consistency: Module follows established patterns (multi-resource maps, dynamic blocks with safe defaults, `CreatedDate` tagging) and supports both cluster mode disabled and enabled configurations.
+
 ## Repository Updates (2026-02-21)
 - New: [CloudFront module](modules/networking_content_delivery/aws_cloudFront/README.md) and [wrapper](tf-plans/aws_cloudfront/README.md) added—supports CDN distributions with S3/custom origins, cache behaviors, SSL certificates, and origin failover.
 - Docs: Comprehensive READMEs with detailed variable tables for origins, cache behaviors, viewer certificates; includes common patterns (SPA support, multi-origin failover, path-based routing).
