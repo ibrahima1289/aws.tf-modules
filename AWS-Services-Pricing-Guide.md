@@ -38,10 +38,10 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 
 | Service | Documentation | Pricing Model | Cost Examples |
 |---------|--------------|---------------|---------------|
-| 🟤 **RDS** | [aws-rds.md](modules/databases/relational/aws_rds/aws-rds.md) | Instance + storage + backup | **Free Tier (12 months):** 750 hours/month db.t2.micro/t3.micro + 20 GB gp2 storage + 20 GB backups<br>• db.t3.medium (MySQL): $0.068/hour = $49.64/month<br>• db.r5.large (PostgreSQL): $0.24/hour = $175.20/month<br>• Storage (gp3): $0.115/GB/month<br>• Backup: $0.095/GB/month<br>• Example: t3.medium + 100GB + 50GB backup = $49.64 + $11.50 + $4.75 = $65.89/month |
-| 🔴 **Aurora** | [aws-aurora.md](modules/databases/relational/aws_aurora/aws-aurora.md) | Instance + I/O + storage | • db.r5.large: $0.29/hour = $211.70/month<br>• Storage: $0.10/GB/month<br>• I/O: $0.20 per 1M requests<br>• 500 GB + 10M I/O/month = $50 + $2 = $52/month storage/I/O<br>• Total with instance: $263.70/month |
+| 🟤 **RDS** | [aws-rds.md](modules/databases/relational/aws_rds/aws-rds.md) | Instance + storage + backup | **Free Tier (12 months):** 750 hours/month db.t2.micro/t3.micro + 20 GB gp2 storage + 20 GB backups<br>• db.t3.medium (MySQL): $0.068/hour = $49.64/month<br>• db.r5.large (PostgreSQL): $0.24/hour = $175.20/month<br>• db.r6g.large: $0.192/hour = $140.16/month<br>• Storage (gp3): $0.115/GB/month<br>• Multi-AZ deployment: 2× instance cost<br>• Backup: $0.095/GB/month<br>• Example: r6g.large + 100GB gp3 + Multi-AZ = $280.32 + $11.50 = $291.82/month |
+| 🔴 **Aurora** | [aws-aurora.md](modules/databases/relational/aws_aurora/aws-aurora.md) | Instance + I/O + storage | • db.r5.large: $0.29/hour = $211.70/month<br>• db.r6g.large: $0.29/hour = $211.70/month<br>• Storage: $0.10/GB/month<br>• I/O: $0.20 per 1M requests<br>• 500 GB + 10M I/O/month = $50 + $2 = $52/month storage/I/O<br>• 2-node cluster + 200GB + 10M I/O = $423.40 + $20 + $2 = $445.40/month |
 | 🟤 **DynamoDB** | [aws-dynamodb.md](modules/databases/non-relational/aws_dynamodb/aws-dynamodb.md) | On-demand or provisioned | **Free Tier (Always Free):** 25 GB storage + 25 WCU + 25 RCU + 2.5M stream reads<br>• **On-Demand:** $1.25 per million write requests, $0.25 per million reads<br>• 10M writes + 50M reads = $12.50 + $12.50 = $25<br>• **Provisioned:** $0.00065/hour per WCU = $0.47/month, $0.00013/hour per RCU = $0.09/month<br>• 10 WCU + 50 RCU = $4.70 + $4.50 = $9.20/month<br>• Storage: $0.25/GB/month |
-| 🔴 **ElastiCache** | [aws-elasticache.md](modules/databases/non-relational/aws_elasticache/aws-elasticache.md) | Node-hour pricing | • **Redis:** cache.t3.micro = $0.017/hour = $12.41/month<br>• cache.r5.large = $0.188/hour = $137.24/month<br>• **Memcached:** cache.t3.medium = $0.068/hour = $49.64/month<br>• Backup storage (Redis): $0.085/GB/month |
+| 🔴 **ElastiCache** | [aws-elasticache.md](modules/databases/non-relational/aws_elasticache/aws-elasticache.md) | Node-hour pricing | **Free Tier (12 months):** 750 hours/month cache.t2.micro or cache.t3.micro<br>• **Redis:** cache.t3.micro = $0.017/hour = $12.41/month<br>• cache.r5.large = $0.188/hour = $137.24/month<br>• cache.r6g.large = $0.209/hour = $152.57/month<br>• **Memcached:** cache.t3.medium = $0.068/hour = $49.64/month<br>• Backup storage (Redis): $0.085/GB/month<br>• 3-node cluster (r6g.large) = $457.71/month |
 | 🔴 **DocumentDB** | [aws-documentdb.md](modules/databases/non-relational/aws_documentdb/aws-documentdb.md) | Instance + I/O + storage | • db.r5.large: $0.277/hour = $202.21/month<br>• Storage: $0.10/GB/month<br>• I/O: $0.20 per 1M requests<br>• 3-node cluster + 200GB = $606.63 + $20 = $626.63/month |
 | 🔴 **Redshift** | [aws-redshift.md](modules/databases/relational/aws_redshift/aws-redshift.md) | Node-hour pricing | • dc2.large: $0.25/hour = $182.50/month<br>• ra3.xlplus: $1.086/hour = $792.78/month<br>• 2-node ra3.4xlarge cluster = $4.344/hour = $3,171.12/month<br>• Managed storage (RA3): $0.024/GB/month |
 
@@ -193,8 +193,11 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 - **Storage Gateway:** https://aws.amazon.com/storagegateway/pricing/
 
 ### Database Service Pricing
-- **RDS Pricing:** https://aws.amazon.com/rds/pricing/
-- **Aurora Pricing:** https://aws.amazon.com/rds/aurora/pricing/
+- **RDS Pricing:** https://aws.amazon.com/rds/pricing/- **RDS MySQL Pricing:** https://aws.amazon.com/rds/mysql/pricing/
+- **RDS PostgreSQL Pricing:** https://aws.amazon.com/rds/postgresql/pricing/
+- **RDS MariaDB Pricing:** https://aws.amazon.com/rds/mariadb/pricing/
+- **RDS Oracle Pricing:** https://aws.amazon.com/rds/oracle/pricing/
+- **RDS SQL Server Pricing:** https://aws.amazon.com/rds/sqlserver/pricing/- **Aurora Pricing:** https://aws.amazon.com/rds/aurora/pricing/
 - **DynamoDB Pricing:** https://aws.amazon.com/dynamodb/pricing/
 - **ElastiCache Pricing:** https://aws.amazon.com/elasticache/pricing/
 - **DocumentDB Pricing:** https://aws.amazon.com/documentdb/pricing/
