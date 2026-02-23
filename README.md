@@ -99,6 +99,7 @@ Wrapper plans are available under tf-plans/ to demonstrate usage with sensible d
 | [tf-plans/aws_mq](tf-plans/aws_mq/README.md) | MQ | Message brokers; ActiveMQ/RabbitMQ |
 | [tf-plans/aws_msk](tf-plans/aws_msk/README.md) | MSK | Managed Kafka clusters; configurations |
 | [tf-plans/aws_nlb](tf-plans/aws_nlb/README.md) | NLB | Network Load Balancer; multi-NLB via `nlbs`; cross-zone option |
+| [tf-plans/aws_rds](tf-plans/aws_rds/README.md) | RDS | Relational databases; MySQL/PostgreSQL/MariaDB/Oracle/SQL Server; Multi-AZ, read replicas, autoscaling |
 | [tf-plans/aws_route_53](tf-plans/aws_route_53/README.md) | Route 53 | Zones & records; alias examples |
 | [tf-plans/aws_route_table](tf-plans/aws_route_table/README.md) | Route Table | Routes, associations; VPC/Subnet wiring |
 | [tf-plans/aws_s3](tf-plans/aws_s3/README.md) | S3 | Buckets; SSE-KMS/SSE-S3 options; logging examples |
