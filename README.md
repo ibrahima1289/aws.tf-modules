@@ -55,6 +55,7 @@ aws.tf-modules/
 | Analytics        | Kinesis         | [Kinesis Module](modules/analytics/aws_kinesis/README.md) | [Kinesis Overview](modules/analytics/aws_kinesis/aws-kinesis.md) |
 | Analytics        | MSK             | [MSK Module](modules/analytics/aws-msk/README.md) | [MSK Overview](modules/analytics/aws-msk/aws-msk.md) |
 | **Databases** | | | |
+| Databases        | Aurora          | [Aurora Module](modules/databases/relational/aws_aurora/README.md) | [Aurora Overview](modules/databases/relational/aws_aurora/aws-aurora.md) |
 | Databases        | ElastiCache     | [ElastiCache Module](modules/databases/non-relational/aws_elasticache/README.md) | - |
 | Databases        | RDS             | [RDS Module](modules/databases/relational/aws_rds/README.md) | [RDS Overview](modules/databases/relational/aws_rds/aws-rds.md) |
 | **Storage** | | | |
@@ -86,6 +87,7 @@ Wrapper plans are available under tf-plans/ to demonstrate usage with sensible d
 | [tf-plans/aws_alb](tf-plans/aws_alb/README.md) | ALB | Application Load Balancer; multi-ALB via `albs` |
 | [tf-plans/aws_api_gateway](tf-plans/aws_api_gateway/README.md) | API Gateway | HTTP/WebSocket APIs; integrations, routes, stages |
 | [tf-plans/aws_asg](tf-plans/aws_asg/README.md) | ASG | Auto Scaling Groups; multi-ASG via `asgs`; hooks & policies |
+| [tf-plans/aws_aurora](tf-plans/aws_aurora/README.md) | Aurora | Aurora MySQL/PostgreSQL; provisioned, Serverless v1/v2, global databases; auto-scaling |
 | [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
 | [tf-plans/aws_cloudfront](tf-plans/aws_cloudfront/README.md) | CloudFront | CDN distributions; S3/custom origins; cache behaviors; SSL/TLS certificates |
 | [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |
