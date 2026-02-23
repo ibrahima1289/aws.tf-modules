@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-02-23)
+- New: [Aurora module](modules/databases/relational/aws_aurora/README.md) and [wrapper](tf-plans/aws_aurora/README.md) added—supports Aurora MySQL and Aurora PostgreSQL with provisioned clusters, Serverless v1, Serverless v2, and global databases; includes cluster-based architecture with configurable read replicas, auto-scaling, backtrack (MySQL only), I/O-Optimized storage, and Data API support.
+- Docs: Comprehensive READMEs with detailed comparison tables (Aurora vs RDS), engine modes (provisioned/serverless/parallelquery/global), and variable tables for cluster/instance configurations; includes DB subnet groups, cluster parameter groups, instance parameter groups, and global cluster setup.
+- Wrapper: Simplified interface with auto-configuration for Serverless v1/v2 scaling, parameter group family detection, and multi-instance deployment; example `terraform.tfvars` demonstrates 5 deployment scenarios (provisioned PostgreSQL, MySQL with backtrack, Serverless v2, Serverless v1 with Data API, and I/O-Optimized storage).
+- Consistency: Module follows established patterns (multi-resource maps, dynamic blocks with safe defaults, `CreatedDate` tagging) and supports all Aurora features including global databases, custom endpoints, Performance Insights, IAM authentication, and CloudWatch log exports; pricing guide updated with Aurora-specific costs (ACU pricing, I/O costs, storage costs).
+
 ## Repository Updates (2026-02-22)
 - New: [RDS module](modules/databases/relational/aws_rds/README.md) and [wrapper](tf-plans/aws_rds/README.md) added—supports all RDS database engines (MySQL, PostgreSQL, MariaDB, Oracle, SQL Server) with multi-instance deployment, storage autoscaling, high availability (Multi-AZ), encryption, automated backups, Performance Insights, and read replicas.
 - Docs: Comprehensive READMEs with detailed variable tables for all engine types; includes DB subnet groups, parameter groups, option groups, and point-in-time recovery configurations.
