@@ -1,6 +1,12 @@
 # Release Notes
 
 ## Repository Updates (2026-02-22)
+- New: [RDS module](modules/databases/relational/aws_rds/README.md) and [wrapper](tf-plans/aws_rds/README.md) added—supports all RDS database engines (MySQL, PostgreSQL, MariaDB, Oracle, SQL Server) with multi-instance deployment, storage autoscaling, high availability (Multi-AZ), encryption, automated backups, Performance Insights, and read replicas.
+- Docs: Comprehensive READMEs with detailed variable tables for all engine types; includes DB subnet groups, parameter groups, option groups, and point-in-time recovery configurations.
+- Wrapper: Simplified interface with smart defaults; auto-detects parameter group family; supports instance scaling via `instance_count`; example `terraform.tfvars` demonstrates PostgreSQL, MySQL, Oracle, and SQL Server configurations.
+- Consistency: Module follows established patterns (multi-resource maps, dynamic blocks with safe defaults, `CreatedDate` tagging) and supports all RDS features including blue/green deployments, IAM authentication, and CloudWatch log exports.
+
+## Repository Updates (2026-02-22)
 - New: [ElastiCache module](modules/databases/non-relational/aws_elasticache/README.md) and [wrapper](tf-plans/aws_elasticache/README.md) added—supports Redis, Memcached, and Valkey engines with standalone clusters and replication groups.
 - Docs: Comprehensive variable tables for clusters and replication groups; includes encryption, snapshots, log delivery, cluster mode, and authentication options.
 - Wrapper: Example `terraform.tfvars` demonstrates Memcached caching (active) with commented examples for standalone Redis, Redis HA with failover, Redis cluster mode (sharded), and Valkey replication.

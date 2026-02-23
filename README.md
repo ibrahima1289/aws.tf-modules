@@ -56,6 +56,7 @@ aws.tf-modules/
 | Analytics        | MSK             | [MSK Module](modules/analytics/aws-msk/README.md) | [MSK Overview](modules/analytics/aws-msk/aws-msk.md) |
 | **Databases** | | | |
 | Databases        | ElastiCache     | [ElastiCache Module](modules/databases/non-relational/aws_elasticache/README.md) | - |
+| Databases        | RDS             | [RDS Module](modules/databases/relational/aws_rds/README.md) | [RDS Overview](modules/databases/relational/aws_rds/aws-rds.md) |
 | **Storage** | | | |
 | Storage          | S3              | [S3 Module](modules/storage/aws_s3/README.md)                          | [S3 Overview](modules/storage/aws_s3/aws-s3.md) |
 | **Security** | | | |
