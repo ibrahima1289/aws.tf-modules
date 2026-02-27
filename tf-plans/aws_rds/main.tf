@@ -9,13 +9,13 @@ module "rds" {
   region = var.region
 
   # Pass generated RDS instances configuration
-  rds_instances = local.rds_instances
+  rds_instances = var.rds_instances
 
   # Pass DB subnet groups
-  db_subnet_groups = local.db_subnet_groups
+  db_subnet_groups = var.db_subnet_groups
 
   # Pass parameter groups
-  parameter_groups = local.parameter_groups
+  parameter_groups = var.parameter_groups
 
   # Option groups can be extended in future if needed
   option_groups = {}
