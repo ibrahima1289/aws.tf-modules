@@ -9,15 +9,15 @@ variable "region" {
 variable "rds_instances" {
   description = "Map of RDS instance configurations. Key is the instance identifier."
   type = map(object({
-    # Required parameters
-    engine         = string # mysql, postgres, mariadb, oracle-ee, oracle-se2, oracle-se1, oracle-se, sqlserver-ee, sqlserver-se, sqlserver-ex, sqlserver-web
-    engine_version = string
+    # Required parameters (optional for read replicas when replicate_source_db is set)
+    engine         = optional(string) # mysql, postgres, mariadb, oracle-ee, oracle-se2, oracle-se1, oracle-se, sqlserver-ee, sqlserver-se, sqlserver-ex, sqlserver-web
+    engine_version = optional(string)
     instance_class = string
 
-    # Database credentials
+    # Database credentials (optional for read replicas when replicate_source_db is set)
     db_name  = optional(string)
-    username = string
-    password = string # Consider using AWS Secrets Manager in production
+    username = optional(string)
+    password = optional(string) # Consider using AWS Secrets Manager in production
 
     # Storage configuration
     allocated_storage     = number

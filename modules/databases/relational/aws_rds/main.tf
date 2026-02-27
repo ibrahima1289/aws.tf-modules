@@ -101,15 +101,15 @@ resource "aws_db_instance" "rds_instance" {
   # Instance identifier
   identifier = each.key
 
-  # Engine configuration
-  engine         = each.value.engine
-  engine_version = each.value.engine_version
+  # Engine configuration (not used for read replicas)
+  engine         = each.value.replicate_source_db == null ? each.value.engine : null
+  engine_version = each.value.replicate_source_db == null ? each.value.engine_version : null
   instance_class = each.value.instance_class
 
-  # Database name and credentials
-  db_name  = each.value.db_name
-  username = each.value.username
-  password = each.value.password # Use AWS Secrets Manager in production
+  # Database name and credentials (not used for read replicas)
+  db_name  = each.value.replicate_source_db == null ? each.value.db_name : null
+  username = each.value.replicate_source_db == null ? each.value.username : null
+  password = each.value.replicate_source_db == null ? each.value.password : null # Use AWS Secrets Manager in production
 
   # Storage configuration
   allocated_storage     = each.value.allocated_storage
