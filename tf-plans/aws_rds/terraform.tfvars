@@ -1,6 +1,30 @@
 # Example terraform.tfvars for AWS RDS deployment with Writer/Reader in specific AZs
 # This configuration uses direct module variables for granular control over writer and reader placement
 
+# =============================================================================
+# IMPORTANT: Database Password Security
+# =============================================================================
+# DO NOT hardcode passwords in this file. Use one of these methods:
+#
+# Method 1: Environment Variable
+#   export TF_VAR_master_password=$(aws secretsmanager get-secret-value \
+#     --secret-id rds/myapp/master-password \
+#     --query SecretString --output text)
+#
+# Method 2: Add data source in main.tf (recommended)
+#   data "aws_secretsmanager_secret_version" "db_password" {
+#     secret_id = "rds/myapp/master-password"
+#   }
+#   Then use: data.aws_secretsmanager_secret_version.db_password.secret_string
+#
+# Method 3: Terraform Cloud/Enterprise workspace variables (for team workflows)
+#
+# First, create the secret in AWS Secrets Manager:
+#   aws secretsmanager create-secret \
+#     --name rds/myapp/master-password \
+#     --secret-string "YourStrongPassword123!"
+# =============================================================================
+
 # AWS Configuration
 region = "us-east-1"
 
@@ -39,7 +63,15 @@ rds_instances = {
     # Database credentials
     db_name  = "myappdb"
     username = "dbadmin"
-    password = "CHANGE_ME_STRONG_PASSWORD" # Use AWS Secrets Manager in production
+    # password = "CHANGE_ME_STRONG_PASSWORD" # DO NOT hardcode passwords
+    # Instead, set password via environment variable:
+    # export TF_VAR_master_password=$(aws secretsmanager get-secret-value --secret-id rds/myapp/master-password --query SecretString --output text)
+    # Or add to main.tf a data source:
+    # data "aws_secretsmanager_secret_version" "db_password" {
+    #   secret_id = "rds/myapp/master-password"
+    # }
+    # Then reference: data.aws_secretsmanager_secret_version.db_password.secret_string
+    password = var.master_password # Set via environment variable TF_VAR_master_password
 
     # Storage configuration
     allocated_storage     = 20
