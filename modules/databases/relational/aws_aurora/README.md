@@ -32,6 +32,164 @@ This Terraform module creates and manages AWS Aurora database clusters with supp
 | **Serverless** | v1 and v2 available | Not available |
 | **Pricing** | Instance + I/O + storage | Instance + storage |
 
+## Architecture
+
+Aurora uses a unique cloud-native architecture that separates storage from compute, providing superior performance, availability, and scalability compared to traditional databases.
+
+### Aurora Cluster Components
+
+```
+┌───────────────────────────────────────────────────────────────────────┐
+│                        Aurora DB Cluster                              │
+│                                                                       │
+│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐           │
+│  │  Writer        │  │  Reader        │  │  Reader        │           │
+│  │  Instance      │  │  Instance      │  │  Instance      │           │
+│  │  (Primary)     │  │  (Replica 1)   │  │  (Replica 2)   │           │
+│  │                │  │                │  │                │           │
+│  │ Promotion      │  │ Promotion      │  │ Promotion      │           │
+│  │ Tier: 0        │  │ Tier: 1        │  │ Tier: 2        │           │
+│  └───────┬────────┘  └───────┬────────┘  └───────┬────────┘           │
+│          │                   │                   │                    │
+│          └───────────────────┼───────────────────┘                    │
+│                              │                                        │
+│                    ┌─────────▼───────────┐                            │
+│                    │  Cluster Volume     │                            │
+│                    │  (Shared Storage)   │                            │
+│                    │                     │                            │
+│                    │  ┌────────────────┐ │                            │
+│                    │  │ AZ 1 (2 copies)| │                            │
+│                    │  ├────────────────┤ │                            │
+│                    │  │ AZ 2 (2 copies)| │                            │
+│                    │  ├────────────────┤ │                            │
+│                    │  │ AZ 3 (2 copies)| │                            │
+│                    │  └────────────────┘ │                            │
+│                    │                     │                            |
+|                    └─────────────────────┘                            │
+│                              |                                        |
+|             ┌────────────────▼──────────────┐                         |
+|             │  • 6-way replication          |                         │
+│             │  • Auto-scales to 128 TB      |                         │
+│             │  • Self-healing               |                         │
+│             │  • Continuous backup to S3    |                         │
+│             └───────────────────────────────┘                         │
+│                                                                       |
+└───────────────────────────────────────────────────────────────────────┘
+       
+┌───────────────────────────────────────────────────────────────────────────────────────────┐
+│  Endpoints:                                                                               │
+│  • Cluster Endpoint (writer): my-cluster.cluster-xxxxx.region.rds.amazonaws.com           |
+│  • Reader Endpoint (load-balanced): my-cluster.cluster-ro-xxxxx.region.rds.amazonaws.com  |
+│  • Instance Endpoints: my-cluster-instance-1.xxxxx.region.rds.amazonaws.com               |
+│  • Custom Endpoints: my-custom-endpoint.cluster-custom-xxxxx.region.rds.amazonaws.com     |
+└───────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Storage Layer (Cluster Volume)
+
+The Aurora storage layer is purpose-built for the cloud:
+
+- **6-Way Replication**: Data is automatically replicated 6 times across 3 Availability Zones (2 copies per AZ)
+- **Quorum-Based**: Writes require acknowledgment from 4 of 6 copies; reads require 3 of 6 copies
+- **Self-Healing**: Continuously scans data blocks and repairs them automatically
+- **Auto-Scaling**: Grows automatically in 10 GB increments up to 128 TB without downtime
+- **Log-Structured**: Redo logs are written directly to storage, reducing write latency
+- **Continuous Backup**: Transaction logs continuously backed up to Amazon S3
+
+### Compute Layer (DB Instances)
+
+Aurora separates compute from storage for independent scaling:
+
+- **Writer Instance** (Primary):
+  - Handles all write operations (`INSERT`, `UPDATE`, `DELETE`)
+  - Can also serve read queries
+  - Only one writer per cluster
+  - Promotion Tier 0 (highest priority for failover target)
+
+- **Reader Instances** (Replicas):
+  - Handle read-only queries (`SELECT`)
+  - Up to 15 readers per cluster
+  - Share the same storage volume (no replication lag for storage)
+  - Typical replication lag: 10-20 milliseconds
+  - Automatically promoted to writer if primary fails
+  - Can have different instance classes than writer
+
+### High Availability & Failover
+
+**Automatic Failover Process** (< 30 seconds):
+1. Aurora detects primary instance failure
+2. Promotes reader with highest priority (lowest tier number)
+3. Updates DNS endpoint to point to new primary
+4. No data loss (shared storage volume)
+
+**Multi-AZ Deployment**:
+- Instances distributed across multiple Availability Zones
+- Storage always spans 3 AZs regardless of number of instances
+- Automatic failover to healthy AZ
+
+### Global Database Architecture
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                     Aurora Global Database                       │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Primary Region (us-east-1)          Secondary Region (eu-west-1)│
+│  ┌─────────────────────┐              ┌─────────────────────┐    │
+│  │  Writer Instance    │              │  Reader Instances   │    │
+│  │  Reader Instances   │────────────▶|  (Read-Only)         │   │
+│  │                     │  Replication │                     │    │
+│  │  Cluster Volume     │  < 1 second  │  Cluster Volume     │    │
+│  │  (Read-Write)       │              │  (Read-Only)        │    │
+│  └─────────────────────┘              └─────────────────────┘    │
+│                                                                  │
+│  Additional Secondary Regions (optional, up to 5 total):         │
+│  ┌─────────────────────┐             ┌─────────────────────┐     │
+│  │  ap-south-1         │             │  ap-northeast-1     │     │
+│  │  Reader Instances   │             │  Reader Instances   │     │
+│  │  Cluster Volume     │             │  Cluster Volume     │     │
+│  └─────────────────────┘             └─────────────────────┘     │
+│                                                                  │
+│  Features:                                                       │
+│  • RPO: < 1 second (data loss)                                   │
+│  • RTO: < 1 minute (recovery time)                               │
+│  • Write forwarding: Route writes to primary from any region     │
+│  • Low-latency reads: Local reads in each region                 │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### Serverless Architecture
+
+**Serverless v2**:
+```
+Application ──▶ Aurora Proxy ──▶ Scaling Layer ──▶ Cluster Volume
+                                 (0.5-128 ACUs)
+                                 Scales in seconds
+```
+
+**Serverless v1**:
+```
+Application ──▶ Aurora Proxy ──▶ Warm Pool ──▶ Cluster Volume
+                                 (2-256 ACUs)
+                                 Auto-pause after inactivity
+```
+
+### Endpoints and Connection Routing
+
+| Endpoint Type | Use Case | Behavior |
+|---------------|----------|----------|
+| **Cluster Endpoint** | Write operations | Always routes to current writer instance |
+| **Reader Endpoint** | Read scaling | Load-balances across all reader instances |
+| **Instance Endpoint** | Direct access | Connects to specific instance (writer or reader) |
+| **Custom Endpoint** | Workload isolation | Routes to user-defined subset of instances |
+
+**Connection Example**:
+```
+Write Traffic → Cluster Endpoint → Writer Instance → Cluster Volume
+Read Traffic  → Reader Endpoint  → Reader Instance → Cluster Volume
+Analytics     → Custom Endpoint  → Specific Readers → Cluster Volume
+```
+
 ## Supported Configurations
 
 ### Engine Modes
