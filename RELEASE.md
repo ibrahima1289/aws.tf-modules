@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-03-01)
+- New: [DynamoDB module](modules/databases/non-relational/aws_dynamodb/README.md) and [wrapper](tf-plans/aws_dynamodb/README.md) added—supports serverless NoSQL tables with on-demand and provisioned billing modes; includes Global Secondary Indexes (GSI), Local Secondary Indexes (LSI), DynamoDB Streams, Time to Live (TTL), point-in-time recovery, and global tables with multi-region replication.
+- Docs: Comprehensive READMEs with detailed variable tables for table configuration, billing modes (on-demand vs provisioned), auto-scaling, encryption (AWS-owned or customer-managed KMS keys), and index types; includes table classes (Standard/IA), deletion protection, and import from S3 capabilities.
+- Wrapper: Simplified interface with example `terraform.tfvars` demonstrating 5 deployment scenarios (simple on-demand table with GSI, composite primary key with LSI/GSI, provisioned capacity with auto-scaling, global table with multi-region replication, and analytics table with projected attributes).
+- Consistency: Module follows established patterns (multi-resource maps, dynamic blocks with safe defaults, `CreatedDate` tagging) and supports all DynamoDB features including streams for event-driven architectures, TTL for automatic item expiration, PITR for backups, and global tables for active-active multi-region deployments.
+
 ## Repository Updates (2026-02-23)
 - New: [Aurora module](modules/databases/relational/aws_aurora/README.md) and [wrapper](tf-plans/aws_aurora/README.md) added—supports Aurora MySQL and Aurora PostgreSQL with provisioned clusters, Serverless v1, Serverless v2, and global databases; includes cluster-based architecture with configurable read replicas, auto-scaling, backtrack (MySQL only), I/O-Optimized storage, and Data API support.
 - Docs: Comprehensive READMEs with detailed comparison tables (Aurora vs RDS), engine modes (provisioned/serverless/parallelquery/global), and variable tables for cluster/instance configurations; includes DB subnet groups, cluster parameter groups, instance parameter groups, and global cluster setup.
