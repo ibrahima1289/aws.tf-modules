@@ -32,7 +32,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 | 🟤 **EFS** | [aws-efs.md](modules/storage/aws_efs/aws-efs.md) | Pay for storage used | • Standard: $0.30/GB/month<br>• Infrequent Access: $0.025/GB/month<br>• 100 GB Standard = $30/month<br>• 1 TB with lifecycle (20% IA) = $300 × 0.8 + $25 × 0.2 = $245/month |
 | 🔴 **FSx for Windows** | [aws-fsx-windows.md](modules/storage/aws_fsx/aws_fsx_windows/aws-fsx-windows.md) | Per GB-month + throughput | • SSD: $0.13/GB/month<br>• HDD: $0.013/GB/month<br>• 1 TB SSD + 64 MB/s = $133.12 + $36 = $169.12/month |
 | 🔴 **FSx for Lustre** | [aws-fsx-lustre.md](modules/storage/aws_fsx/aws_fsx_lustre/aws-fsx-lustre.md) | Per GB-month | • Scratch: $0.140/GB/month<br>• Persistent (125 MB/s/TiB): $0.145/GB/month<br>• 10 TB persistent = $1,484/month |
-| 🟤 **Storage Gateway** | [aws-storage-gateway.md](modules/storage/aws_storage_gateway/aws-storage-gateway.md) | Gateway + storage | • Gateway: Free (run on your hardware)<br>• S3 storage: Standard S3 pricing<br>• Data transfer: $0.09/GB out to on-premises |
+| 🟤 **Storage Gateway** | [aws-storage-gateway.md](modules/storage/aws-storage-gateway/aws-storage-gateway.md) | Gateway + storage | • Gateway: Free (run on your hardware)<br>• S3 storage: Standard S3 pricing<br>• Data transfer: $0.09/GB out to on-premises |
 
 ## Database Services
 
@@ -42,7 +42,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 | 🔴 **Aurora** | [aws-aurora.md](modules/databases/relational/aws_aurora/aws-aurora.md) | Instance + I/O + storage | **Free Tier (12 months):** 750 hours/month of db.t3.small or db.t4g.small + 20 GB storage<br>• **Provisioned:** db.r6g.large = $0.29/hour = $211.70/month<br>• db.r6i.xlarge = $0.58/hour = $423.40/month<br>• Storage: $0.10/GB/month (auto-scales to 128 TB)<br>• I/O: $0.20 per 1M requests<br>• **I/O-Optimized:** ~40% higher instance cost, unlimited I/O included<br>• **Serverless v2:** $0.12 per ACU-hour; 2 ACUs = $0.24/hour = $175.20/month<br>• **Serverless v1:** $0.06 per ACU-hour; 4 ACUs = $0.24/hour = $175.20/month; no I/O charges<br>• **Backup:** $0.021/GB/month (beyond retention period)<br>• Example Provisioned: 2-node cluster (r6g.large) + 200GB + 50M I/O = $423.40 + $20 + $10 = $453.40/month<br>• Example Serverless v2: 1 writer + 1 reader (avg 2 ACUs each) = $350.40/month + storage/I/O<br>• Example I/O-Optimized: 2-node cluster (r6g.large) + 200GB = ~$593.20 + $20 = $613.20/month (no I/O charges) |
 | 🟤 **DynamoDB** | [aws-dynamodb.md](modules/databases/non-relational/aws_dynamodb/aws-dynamodb.md) | On-demand or provisioned | **Free Tier (Always Free):** 25 GB storage + 25 WCU + 25 RCU + 2.5M stream reads<br>• **On-Demand:** $1.25 per million write requests, $0.25 per million reads<br>• 10M writes + 50M reads = $12.50 + $12.50 = $25<br>• **Provisioned:** $0.00065/hour per WCU = $0.47/month, $0.00013/hour per RCU = $0.09/month<br>• 10 WCU + 50 RCU = $4.70 + $4.50 = $9.20/month<br>• Storage: $0.25/GB/month<br>• **Global Tables:** Same pricing + data transfer costs<br>• **Streams:** $0.02 per 100,000 read request units<br>• **Backups:** On-demand: $0.10/GB; continuous (PITR): $0.20/GB/month |
 | 🔴 **ElastiCache** | [aws-elasticache.md](modules/databases/non-relational/aws_elasticache/aws-elasticache.md) | Node-hour pricing | **Free Tier (12 months):** 750 hours/month cache.t2.micro or cache.t3.micro<br>• **Redis:** cache.t3.micro = $0.017/hour = $12.41/month<br>• cache.r5.large = $0.188/hour = $137.24/month<br>• cache.r6g.large = $0.209/hour = $152.57/month<br>• **Memcached:** cache.t3.medium = $0.068/hour = $49.64/month<br>• Backup storage (Redis): $0.085/GB/month<br>• 3-node cluster (r6g.large) = $457.71/month |
-| 🔴 **DocumentDB** | [aws-documentdb.md](modules/databases/non-relational/aws_documentdb/aws-documentdb.md) | Instance + I/O + storage | • db.r5.large: $0.277/hour = $202.21/month<br>• Storage: $0.10/GB/month<br>• I/O: $0.20 per 1M requests<br>• 3-node cluster + 200GB = $606.63 + $20 = $626.63/month |
+| 🔴 **DocumentDB** | [aws-documentdb.md](modules/databases/non-relational/aws_documentdb/aws-documentdb.md) | Instance + I/O + storage | **Free Tier:** None (no free tier for DocumentDB)<br>• **Instances:** db.t3.medium = $0.076/hour = $55.48/month; db.r5.large = $0.277/hour = $202.21/month; db.r6g.large = $0.261/hour = $190.53/month<br>• **Storage:** $0.10/GB/month (auto-scales, no pre-provisioning required)<br>• **I/O (standard):** $0.20 per 1M read/write I/Os<br>• **I/O-Optimized (`iopt1`):** ~25% higher instance cost, no per-I/O charges (break-even at ~1B I/Os/month)<br>• **Backup:** $0.021/GB/month (beyond the free 1× cluster storage included)<br>• **Data transfer out:** $0.09/GB (first 10 TB/month)<br>• **Example dev (1× db.t3.medium + 20 GB):** $55.48 + $2 = $57.48/month<br>• **Example prod HA (3× db.r5.large + 200 GB + 50M I/O):** $606.63 + $20 + $10 = $636.63/month<br>• **Example I/O-Optimized (3× db.r5.large + 200 GB):** ~$758.29 + $20 = $778.29/month (no I/O charges)<br>• [DocumentDB Pricing](https://aws.amazon.com/documentdb/pricing/) |
 | 🔴 **Redshift** | [aws-redshift.md](modules/databases/relational/aws_redshift/aws-redshift.md) | Node-hour pricing | • dc2.large: $0.25/hour = $182.50/month<br>• ra3.xlplus: $1.086/hour = $792.78/month<br>• 2-node ra3.4xlarge cluster = $4.344/hour = $3,171.12/month<br>• Managed storage (RA3): $0.024/GB/month |
 
 ## Networking & Content Delivery
@@ -94,6 +94,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 | 🔴 **MSK (Kafka)** | [aws-msk.md](modules/analytics/aws-msk/aws-msk.md) | Broker + storage | • kafka.t3.small: $0.048/hour = $35.04/month<br>• kafka.m5.large: $0.210/hour = $153.30/month<br>• Storage: $0.10/GB/month<br>• 3-broker cluster (m5.large) + 1 TB = $459.90 + $100 = $559.90/month |
 | 🔴 **EMR** | [aws-emr.md](modules/analytics/aws_emr/aws-emr.md) | EC2 cost + EMR charge | • EMR charge: Additional 25% of EC2 cost<br>• Example: 5 × m5.xlarge EC2 = $0.192/hour × 5 = $0.96/hour<br>• EMR fee: $0.96 × 0.25 = $0.24/hour<br>• Total: $1.20/hour = $876/month for continuous cluster |
 | 🔴 **QuickSight** | [aws-quicksight.md](modules/analytics/aws_quicksight/aws-quicksight.md) | Per user/session | • Reader: $0.30/session (max $5/month)<br>• Author: $18/month (annual), $24/month (monthly)<br>• Enterprise: $18/month reader, $24/month author<br>• 10 authors + 100 readers = $240 + $500 = $740/month |
+| 🟢 **Lake Formation** | [aws-lake-formation.md](modules/storage/aws_lake_formation/aws-lake-formation.md) | Free + governed tables | • Service: Free — pay for underlying S3, Glue, and Athena usage<br>• Governed tables: $0.025/GB-month (transaction log storage)<br>• Cross-account data sharing: Free<br>• Example: 10 TB data lake — Lake Formation adds $0/month; pay S3 ($230/month) + Athena query costs separately |
 
 ## Machine Learning & AI
 
@@ -130,9 +131,10 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 
 | Service | Documentation | Pricing Model | Cost Examples |
 |---------|--------------|---------------|---------------|
-| 🔴 **DMS** | [aws-dms.md](modules/migration_and_transfer/aws_dms/aws-dms.md) | Instance hours + storage | • dms.t3.medium: $0.073/hour = $53.29/month<br>• dms.c5.2xlarge: $0.6528/hour = $476.54/month<br>• Replication storage: $0.115/GB/month<br>• Single-AZ medium + 50 GB = $53.29 + $5.75 = $59.04/month |
-| 🟤 **DataSync** | [aws-datasync.md](modules/migration_and_transfer/aws_datasync/aws-datasync.md) | Per GB transferred | • Data copied: $0.0125/GB<br>• 10 TB transfer = $128<br>• Includes network acceleration and data validation |
-| 🔴 **Snow Family** | [aws-snow.md](modules/migration_and_transfer/aws_snow/aws-snow.md) | Device rental + shipping | • **Snowball Edge Storage:** $300 first 10 days, $30/day after<br>• **Snowcone:** $200 first 5 days, $30/day after<br>• Shipping: Included (US)<br>• 30-day project: $300 + (20 × $30) = $900 |
+| 🔴 **DMS** | [aws-database-migration.md](modules/storage/aws_database_migration/aws-database-migration.md) | Instance hours + storage | • dms.t3.medium: $0.073/hour = $53.29/month<br>• dms.c5.2xlarge: $0.6528/hour = $476.54/month<br>• Replication storage: $0.115/GB/month<br>• Single-AZ medium + 50 GB = $53.29 + $5.75 = $59.04/month |
+| 🟤 **DataSync** | [aws-datasync.md](modules/storage/aws_datasync/aws-datasync.md) | Per GB transferred | • Data copied: $0.0125/GB<br>• 10 TB transfer = $128<br>• Includes network acceleration and data validation |
+| 🔴 **Snow Family** | [aws-snow-family.md](modules/storage/aws_snow_family/aws-snow-family.md) | Device rental + shipping | • **Snowball Edge Storage:** $300 first 10 days, $30/day after<br>• **Snowcone:** $200 first 5 days, $30/day after<br>• Shipping: Included (US)<br>• 30-day project: $300 + (20 × $30) = $900 |
+| 🔴 **Transfer Family** | [aws-transfer-family.md](modules/storage/aws_transfer_family/aws-transfer-family.md) | Protocol-hour + GB transferred | • Protocol enabled: $0.30/hour per protocol<br>• Data uploaded: $0.04/GB; Data downloaded: $0.04/GB<br>• SFTP + FTPS server (730 hrs each) + 500 GB in + 100 GB out = $438 + $20 + $4 = $462/month<br>• Cost tip: Disable test/dev servers outside business hours |
 
 ## Additional Services
 
@@ -141,7 +143,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 | 🟤 **API Gateway** | [aws-api-gateway.md](modules/networking_content_delivery/aws_api_gateway/aws-api-gateway.md) | Per million requests | **Free Tier (12 months):** 1M REST API calls/month<br>• REST API: $3.50 per million requests (after free tier)<br>• HTTP API: $1.00 per million requests<br>• WebSocket: $1.00 per million messages + $0.25 per million connection minutes<br>• 10M REST calls = $31.50/month (9M billable)<br>• Caching: $0.02/hour per GB |
 | 🟤 **AppSync** | [aws-appsync.md](modules/networking_content_delivery/aws_appsync/aws-appsync.md) | Query + real-time updates | • Query/mutation: $4.00 per million<br>• Real-time updates: $2.00 per million<br>• 5M queries + 10M updates = $20 + $20 = $40/month |
 | 🔴 **Cognito** | [aws-cognito.md](modules/security_identity_compliance/aws_cognito/aws-cognito.md) | Per MAU (Monthly Active User) | **Free Tier (Always Free):** 50,000 MAUs/month<br>• 50,001-100,000: $0.0055/MAU<br>• 100,001-1,000,000: $0.0046/MAU<br>• 500K MAUs = Free (50K) + $275 + $1,840 = $2,115/month |
-| 🟤 **Backup** | [aws-backup.md](modules/management_and_governance/aws_backup/aws-backup.md) | Storage + restore | • Warm backup: $0.05/GB/month<br>• Cold backup: $0.01/GB/month<br>• Restore: $0.02/GB<br>• 1 TB warm + monthly 100 GB restore = $51.20 + $2 = $53.20/month |
+| 🟤 **Backup** | [aws-backup.md](modules/storage/aws_backup/aws-backup.md) | Storage + restore | • Warm backup: $0.05/GB/month<br>• Cold backup: $0.01/GB/month<br>• Restore: $0.02/GB<br>• 1 TB warm + monthly 100 GB restore = $51.20 + $2 = $53.20/month |
 
 ## Cost Optimization Tips
 
@@ -234,6 +236,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 - **Athena Pricing:** https://aws.amazon.com/athena/pricing/
 - **Glue Pricing:** https://aws.amazon.com/glue/pricing/
 - **Kinesis Pricing:** https://aws.amazon.com/kinesis/pricing/
+- **Lake Formation Pricing:** https://aws.amazon.com/lake-formation/pricing/
 - **MSK Pricing:** https://aws.amazon.com/msk/pricing/
 - **EMR Pricing:** https://aws.amazon.com/emr/pricing/
 - **QuickSight Pricing:** https://aws.amazon.com/quicksight/pricing/
@@ -264,6 +267,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 - **DMS Pricing:** https://aws.amazon.com/dms/pricing/
 - **DataSync Pricing:** https://aws.amazon.com/datasync/pricing/
 - **Snow Family:** https://aws.amazon.com/snow/pricing/
+- **Transfer Family Pricing:** https://aws.amazon.com/aws-transfer-family/pricing/
 
 ### Additional Services Pricing
 - **API Gateway:** https://aws.amazon.com/api-gateway/pricing/
@@ -281,6 +285,6 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 
 ---
 
-**Last Updated:** February 2026  
+**Last Updated:** March 2026  
 **Pricing Region:** US East (N. Virginia) unless otherwise specified  
 **Disclaimer:** All pricing is subject to change. Always verify current pricing using the official AWS sources listed above before making purchasing decisions.

@@ -1,5 +1,16 @@
 # Release Notes
 
+## Repository Updates (2026-03-07)
+- Docs: Service documentation written for 7 AWS storage and migration services: [Snow Family](modules/storage/aws_snow_family/aws-snow-family.md), [Backup](modules/storage/aws_backup/aws-backup.md), [DataSync](modules/storage/aws_datasync/aws-datasync.md), [Database Migration (DMS)](modules/storage/aws_database_migration/aws-database-migration.md), [Lake Formation](modules/storage/aws_lake_formation/aws-lake-formation.md), [Transfer Family](modules/storage/aws_transfer_family/aws-transfer-family.md), and [Storage Gateway](modules/storage/aws-storage-gateway/aws-storage-gateway.md).
+- Docs: Each guide covers core concepts, key components with architecture diagrams, security model, monitoring, pricing, real-world use cases, and decision guidance (when to use vs. alternatives).
+- Docs: Root README updated with documentation links for all 7 services across Storage, Analytics, and Migration & Transfer sections; pricing guide paths corrected to match actual file locations and two missing services (Transfer Family, Lake Formation) added to the pricing table.
+
+## Repository Updates (2026-03-05)
+- New: [DocumentDB module](modules/databases/non-relational/aws_documentdb/README.md) and [wrapper](tf-plans/aws_documentdb/README.md) added — supports MongoDB-compatible clusters with configurable instance counts (`instance_count`) for single-node and multi-node HA deployments; includes subnet groups, optional custom parameter groups, I/O-Optimized storage (`iopt1`), KMS encryption at rest, automated backups with point-in-time recovery, snapshot restore, and CloudWatch log exports (`audit`, `profiler`).
+- Docs: Comprehensive READMEs with architecture diagram, full variable tables for all cluster settings (engine, compute, networking, storage, backup, parameter group, and operational options); wrapper README documents three deployment patterns (dev single-node, production HA, snapshot restore).
+- Wrapper: Simplified pass-through interface with annotated `terraform.tfvars` covering dev, HA production, and snapshot-restore scenarios; promotion tiers auto-assigned so the lowest-index instance is elected primary during failover.
+- Consistency: Module follows established patterns (multi-resource `for_each` maps, `coalesce`-based safe defaults, derived `parameter_group_family` from `engine_version`, `CreatedDate`/`ManagedBy`/`Module` tagging, `create_before_destroy` on parameter groups); root README and pricing guide updated with DocumentDB links and expanded cost examples.
+
 ## Repository Updates (2026-03-01)
 - New: [DynamoDB module](modules/databases/non-relational/aws_dynamodb/README.md) and [wrapper](tf-plans/aws_dynamodb/README.md) added—supports serverless NoSQL tables with on-demand and provisioned billing modes; includes Global Secondary Indexes (GSI), Local Secondary Indexes (LSI), DynamoDB Streams, Time to Live (TTL), point-in-time recovery, and global tables with multi-region replication.
 - Docs: Comprehensive READMEs with detailed variable tables for table configuration, billing modes (on-demand vs provisioned), auto-scaling, encryption (AWS-owned or customer-managed KMS keys), and index types; includes table classes (Standard/IA), deletion protection, and import from S3 capabilities.
