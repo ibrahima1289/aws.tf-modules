@@ -1,5 +1,12 @@
 # Release Notes
 
+## Repository Updates (2026-03-11)
+- Docs: Comprehensive [AWS Migration guide](modules/management_and_governance/aws_migration/aws-migration.md) written covering AWS Application Migration Service (MGN) and the deprecated AWS Server Migration Service (SMS).
+- Docs: Full explanation of the **6 R's of AWS Migration Strategy** (Rehost, Replatform, Repurchase, Refactor, Retire, Retain) — each R includes use cases, recommended tooling, outcomes, benefits, and trade-offs.
+- Docs: Supporting sections cover AWS Migration Hub, AWS Application Discovery Service (agentless & agent-based), and AWS Database Migration Service (DMS) with a full source-to-target matrix.
+- Docs: Reference architecture diagram, migration best practices checklist, and effort/value comparison table included.
+- Docs: Root README updated — repository structure tree expanded to show all module categories; Management & Governance section added to the modules table with links to the migration guide and 6 R's strategy anchor.
+
 ## Repository Updates (2026-03-07)
 - Docs: Service documentation written for 7 AWS storage and migration services: [Snow Family](modules/storage/aws_snow_family/aws-snow-family.md), [Backup](modules/storage/aws_backup/aws-backup.md), [DataSync](modules/storage/aws_datasync/aws-datasync.md), [Database Migration (DMS)](modules/storage/aws_database_migration/aws-database-migration.md), [Lake Formation](modules/storage/aws_lake_formation/aws-lake-formation.md), [Transfer Family](modules/storage/aws_transfer_family/aws-transfer-family.md), and [Storage Gateway](modules/storage/aws-storage-gateway/aws-storage-gateway.md).
 - Docs: Each guide covers core concepts, key components with architecture diagrams, security model, monitoring, pricing, real-world use cases, and decision guidance (when to use vs. alternatives).
