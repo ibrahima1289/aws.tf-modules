@@ -3,6 +3,9 @@ name: Terraform Modules Checks
 # - Only allowed file types in module folders
 # - Terraform formatting (fmt -check)
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   # Run on pushes to main and pull requests targeting main
   # push:
