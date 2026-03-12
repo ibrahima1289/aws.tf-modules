@@ -10,7 +10,7 @@
 ```
 aws.tf-modules/
 ├─ modules/
-│  ├─ analytics/                    # Kinesis, MSK, Glue
+│  ├─ analytics/                    # Kinesis, MSK, Glue, Redshift, Athena, QuickSight, OpenSearch, EMR
 │  ├─ application_integration/      # MQ, SNS, SQS, Step Functions, EventBridge
 │  ├─ compute/                      # ALB, NLB, GWLB, ASG, EC2, Lambda, Batch
 │  ├─ databases/                    # Aurora, RDS, DynamoDB, DocumentDB, ElastiCache
