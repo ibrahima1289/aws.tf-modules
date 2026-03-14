@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-03-14)
+- New: [CloudWatch module](modules/monitoring/aws_cloudwatch/README.md) and [wrapper](tf-plans/aws_cloudwatch/README.md) — log groups, metric alarms (standard + expression-based), composite alarms, dashboards, log metric filters, and log subscription filters; multi-resource via list variables with map outputs.
+- New: [CloudWatch service guide](modules/monitoring/aws_cloudwatch/aws-cloudwatch.md) and [CloudTrail service guide](modules/monitoring/aws_cloudtrail/aws-cloudtrail.md) — architecture, key components, security best practices, and real-life use cases.
+- Docs: [Module-Service-List.md](Module-Service-List.md) updated with new Monitoring section (CloudWatch module + wrapper rows).
+- Docs: Root [README.md](README.md), [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) updated with monitoring tree entry and corrected CloudWatch/CloudTrail documentation links.
+
 ## Repository Updates (2026-03-12)
 - Docs: Added service guides for 5 Analytics services: [EMR](modules/analytics/aws_mapreduce/aws-emr.md), [Redshift](modules/analytics/aws_redshift/aws-redshift.md), [Athena](modules/analytics/aws_athena/aws-athena.md), [QuickSight](modules/analytics/aws_quicksight/aws-quicksight.md), and [OpenSearch Service](modules/analytics/aws_opensearch_service/aws-opensearch.md).
 - Docs: Each guide covers architecture, key features, security, pricing, use cases, and Terraform resource references.
