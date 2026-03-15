@@ -1,6 +1,6 @@
 # AWS CloudTrail
 
-> 📖 **Related Module:** [CloudWatch Module](../aws_cloudwatch/README.md) (for real-time alerting on trail events) | **Pricing:** [AWS CloudTrail Pricing](https://aws.amazon.com/cloudtrail/pricing/)
+> **Terraform Module:** [modules/monitoring/aws_cloudtrail](README.md) | **Wrapper:** [tf-plans/aws_cloudtrail](../../../tf-plans/aws_cloudtrail/README.md) | **Related:** [CloudWatch Module](../aws_cloudwatch/README.md) (real-time alerting on trail events) | **Pricing:** [AWS CloudTrail Pricing](https://aws.amazon.com/cloudtrail/pricing/)
 
 AWS CloudTrail is a service that enables governance, compliance, operational auditing, and risk auditing of your AWS account. CloudTrail records API calls made on your account and delivers log files to you, providing visibility into user activity, resource changes, and actions taken through the AWS Management Console, AWS SDKs, command-line tools, and other AWS services.
 

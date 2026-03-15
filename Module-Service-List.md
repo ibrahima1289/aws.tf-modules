@@ -63,7 +63,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Management & Governance | Server Migration — 6 R's | - | [6 R's Strategy](modules/management_and_governance/aws_migration/aws-migration.md#the-6-rs-of-aws-migration-strategy) | — Architectural strategy guide |
 | **Monitoring** | | | | |
 | Monitoring | CloudWatch | [CloudWatch Module](modules/monitoring/aws_cloudwatch/README.md) | [CloudWatch Overview](modules/monitoring/aws_cloudwatch/aws-cloudwatch.md) | ✅ [aws_cloudwatch_log_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) |
-| Monitoring | CloudTrail | - | [CloudTrail Overview](modules/monitoring/aws_cloudtrail/aws-cloudtrail.md) | ✅ [aws_cloudtrail](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudtrail) |
+| Monitoring | CloudTrail | [CloudTrail Module](modules/monitoring/aws_cloudtrail/README.md) | [CloudTrail Overview](modules/monitoring/aws_cloudtrail/aws-cloudtrail.md) | ✅ [aws_cloudtrail](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudtrail) |
 
 > Each module directory contains its own README file with usage instructions, input/output variables, and examples.
 
@@ -81,6 +81,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_aurora](tf-plans/aws_aurora/README.md) | Aurora | Aurora MySQL/PostgreSQL; provisioned, Serverless v1/v2, global databases; auto-scaling |
 | [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
 | [tf-plans/aws_cloudfront](tf-plans/aws_cloudfront/README.md) | CloudFront | CDN distributions; S3/custom origins; cache behaviors; SSL/TLS certificates |
+| [tf-plans/aws_cloudtrail](tf-plans/aws_cloudtrail/README.md) | CloudTrail | Trails; management events; data events (S3/Lambda/DynamoDB); standard and advanced event selectors; Insights anomaly detection; CloudWatch Logs delivery; KMS encryption; log file validation |
 | [tf-plans/aws_cloudwatch](tf-plans/aws_cloudwatch/README.md) | CloudWatch | Log groups; standard + expression-based metric alarms; composite alarms; dashboards (inline `jsonencode()` or external `.json` files via `file()`); log metric filters; log subscription filters |
 | [tf-plans/aws_documentdb](tf-plans/aws_documentdb/README.md) | DocumentDB | MongoDB-compatible clusters; multi-node HA; I/O-Optimized storage; custom parameter groups; CloudWatch log exports |
 | [tf-plans/aws_dynamodb](tf-plans/aws_dynamodb/README.md) | DynamoDB | NoSQL tables; on-demand/provisioned billing; GSI/LSI; streams, TTL, global tables |
