@@ -15,7 +15,7 @@ aws.tf-modules/
 │  ├─ compute/                      # ALB, NLB, GWLB, ASG, EC2, Lambda, Batch
 │  ├─ databases/                    # Aurora, RDS, DynamoDB, DocumentDB, ElastiCache
 │  ├─ management_and_governance/    # Migration (MGN, DMS, 6 R's)
-│  ├─ monitoring/                   # CloudWatch (log groups, alarms, dashboards, filters)
+│  ├─ monitoring/                   # CloudWatch (log groups, alarms, dashboards, filters), CloudTrail (trails, event selectors, insights)
 │  ├─ networking_content_delivery/  # VPC, Route 53, Route Table, Internet Gateway, CloudFront, API Gateway
 │  ├─ security_identity_compliance/ # IAM, KMS, Security Group
 │  └─ storage/                      # S3, Backup, Snow Family, DataSync, Storage Gateway, Transfer Family, Lake Formation
