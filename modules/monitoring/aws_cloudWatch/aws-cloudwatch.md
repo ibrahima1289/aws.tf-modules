@@ -1,5 +1,7 @@
 # Amazon CloudWatch
 
+> 🔧 **Terraform Module:** [modules/monitoring/aws_cloudwatch](README.md) | **Wrapper:** [tf-plans/aws_cloudwatch](../../../tf-plans/aws_cloudwatch/README.md) | **Pricing:** [AWS CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/)
+
 Amazon CloudWatch is a monitoring and observability service that provides data and actionable insights for AWS, hybrid, and on-premises applications and infrastructure resources. CloudWatch collects monitoring and operational data in the form of logs, metrics, and events, providing you with a unified view of your AWS resources, applications, and services.
 
 ## Core Concepts

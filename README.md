@@ -15,6 +15,7 @@ aws.tf-modules/
 │  ├─ compute/                      # ALB, NLB, GWLB, ASG, EC2, Lambda, Batch
 │  ├─ databases/                    # Aurora, RDS, DynamoDB, DocumentDB, ElastiCache
 │  ├─ management_and_governance/    # Migration (MGN, DMS, 6 R's)
+│  ├─ monitoring/                   # CloudWatch (log groups, alarms, dashboards, filters)
 │  ├─ networking_content_delivery/  # VPC, Route 53, Route Table, Internet Gateway, CloudFront, API Gateway
 │  ├─ security_identity_compliance/ # IAM, KMS, Security Group
 │  └─ storage/                      # S3, Backup, Snow Family, DataSync, Storage Gateway, Transfer Family, Lake Formation
@@ -52,7 +53,8 @@ module "vpc" {
 Wrapper plans are available under `tf-plans/`. See the full wrapper list in **[Module-Service-List.md](Module-Service-List.md#wrappers-examples)**.
 
 > All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.  
-> Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`) expose outputs as maps keyed by the resource key.
+> Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`, CloudWatch resources via `log_groups`, `metric_alarms`, `dashboards`, etc.) expose outputs as maps keyed by the resource key.  
+> CloudWatch dashboard bodies can be stored as external `.json` files under the wrapper's `dashboards/` folder and loaded via `file()` in `locals.tf`, keeping `terraform.tfvars` free of inline JSON.
 
 ## CI & Workflows
 
