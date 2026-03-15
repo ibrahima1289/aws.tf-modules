@@ -74,7 +74,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 | Service | Documentation | Pricing Model | Cost Examples |
 |---------|--------------|---------------|---------------|
 | 🟢 **IAM** | [aws-iam.md](modules/security_identity_compliance/aws_iam/aws-iam.md) | Free | • Users, groups, roles, policies: Free<br>• No charges for IAM service |
-| � **Artifact** | [aws-artifact.md](modules/security_identity_compliance/aws_artifact/aws-artifact.md) | Free | • AWS compliance reports (SOC, PCI, ISO): Free<br>• Agreements (BAA, NDA): Free<br>• No charges for downloading compliance documents |
+| 🟢 **Artifact** | [aws-artifact.md](modules/security_identity_compliance/aws_artifact/aws-artifact.md) | Free | • AWS compliance reports (SOC, PCI, ISO): Free<br>• Agreements (BAA, NDA): Free<br>• No charges for downloading compliance documents |
 | 🔴 **Audit Manager** | [aws-audit-manager.md](modules/security_identity_compliance/aws_audit_manager/aws-audit-manager.md) | Per assessment resource | • $1.25/assessment-resource/month<br>• Evidence collection: included<br>• 100 resources across 2 frameworks = $250/month |
 | 🟢 **Certificate Manager** | [aws-certificate-manager.md](modules/security_identity_compliance/aws_certificate_manager/aws-certificate-manager.md) | Free for public certs | • Public SSL/TLS certificates: Free<br>• Private CA: $400/month + $0.75 per certificate issued |
 | 🔴 **CloudHSM** | [aws-cloudhsm.md](modules/security_identity_compliance/aws_cloudHSM/aws-cloudhsm.md) | Per HSM instance-hour | • $1.60/hour per HSM = $1,168/month<br>• HA requires minimum 2 HSMs = $2,336/month<br>• No charge for cluster management |

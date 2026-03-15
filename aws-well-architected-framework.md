@@ -40,6 +40,7 @@ The AWS Well-Architected Framework helps cloud architects build secure, high-per
     *   **Network Security:** Using AWS Security Groups and Network ACLs to control traffic at the instance and subnet levels. (See `aws-security-groups.md`, `aws-nacls.md`)
     *   **Data Encryption:** Encrypting data at rest (e.g., EBS volumes with KMS, S3 objects with SSE) and in transit (e.g., TLS for network communication). (See `aws-kms.md`, `aws-ebs.md`, `aws-s3.md`)
     *   **Threat Detection:** Using Amazon GuardDuty for intelligent threat detection and AWS WAF for protecting web applications.
+    *   **Audit Logging (Traceability):** Recording all API calls and management events across your AWS account with AWS CloudTrail, providing a tamper-evident audit trail for security investigations, compliance reporting, and forensic analysis. (See `aws-cloudtrail.md`)
     *   **Incident Response:** Defining and regularly testing incident response plans, leveraging services like AWS Security Hub and AWS Config for compliance monitoring.
 
 ### 3. Reliability

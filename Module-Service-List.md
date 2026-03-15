@@ -81,7 +81,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_aurora](tf-plans/aws_aurora/README.md) | Aurora | Aurora MySQL/PostgreSQL; provisioned, Serverless v1/v2, global databases; auto-scaling |
 | [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
 | [tf-plans/aws_cloudfront](tf-plans/aws_cloudfront/README.md) | CloudFront | CDN distributions; S3/custom origins; cache behaviors; SSL/TLS certificates |
-| [tf-plans/aws_cloudwatch](tf-plans/aws_cloudwatch/README.md) | CloudWatch | Log groups; standard + expression-based metric alarms; composite alarms; dashboards; log metric filters; log subscription filters |
+| [tf-plans/aws_cloudwatch](tf-plans/aws_cloudwatch/README.md) | CloudWatch | Log groups; standard + expression-based metric alarms; composite alarms; dashboards (inline `jsonencode()` or external `.json` files via `file()`); log metric filters; log subscription filters |
 | [tf-plans/aws_documentdb](tf-plans/aws_documentdb/README.md) | DocumentDB | MongoDB-compatible clusters; multi-node HA; I/O-Optimized storage; custom parameter groups; CloudWatch log exports |
 | [tf-plans/aws_dynamodb](tf-plans/aws_dynamodb/README.md) | DynamoDB | NoSQL tables; on-demand/provisioned billing; GSI/LSI; streams, TTL, global tables |
 | [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |

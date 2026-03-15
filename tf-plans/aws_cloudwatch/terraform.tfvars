@@ -115,42 +115,10 @@ log_metric_filters = [
 ]
 
 # ─── Dashboards ──────────────────────────────────────────────────────────────
-# Minimal single-widget dashboard showing EC2 CPU.
-# For complex dashboards, build the JSON with jsonencode() in a .tf file instead.
-dashboards = [
-  {
-    name = "demo-overview"
-    body = <<JSON
-    {
-      "widgets": [
-        {
-          "type": "metric",
-          "x": 0,
-          "y": 0,
-          "width": 12,
-          "height": 6,
-          "properties": {
-            "title": "EC2 CPU Utilization",
-            "region": "us-east-1",
-            "metrics": [
-              [
-                "AWS/EC2",
-                "CPUUtilization",
-                "InstanceId",
-                "i-0123456789abcdef0"
-              ]
-            ],
-            "period": 300,
-            "stat": "Average",
-            "view": "timeSeries",
-            "stacked": false
-          }
-        }
-      ]
-    }
-    JSON
-  }
-]
+# Dashboard JSON bodies live in dashboards/*.json and are loaded by locals.tf
+# via file(). Add a .json file there and register it in locals.tf to include it.
+# Use this variable only to pass extra dashboards dynamically (e.g., from CI).
+dashboards = []
 
 # ─── Log Subscription Filters ────────────────────────────────────────────────
 # Uncomment to stream all API log events to a Lambda function for processing.

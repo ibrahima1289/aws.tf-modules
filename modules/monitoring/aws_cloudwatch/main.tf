@@ -1,17 +1,6 @@
-#############################################
-# AWS CloudWatch Module - Main              #
-# Manages: log groups, metric alarms,       #
-# composite alarms, dashboards, log metric  #
-# filters, and log subscription filters.    #
-# Multi-resource via list variables;        #
-# locals convert them to keyed maps for     #
-# safe for_each iteration.                  #
-#############################################
-
 # ─── Log Groups ──────────────────────────────────────────────────────────────
 # Creates one CloudWatch log group per entry in var.log_groups.
-# Controls retention period and optional KMS encryption at rest.
-resource "aws_cloudwatch_log_group" "this" {
+resource "aws_cloudwatch_log_group" "log_group" {
   for_each = local.log_groups_map
 
   name = each.value.name
@@ -31,8 +20,7 @@ resource "aws_cloudwatch_log_group" "this" {
 # ─── Metric Alarms ───────────────────────────────────────────────────────────
 # Creates one CloudWatch metric alarm per entry in var.metric_alarms.
 # Supports both simple single-metric alarms and expression-based alarms
-# (anomaly detection, math expressions) via metric_query blocks.
-resource "aws_cloudwatch_metric_alarm" "this" {
+resource "aws_cloudwatch_metric_alarm" "metric_alarm" {
   for_each = local.metric_alarms_map
 
   alarm_name          = each.value.alarm_name
@@ -104,7 +92,7 @@ resource "aws_cloudwatch_metric_alarm" "this" {
 # ─── Composite Alarms ────────────────────────────────────────────────────────
 # Combines multiple metric or composite alarms using a boolean alarm_rule string.
 # Example rule: ALARM("cpu-high") OR ALARM("error-rate-high")
-resource "aws_cloudwatch_composite_alarm" "this" {
+resource "aws_cloudwatch_composite_alarm" "composite_alarm" {
   for_each = local.composite_alarms_map
 
   alarm_name = each.value.alarm_name
@@ -137,7 +125,7 @@ resource "aws_cloudwatch_composite_alarm" "this" {
 # Creates a CloudWatch dashboard from a JSON body string.
 # Build the body JSON with jsonencode() in your module caller or pass a raw string.
 # Note: AWS does not support resource tags on CloudWatch dashboards.
-resource "aws_cloudwatch_dashboard" "this" {
+resource "aws_cloudwatch_dashboard" "dashboard" {
   for_each = local.dashboards_map
 
   dashboard_name = each.value.name
@@ -147,10 +135,8 @@ resource "aws_cloudwatch_dashboard" "this" {
 }
 
 # ─── Log Metric Filters ──────────────────────────────────────────────────────
-# Extracts a numeric metric from log events matching a filter pattern.
-# Useful for turning log-based events (e.g., ERROR counts) into CloudWatch metrics
-# that can then feed into metric alarms defined above.
-resource "aws_cloudwatch_log_metric_filter" "this" {
+# Extracts a numeric metric from log events matching a filter pattern (e.g., ERROR counts).
+resource "aws_cloudwatch_log_metric_filter" "log_metric_filter" {
   for_each = local.log_metric_filters_map
 
   name = each.value.name
@@ -179,7 +165,7 @@ resource "aws_cloudwatch_log_metric_filter" "this" {
 # ─── Log Subscription Filters ────────────────────────────────────────────────
 # Streams log events matching a filter pattern to a destination in real time.
 # Supported destinations: Lambda function, Kinesis Data Stream, Kinesis Firehose.
-resource "aws_cloudwatch_log_subscription_filter" "this" {
+resource "aws_cloudwatch_log_subscription_filter" "log_subscription_filter" {
   for_each = local.log_subscription_filters_map
 
   name           = each.value.name

@@ -1,0 +1,136 @@
+{
+  "widgets": [
+
+    {
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 24,
+      "height": 2,
+      "properties": {
+        "markdown": "# Demo Application — Overview Dashboard\nMonitors **EC2**, **Lambda**, and **application logs**. See the [runbook](#) for escalation steps.\n> Region: us-east-1 | Last updated: auto-refreshed"
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 2,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "EC2 CPU Utilization (%)",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stacked": false,
+        "stat": "Average",
+        "period": 300,
+        "metrics": [
+          ["AWS/EC2", "CPUUtilization", "InstanceId", "i-0123456789abcdef0",
+            { "label": "CPU %", "color": "#ff7f0e" }]
+        ],
+        "yAxis": { "left": { "min": 0, "max": 100 } },
+        "annotations": {
+          "horizontal": [
+            { "label": "Alarm threshold", "value": 80, "color": "#d62728" }
+          ]
+        }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 2,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "Lambda Invocations vs Errors (stacked area)",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stacked": true,
+        "stat": "Sum",
+        "period": 60,
+        "metrics": [
+          ["AWS/Lambda", "Invocations", "FunctionName", "demo-function",
+            { "label": "Invocations", "color": "#1f77b4" }],
+          ["AWS/Lambda", "Errors",      "FunctionName", "demo-function",
+            { "label": "Errors",       "color": "#d62728" }],
+          ["AWS/Lambda", "Throttles",   "FunctionName", "demo-function",
+            { "label": "Throttles",    "color": "#ff7f0e" }]
+        ]
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 8,
+      "width": 6,
+      "height": 4,
+      "properties": {
+        "title": "Lambda P99 Duration (ms)",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "sparkline": true,
+        "stat": "p99",
+        "period": 300,
+        "metrics": [
+          ["AWS/Lambda", "Duration", "FunctionName", "demo-function"]
+        ]
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 6,
+      "y": 8,
+      "width": 6,
+      "height": 4,
+      "properties": {
+        "title": "Lambda Error Count (1 min)",
+        "region": "us-east-1",
+        "view": "singleValue",
+        "sparkline": true,
+        "stat": "Sum",
+        "period": 60,
+        "metrics": [
+          ["AWS/Lambda", "Errors", "FunctionName", "demo-function",
+            { "color": "#d62728" }]
+        ]
+      }
+    },
+
+    {
+      "type": "alarm",
+      "x": 12,
+      "y": 8,
+      "width": 12,
+      "height": 4,
+      "properties": {
+        "title": "Alarm Status",
+        "alarms": [
+          "arn:aws:cloudwatch:us-east-1:123456789012:alarm:demo-ec2-high-cpu",
+          "arn:aws:cloudwatch:us-east-1:123456789012:alarm:demo-lambda-errors",
+          "arn:aws:cloudwatch:us-east-1:123456789012:alarm:demo-critical-composite"
+        ]
+      }
+    },
+
+    {
+      "type": "log",
+      "x": 0,
+      "y": 12,
+      "width": 24,
+      "height": 6,
+      "properties": {
+        "title": "API Error Log Summary (last 1 h)",
+        "region": "us-east-1",
+        "view": "table",
+        "query": "SOURCE '/app/demo/api' | fields @timestamp, @message | filter @message like /ERROR/ | sort @timestamp desc | limit 50",
+        "period": 3600
+      }
+    }
+
+  ]
+}

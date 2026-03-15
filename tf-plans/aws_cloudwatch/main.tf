@@ -23,7 +23,9 @@ module "cloudwatch" {
   composite_alarms = var.composite_alarms
 
   # ── Dashboards ──────────────────────────────────────────────────────────────
-  dashboards = var.dashboards
+  # JSON bodies are read from dashboards/*.json via locals; var.dashboards
+  # can still be used to pass extra dashboards programmatically.
+  dashboards = local.all_dashboards
 
   # ── Log Metric Filters ──────────────────────────────────────────────────────
   log_metric_filters = var.log_metric_filters
