@@ -2,43 +2,6 @@
 
 This wrapper consumes the [CloudWatch module](../../modules/monitoring/aws_cloudwatch/README.md) and exposes all variables for deployment. Adjust `terraform.tfvars` to configure your log groups, alarms, dashboards, and filters.
 
-## Quick Start
-
-```bash
-terraform init -upgrade
-terraform validate
-terraform plan  -var-file=terraform.tfvars
-terraform apply -var-file=terraform.tfvars
-```
-
-## Architecture
-
-```
-  terraform.tfvars
-        │
-        ▼
-  ┌────────────────────────────────────────────────────────────────┐
-  │  tf-plans/aws_cloudwatch  (wrapper)                            │
-  │                                                                │
-  │  provider.tf  ──▶  AWS provider (region)                      │
-  │  locals.tf    ──▶  created_date tag                           │
-  │  variables.tf ──▶  all input variables                        │
-  │  main.tf      ──▶  module "cloudwatch" {                      │
-  │                       source = ../../modules/monitoring/…      │
-  │                    }                                           │
-  │  outputs.tf   ──▶  expose all module outputs                  │
-  └────────────────────────────────────────────────────────────────┘
-        │
-        ▼
-  modules/monitoring/aws_cloudwatch/
-  ├─ Log Groups              (aws_cloudwatch_log_group)
-  ├─ Metric Alarms           (aws_cloudwatch_metric_alarm)
-  ├─ Composite Alarms        (aws_cloudwatch_composite_alarm)
-  ├─ Dashboards              (aws_cloudwatch_dashboard)
-  ├─ Log Metric Filters      (aws_cloudwatch_log_metric_filter)
-  └─ Log Subscription Filters (aws_cloudwatch_log_subscription_filter)
-```
-
 ---
 
 ## Required Variables

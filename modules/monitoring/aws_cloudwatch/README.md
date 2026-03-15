@@ -17,108 +17,32 @@ Creates and manages [Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudW
   AWS Services (EC2, RDS, Lambda, ECS…)
          │ emit metrics & logs
          ▼
-  ┌──────────────────────────────────────────────────────────────────────┐
-  │                      CloudWatch Module                               │
-  │                                                                      │
-  │  ┌──────────────┐   pattern    ┌────────────────────┐                │
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │                      CloudWatch Module                              │
+  │                                                                     │
+  │  ┌──────────────┐   pattern    ┌────────────────────┐               │
   │  │  Log Groups  │ ──────────▶ │  Log Metric        │               │
   │  │              │              │  Filters           │               │
   │  └──────┬───────┘              └──────────┬─────────┘               │
-  │         │ subscribe                        │ custom metric           │
-  │         ▼                                  ▼                         │
+  │         │ subscribe                       │ custom metric           │
+  │         ▼                                 ▼                         │
   │  ┌──────────────┐              ┌────────────────────┐               │
   │  │  Log Sub.    │              │   Metric Alarms    │               │
   │  │  Filters     │              └──────────┬─────────┘               │
-  │  └──────┬───────┘                         │ ALARM() / OK()           │
-  │         │                                  ▼                         │
+  │  └──────┬───────┘                         │ ALARM() / OK()          │
+  │         │                                 ▼                         │
   │         │                       ┌────────────────────┐              │
   │         │                       │  Composite Alarms  │              │
   │         │                       └──────────┬─────────┘              │
-  │         │                                   │ actions                │
-  │         ▼                                   ▼                        │
-  │  Lambda / Kinesis /            SNS Topics / Auto Scaling /           │
-  │  Firehose Destination          EC2 Actions / OpsCenter               │
-  │                                                                      │
+  │         │                                  │ actions                │
+  │         ▼                                  ▼                        │
+  │  Lambda / Kinesis /            SNS Topics / Auto Scaling /          │
+  │  Firehose Destination          EC2 Actions / OpsCenter              │
+  │                                                                     │
   │  ┌──────────────────────────────────────────────────────────────┐   │
   │  │               Dashboards (visualise all metrics)             │   │
   │  └──────────────────────────────────────────────────────────────┘   │
-  └──────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Usage
-
-```hcl
-module "cloudwatch" {
-  source = "../../modules/monitoring/aws_cloudwatch"
-
-  region = "us-east-1"
-
-  tags = {
-    project     = "my-app"
-    environment = "prod"
-    managed_by  = "terraform"
-  }
-
-  log_groups = [
-    { name = "/app/my-app/api",     retention_in_days = 30 },
-    { name = "/app/my-app/workers", retention_in_days = 14 },
-  ]
-
-  metric_alarms = [
-    {
-      alarm_name          = "prod-high-cpu"
-      comparison_operator = "GreaterThanThreshold"
-      evaluation_periods  = 3
-      threshold           = 80
-      metric_name         = "CPUUtilization"
-      namespace           = "AWS/EC2"
-      period              = 300
-      statistic           = "Average"
-      dimensions          = { AutoScalingGroupName = "prod-asg" }
-      alarm_actions       = ["arn:aws:sns:us-east-1:123456789012:alerts"]
-      treat_missing_data  = "breaching"
-    }
-  ]
-
-  composite_alarms = [
-    {
-      alarm_name  = "prod-critical"
-      alarm_rule  = "ALARM(\"prod-high-cpu\")"
-      alarm_actions = ["arn:aws:sns:us-east-1:123456789012:critical"]
-    }
-  ]
-
-  log_metric_filters = [
-    {
-      name             = "api-error-count"
-      pattern          = "ERROR"
-      log_group_name   = "/app/my-app/api"
-      metric_name      = "ApiErrorCount"
-      metric_namespace = "MyApp"
-    }
-  ]
-
-  dashboards = [
-    {
-      name = "prod-overview"
-      body = jsonencode({
-        widgets = [{
-          type   = "metric"
-          x = 0; y = 0; width = 12; height = 6
-          properties = {
-            title   = "CPU Utilization"
-            region  = "us-east-1"
-            metrics = [["AWS/EC2", "CPUUtilization", "AutoScalingGroupName", "prod-asg"]]
-            period  = 300
-            stat    = "Average"
-          }
-        }]
-      })
-    }
-  ]
-}
+  └─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
