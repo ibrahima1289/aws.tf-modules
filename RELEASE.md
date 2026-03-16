@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-03-16)
+- New: [AWS Organizations module](modules/management_and_governance/aws_organizations/README.md) — supports organization bootstrap/adoption, multi-OU hierarchy, multi-account provisioning, reusable policy creation, and policy attachments to ROOT/OU/ACCOUNT targets.
+- New: [AWS Organizations wrapper](tf-plans/aws_organizations/README.md) with full `terraform.tfvars` examples for safe adoption (`create_organization = false`) and scalable landing-zone style account structures.
+- Docs: Updated [aws-organizations.md](modules/management_and_governance/aws_organizations/aws-organizations.md), root [README.md](README.md), and [Module-Service-List.md](Module-Service-List.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) and service/module index entries to include Organizations module linkage and latest module count.
+
 ## Repository Updates (2026-03-15)
 - New: [CloudTrail module](modules/monitoring/aws_cloudtrail/README.md) and [wrapper](tf-plans/aws_cloudtrail/README.md) — multi-trail via `trails` list variable; management events, data events (S3/Lambda/DynamoDB), standard and advanced event selectors, Insights anomaly detection, CloudWatch Logs delivery, KMS encryption, and log file validation; map outputs keyed by trail name.
 - Refactor: [CloudWatch module](modules/monitoring/aws_cloudwatch/README.md) resource labels renamed from `"this"` to descriptive names in `main.tf` and `outputs.tf`; existing applied stacks require `terraform state mv` per resource to avoid destroy/recreate.

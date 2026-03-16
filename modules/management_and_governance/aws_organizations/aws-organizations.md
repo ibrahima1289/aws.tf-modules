@@ -1,5 +1,7 @@
 # AWS Organizations
 
+> 🔧 **Terraform Module:** [modules/management_and_governance/aws_organizations](README.md) | **Wrapper:** [tf-plans/aws_organizations](../../../tf-plans/aws_organizations/README.md) | **Pricing:** [AWS Organizations Pricing](https://aws.amazon.com/organizations/pricing/)
+
 AWS Organizations helps you centrally govern your environment as you grow and scale your AWS resources. Using AWS Organizations, you can programmatically create new AWS accounts and allocate resources, group accounts to organize your workflows, apply policies to accounts or groups for centralized control, and simplify billing by paying for all accounts with a single consolidated bill.
 
 ## Core Concepts

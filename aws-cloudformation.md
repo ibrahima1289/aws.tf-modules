@@ -1,5 +1,7 @@
 # AWS CloudFormation Configurations
 
+> Related governance modules: [CloudFormation service guide](modules/management_and_governance/aws_cloudFormation/aws-cloudformation.md), [AWS Organizations module](modules/management_and_governance/aws_organizations/README.md), [AWS Organizations wrapper](tf-plans/aws_organizations/README.md), and the full [Module-Service-List](Module-Service-List.md).
+
 AWS CloudFormation helps you model and set up your Amazon Web Services resources so that you can spend less time managing those resources and more time focusing on your applications that run in AWS. You create a template that describes all the AWS resources that you want (like Amazon EC2 instances or Amazon RDS DB instances), and CloudFormation takes care of provisioning and configuring those resources for you.
 
 A CloudFormation template is a JSON or YAML formatted text file. It comprises several major sections, most of which are optional, but some are essential for defining your AWS infrastructure.
