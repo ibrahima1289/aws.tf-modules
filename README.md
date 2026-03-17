@@ -14,7 +14,7 @@ aws.tf-modules/
 │  ├─ application_integration/      # MQ, SNS, SQS, Step Functions, EventBridge
 │  ├─ compute/                      # ALB, NLB, GWLB, ASG, EC2, Lambda, Batch
 │  ├─ databases/                    # Aurora, RDS, DynamoDB, DocumentDB, ElastiCache
-│  ├─ management_and_governance/    # Migration (MGN, DMS, 6 R's)
+│  ├─ management_and_governance/    # Organizations, CloudFormation, Config, Systems Manager, Migration (MGN, 6 R's)
 │  ├─ monitoring/                   # CloudWatch (log groups, alarms, dashboards, filters), CloudTrail (trails, event selectors, insights)
 │  ├─ networking_content_delivery/  # VPC, Route 53, Route Table, Internet Gateway, CloudFront, API Gateway
 │  ├─ security_identity_compliance/ # IAM, KMS, Security Group
@@ -51,6 +51,8 @@ module "vpc" {
 ## Wrappers (Examples)
 
 Wrapper plans are available under `tf-plans/`. See the full wrapper list in **[Module-Service-List.md](Module-Service-List.md#wrappers-examples)**.
+
+> Includes the [AWS Organizations wrapper](tf-plans/aws_organizations/README.md) for scalable multi-account landing zone setup.
 
 > All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.  
 > Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`, CloudWatch resources via `log_groups`, `metric_alarms`, `dashboards`, etc.) expose outputs as maps keyed by the resource key.  
