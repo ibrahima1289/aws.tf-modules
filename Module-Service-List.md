@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **132** |
-|**Terraform Modules Available** | **31** |
+|**Terraform Modules Available** | **32** |
 |**Resource Guides Available** | **130** |
 
 ---
@@ -135,7 +135,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | Inspector | - | [Inspector Overview](modules/security_identity_compliance/aws_inspector/aws-inspector.md) | ✅ [aws_inspector2_enabler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_enabler) |
 | | KMS | [KMS Module](modules/security_identity_compliance/aws_kms/README.md) | [KMS Overview](modules/security_identity_compliance/aws_kms/aws-kms.md) | ✅ [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) |
 | | Macie | - | [Macie Overview](modules/security_identity_compliance/aws_macie/aws-macie.md) | ✅ [aws_macie2_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/macie2_account) |
-| | NACLs | - | [NACLs Overview](modules/security_identity_compliance/aws_nacl/aws-nacls.md) | ✅ [aws_network_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl) |
+| | NACLs | [NACL Module](modules/security_identity_compliance/aws_nacl/README.md) | [NACLs Overview](modules/security_identity_compliance/aws_nacl/aws-nacls.md) | ✅ [aws_network_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl) |
 | | Network Firewall | - | [Network Firewall Overview](modules/security_identity_compliance/aws_network_firewall/aws-network-firewall.md) | ✅ [aws_networkfirewall_firewall](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/networkfirewall_firewall) |
 | | RAM | - | [RAM Overview](modules/security_identity_compliance/aws_ram/aws-ram.md) | ✅ [aws_ram_resource_share](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share) |
 | | Secrets Manager | - | [Secrets Manager Overview](modules/security_identity_compliance/aws_secrets_manager/aws-secrets-manager.md) | ✅ [aws_secretsmanager_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) |
@@ -182,6 +182,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_lambda](tf-plans/aws_lambda/README.md) | Lambda | Functions; Zip/Image; VPC/IAM integrations |
 | [tf-plans/aws_mq](tf-plans/aws_mq/README.md) | MQ | Message brokers; ActiveMQ/RabbitMQ |
 | [tf-plans/aws_msk](tf-plans/aws_msk/README.md) | MSK | Managed Kafka clusters; configurations |
+| [tf-plans/aws_nacl](tf-plans/aws_nacl/README.md) | NACL | Multi-NACL subnet associations; stateless ingress/egress rule sets (IPv4/IPv6) |
 | [tf-plans/aws_nlb](tf-plans/aws_nlb/README.md) | NLB | Network Load Balancer; multi-NLB via `nlbs`; cross-zone option |
 | [tf-plans/aws_organizations](tf-plans/aws_organizations/README.md) | Organizations | Organization bootstrap/adoption; multi-OU, multi-account, policies, and policy attachments |
 | [tf-plans/aws_rds](tf-plans/aws_rds/README.md) | RDS | Relational databases; MySQL/PostgreSQL/MariaDB/Oracle/SQL Server; Multi-AZ, read replicas, autoscaling |

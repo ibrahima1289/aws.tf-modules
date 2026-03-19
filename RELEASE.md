@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-03-18)
+- New: [AWS NACL module](modules/security_identity_compliance/aws_nacl/README.md) with multi-NACL support, subnet associations, IPv4/IPv6 ingress and egress rules, map-based scaling via `for_each`, and consistent tagging via `created_date` + common tags.
+- New: [AWS NACL wrapper](tf-plans/aws_nacl/README.md) with complete example files (`main.tf`, `variables.tf`, `locals.tf`, `provider.tf`, `outputs.tf`, `terraform.tfvars`) for safe, repeatable plan/apply workflows.
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md), and [modules/security_identity_compliance/aws_nacl/aws-nacls.md](modules/security_identity_compliance/aws_nacl/aws-nacls.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) to include the NACL module reference and refreshed service index coverage.
+
 ## Repository Updates (2026-03-16)
 - New: [AWS Organizations module](modules/management_and_governance/aws_organizations/README.md) — supports organization bootstrap/adoption, multi-OU hierarchy, multi-account provisioning, reusable policy creation, and policy attachments to ROOT/OU/ACCOUNT targets.
 - New: [AWS Organizations wrapper](tf-plans/aws_organizations/README.md) with full `terraform.tfvars` examples for safe adoption (`create_organization = false`) and scalable landing-zone style account structures.
