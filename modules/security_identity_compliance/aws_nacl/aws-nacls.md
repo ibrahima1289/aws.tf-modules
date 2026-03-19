@@ -1,5 +1,7 @@
 # AWS Network Access Control Lists (NACLs)
 
+> 🔧 **Terraform Module:** [modules/security_identity_compliance/aws_nacl](README.md) | **Wrapper:** [tf-plans/aws_nacl](../../../tf-plans/aws_nacl/README.md) | **Pricing:** [AWS-Services-Pricing-Guide.md](../../../AWS-Services-Pricing-Guide.md#security-identity--compliance)
+
 A Network Access Control List (NACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. NACLs evaluate traffic at the subnet boundary, making them a powerful tool for network segmentation and security.
 
 ## Core Concepts

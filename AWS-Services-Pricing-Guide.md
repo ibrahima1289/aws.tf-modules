@@ -17,7 +17,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 | Service | Documentation | Pricing Model | Cost Examples |
 |---------|--------------|---------------|---------------|
 | 🟡 **EC2** | [aws-ec2.md](modules/compute/aws_EC2s/aws-ec2/aws-ec2.md) | Per-second billing (60s minimum) | **Free Tier:** 750 hours/month of t2.micro or t3.micro (12 months)<br>• t3.medium (2 vCPU, 4 GB): $0.0416/hour = $30.37/month<br>• m5.large (2 vCPU, 8 GB): $0.096/hour = $70.08/month<br>• c5.xlarge (4 vCPU, 8 GB): $0.17/hour = $124.10/month<br>• Spot instance discount: 50-90% savings |
-| � **Auto Scaling Group** | [aws-auto-scaling-grp.md](modules/compute/aws_EC2s/aws_auto_scaling_grp/aws-auto-scaling-grp.md) | No additional charge | • Auto Scaling: Free — pay only for EC2 instances launched<br>• Scheduled, dynamic, and predictive scaling: all Free<br>• Example: ASG scaling 2→10 × m5.large = pay only for active instance-hours |
+| 🟢 **Auto Scaling Group** | [aws-auto-scaling-grp.md](modules/compute/aws_EC2s/aws_auto_scaling_grp/aws-auto-scaling-grp.md) | No additional charge | • Auto Scaling: Free — pay only for EC2 instances launched<br>• Scheduled, dynamic, and predictive scaling: all Free<br>• Example: ASG scaling 2→10 × m5.large = pay only for active instance-hours |
 | 🟡 **Lightsail** | [aws-lightsail.md](modules/compute/aws_EC2s/aws_lightsail/aws-lightsail.md) | Fixed monthly bundle | • $3.50/month (512 MB RAM, 1 vCPU, 20 GB SSD, 1 TB transfer)<br>• $5/month (1 GB RAM, 1 vCPU, 40 GB SSD, 2 TB transfer)<br>• $10/month (2 GB RAM, 1 vCPU, 60 GB SSD, 3 TB transfer)<br>• $40/month (8 GB RAM, 2 vCPU, 160 GB SSD, 5 TB transfer) |
 | 🟢 **Image Builder** | [aws-image-builder.md](modules/compute/aws_EC2s/aws_image_builder/aws-image-builder.md) | No additional charge | • Image Builder: Free — pay for EC2 build instances + S3/EBS AMI storage<br>• 1-hour build on c5.large = $0.085 + snapshot storage cost |
 | 🟡 **Lambda** | [aws-lambda.md](modules/compute/aws_serverless/aws_lambda/aws-lambda.md) | Per request + duration | **Free Tier (Always Free):** 1M requests/month + 400,000 GB-seconds/month<br>• $0.20 per 1M requests (after free tier)<br>• $0.0000166667 per GB-second<br>• 10M requests × 128MB × 200ms = $3.33/month (9M billable) |
@@ -79,7 +79,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 | 🟢 **Certificate Manager** | [aws-certificate-manager.md](modules/security_identity_compliance/aws_certificate_manager/aws-certificate-manager.md) | Free for public certs | • Public SSL/TLS certificates: Free<br>• Private CA: $400/month + $0.75 per certificate issued |
 | 🔴 **CloudHSM** | [aws-cloudhsm.md](modules/security_identity_compliance/aws_cloudHSM/aws-cloudhsm.md) | Per HSM instance-hour | • $1.60/hour per HSM = $1,168/month<br>• HA requires minimum 2 HSMs = $2,336/month<br>• No charge for cluster management |
 | 🟢 **Security Groups** | [aws-security-groups.md](modules/security_identity_compliance/aws_security_group/aws-security-groups.md) | Free | • Security groups and rules: Free<br>• Pay only for traffic through associated resources |
-| 🟢 **NACLs** | [aws-nacls.md](modules/security_identity_compliance/aws_nacl/aws-nacls.md) | Free | • Network ACLs and rules: Free<br>• Stateless filtering at subnet level; no additional charges |
+| 🟢 **NACLs** | [aws-nacls.md](modules/security_identity_compliance/aws_nacl/aws-nacls.md) · [Module](modules/security_identity_compliance/aws_nacl/README.md) | Free | • Network ACLs and rules: Free<br>• Stateless filtering at subnet level; no additional charges |
 | 🟡 **KMS** | [aws-kms.md](modules/security_identity_compliance/aws_kms/aws-kms.md) | Per key + requests | • Customer managed key: $1/month<br>• Requests: $0.03 per 10,000 (symmetric)<br>• 10 keys + 1M requests/month = $10 + $3 = $13/month<br>• Asymmetric key requests: $0.15 per 10,000 |
 | 🟡 **Secrets Manager** | [aws-secrets-manager.md](modules/security_identity_compliance/aws_secrets_manager/aws-secrets-manager.md) | Per secret + API calls | • Secret: $0.40/month<br>• API calls: $0.05 per 10,000<br>• 50 secrets + 500K API calls = $20 + $2.50 = $22.50/month |
 | 🟡 **WAF** | [aws-waf.md](modules/security_identity_compliance/aws_waf/aws-waf.md) | Web ACL + rules + requests | • Web ACL: $5/month<br>• Rule: $1/month each<br>• Requests: $0.60 per million<br>• 2 ACLs + 10 rules + 100M requests = $10 + $10 + $60 = $80/month |
@@ -264,11 +264,13 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 - **Storage Gateway:** https://aws.amazon.com/storagegateway/pricing/
 
 ### Database Service Pricing
-- **RDS Pricing:** https://aws.amazon.com/rds/pricing/- **RDS MySQL Pricing:** https://aws.amazon.com/rds/mysql/pricing/
+- **RDS Pricing:** https://aws.amazon.com/rds/pricing/
+- **RDS MySQL Pricing:** https://aws.amazon.com/rds/mysql/pricing/
 - **RDS PostgreSQL Pricing:** https://aws.amazon.com/rds/postgresql/pricing/
 - **RDS MariaDB Pricing:** https://aws.amazon.com/rds/mariadb/pricing/
 - **RDS Oracle Pricing:** https://aws.amazon.com/rds/oracle/pricing/
-- **RDS SQL Server Pricing:** https://aws.amazon.com/rds/sqlserver/pricing/- **Aurora Pricing:** https://aws.amazon.com/rds/aurora/pricing/
+- **RDS SQL Server Pricing:** https://aws.amazon.com/rds/sqlserver/pricing/
+- **Aurora Pricing:** https://aws.amazon.com/rds/aurora/pricing/
 - **DynamoDB Pricing:** https://aws.amazon.com/dynamodb/pricing/
 - **ElastiCache Pricing:** https://aws.amazon.com/elasticache/pricing/
 - **DocumentDB Pricing:** https://aws.amazon.com/documentdb/pricing/
@@ -404,6 +406,6 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 
 ---
 
-**Last Updated:** March 2026  
+**Last Updated:** March 18, 2026  
 **Pricing Region:** US East (N. Virginia) unless otherwise specified  
 **Disclaimer:** All pricing is subject to change. Always verify current pricing using the official AWS sources listed above before making purchasing decisions.
