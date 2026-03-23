@@ -15,6 +15,7 @@ variable "certificates" {
     key                                         = string
     type                                        = optional(string, "AMAZON_ISSUED")
     domain_name                                 = optional(string, "")
+    certificate_authority_arn                   = optional(string, "")
     validation_method                           = optional(string, "DNS")
     subject_alternative_names                   = optional(list(string), [])
     key_algorithm                               = optional(string, "RSA_2048")
@@ -35,21 +36,21 @@ variable "certificates" {
 
   validation {
     condition = alltrue([
-      for c in var.certificates : contains(["AMAZON_ISSUED", "IMPORTED"], upper(c.type))
+      for c in var.certificates : contains(["AMAZON_ISSUED", "PRIVATE_ISSUED", "IMPORTED"], upper(c.type))
     ])
-    error_message = "type must be AMAZON_ISSUED or IMPORTED."
+    error_message = "type must be AMAZON_ISSUED, PRIVATE_ISSUED, or IMPORTED."
   }
 
   validation {
     condition = alltrue([
       for c in var.certificates : upper(c.type) == "IMPORTED" || trimspace(c.domain_name) != ""
     ])
-    error_message = "domain_name is required when type is AMAZON_ISSUED."
+    error_message = "domain_name is required when type is AMAZON_ISSUED or PRIVATE_ISSUED."
   }
 
   validation {
     condition = alltrue([
-      for c in var.certificates : upper(c.type) == "IMPORTED" || contains(["DNS", "EMAIL"], upper(c.validation_method))
+      for c in var.certificates : upper(c.type) != "AMAZON_ISSUED" || contains(["DNS", "EMAIL"], upper(c.validation_method))
     ])
     error_message = "validation_method must be DNS or EMAIL for AMAZON_ISSUED certificates."
   }
@@ -77,7 +78,21 @@ variable "certificates" {
 
   validation {
     condition = alltrue([
-      for c in var.certificates : upper(c.type) == "AMAZON_ISSUED" || (trimspace(c.certificate_body) != "" && trimspace(c.private_key) != "")
+      for c in var.certificates : upper(c.type) == "PRIVATE_ISSUED" || trimspace(c.certificate_authority_arn) == ""
+    ])
+    error_message = "certificate_authority_arn is only valid when type is PRIVATE_ISSUED."
+  }
+
+  validation {
+    condition = alltrue([
+      for c in var.certificates : upper(c.type) != "PRIVATE_ISSUED" || trimspace(c.certificate_authority_arn) != ""
+    ])
+    error_message = "certificate_authority_arn is required when type is PRIVATE_ISSUED."
+  }
+
+  validation {
+    condition = alltrue([
+      for c in var.certificates : contains(["AMAZON_ISSUED", "PRIVATE_ISSUED"], upper(c.type)) || (trimspace(c.certificate_body) != "" && trimspace(c.private_key) != "")
     ])
     error_message = "certificate_body and private_key are required when type is IMPORTED."
   }
@@ -87,6 +102,13 @@ variable "certificates" {
       for c in var.certificates : trimspace(c.certificate_transparency_logging_preference) == "" || contains(["ENABLED", "DISABLED"], upper(c.certificate_transparency_logging_preference))
     ])
     error_message = "certificate_transparency_logging_preference must be ENABLED, DISABLED, or empty."
+  }
+
+  validation {
+    condition = alltrue([
+      for c in var.certificates : upper(c.type) == "AMAZON_ISSUED" || trimspace(c.certificate_transparency_logging_preference) == ""
+    ])
+    error_message = "certificate_transparency_logging_preference is only valid for AMAZON_ISSUED certificates."
   }
 
   validation {

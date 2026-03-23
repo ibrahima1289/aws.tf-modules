@@ -12,9 +12,13 @@ locals {
     for certificate in var.certificates : certificate.key => certificate
   }
 
-  # Step 4: Split public and imported certificates for safe argument handling.
+  # Step 4: Split public, private-issued, and imported certificates for safe argument handling.
   amazon_issued_certificates_map = {
     for key, certificate in local.certificates_map : key => certificate if upper(certificate.type) == "AMAZON_ISSUED"
+  }
+
+  private_issued_certificates_map = {
+    for key, certificate in local.certificates_map : key => certificate if upper(certificate.type) == "PRIVATE_ISSUED"
   }
 
   imported_certificates_map = {
@@ -38,4 +42,10 @@ locals {
       length(certificate.validation_record_fqdns) > 0
     )
   }
+
+  # Step 7: Track certificate types that ACM can renew automatically.
+  auto_renewing_certificate_keys = sort(concat(
+    keys(local.amazon_issued_certificates_map),
+    keys(local.private_issued_certificates_map)
+  ))
 }

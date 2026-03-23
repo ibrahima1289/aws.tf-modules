@@ -9,9 +9,10 @@ Terraform Wrapper (tf-plans/aws_certificate_manager)
                         |
                         v
       +-----------------------------------------+
-      | aws_certificate_manager module          |
-      | - multiple public/imported certificates |
-      | - optional DNS validation resources     |
+    | aws_certificate_manager module           |
+    | - public, private, imported certs        |
+    | - optional DNS validation resources      |
+    | - ACM-managed renewal for eligible certs |
       +-----------------------------------------+
                         |
                         v
@@ -30,6 +31,12 @@ Terraform Wrapper (tf-plans/aws_certificate_manager)
 |------|------|---------|-------------|
 | `tags` | `map(string)` | `{}` | Common tags for all resources |
 | `certificates` | `list(object)` | `[]` | ACM certificate definitions for map-based scaling |
+
+## Rotation Notes
+
+- `AMAZON_ISSUED` certificates renew automatically in ACM.
+- `PRIVATE_ISSUED` certificates from ACM Private CA also support ACM-managed renewal.
+- `IMPORTED` certificates do not auto-rotate; replace them manually during certificate rotation.
 
 ## Files
 

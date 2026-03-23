@@ -10,14 +10,20 @@ output "certificate_statuses" {
   value       = module.certificate_manager.certificate_statuses
 }
 
-# Step 3: Expose domains for public certificates.
-output "public_certificate_domains" {
-  description = "Map of public certificate key to primary domain name"
-  value       = module.certificate_manager.public_certificate_domains
+# Step 3: Expose domains for ACM-managed certificates.
+output "managed_certificate_domains" {
+  description = "Map of ACM-managed certificate key to primary domain name"
+  value       = module.certificate_manager.managed_certificate_domains
 }
 
 # Step 4: Expose validated certificate ARNs.
 output "validated_certificate_arns" {
   description = "Map of certificate key to certificate ARN validated by Terraform"
   value       = module.certificate_manager.validated_certificate_arns
+}
+
+# Step 5: Expose auto-renewing ACM certificate ARNs.
+output "auto_renewing_certificate_arns" {
+  description = "Map of ACM-managed certificate key to certificate ARN renewed automatically by ACM"
+  value       = module.certificate_manager.auto_renewing_certificate_arns
 }

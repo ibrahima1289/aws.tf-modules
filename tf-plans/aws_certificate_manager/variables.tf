@@ -15,6 +15,7 @@ variable "certificates" {
     key                                         = string
     type                                        = optional(string, "AMAZON_ISSUED")
     domain_name                                 = optional(string, "")
+    certificate_authority_arn                   = optional(string, "")
     validation_method                           = optional(string, "DNS")
     subject_alternative_names                   = optional(list(string), [])
     key_algorithm                               = optional(string, "RSA_2048")

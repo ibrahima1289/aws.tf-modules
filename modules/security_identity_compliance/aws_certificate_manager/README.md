@@ -1,6 +1,6 @@
 # AWS Certificate Manager Terraform Module
 
-Reusable Terraform module for AWS Certificate Manager (ACM) supporting multiple public and imported certificates with optional DNS validation resources.
+Reusable Terraform module for AWS Certificate Manager (ACM) supporting multiple public, private CA-issued, and imported certificates with optional DNS validation resources.
 
 ## Architecture
 
@@ -11,6 +11,7 @@ Terraform Module (aws_certificate_manager)
     +-----------------------------------------+
     | aws_acm_certificate                     |
     | - AMAZON_ISSUED certificates            |
+    | - PRIVATE_ISSUED certificates           |
     | - IMPORTED certificates                 |
     +-----------------------------------------+
                  |
@@ -41,6 +42,7 @@ Terraform Module (aws_certificate_manager)
 | `key` | `string` | Yes | n/a | Unique key for map-based scaling |
 | `type` | `string` | No | `"AMAZON_ISSUED"` | `AMAZON_ISSUED` or `IMPORTED` |
 | `domain_name` | `string` | Yes (for `AMAZON_ISSUED`) | `""` | Primary domain name |
+| `certificate_authority_arn` | `string` | Yes (for `PRIVATE_ISSUED`) | `""` | ACM Private CA ARN used for managed renewal |
 | `validation_method` | `string` | No | `"DNS"` | `DNS` or `EMAIL` for `AMAZON_ISSUED` |
 | `subject_alternative_names` | `list(string)` | No | `[]` | Subject alternative names |
 | `key_algorithm` | `string` | No | `"RSA_2048"` | Public certificate key algorithm |
@@ -58,8 +60,17 @@ Terraform Module (aws_certificate_manager)
 |------|-------------|
 | `certificate_arns` | Map of certificate key to ACM certificate ARN |
 | `certificate_statuses` | Map of certificate key to ACM certificate status |
-| `public_certificate_domains` | Map of public certificate key to primary domain |
+| `managed_certificate_domains` | Map of ACM-managed certificate key to primary domain |
 | `validated_certificate_arns` | Map of certificate keys validated by Terraform |
+| `auto_renewing_certificate_arns` | Map of certificates renewed automatically by ACM |
+
+## Renewal and Rotation
+
+| Certificate Type | Auto Rotation / Renewal | Notes |
+|------|------|------|
+| `AMAZON_ISSUED` | Yes | ACM renews eligible public certificates automatically |
+| `PRIVATE_ISSUED` | Yes | ACM renews eligible private CA-issued certificates automatically |
+| `IMPORTED` | No | Replace imported certificates manually when rotating them |
 
 ## Usage
 
@@ -82,6 +93,14 @@ module "acm" {
       tags = {
         tier = "frontend"
       }
+    },
+    {
+      key                       = "internal-service"
+      type                      = "PRIVATE_ISSUED"
+      domain_name               = "svc.internal.example.com"
+      certificate_authority_arn = "arn:aws:acm-pca:us-east-1:123456789012:certificate-authority/12345678-1234-1234-1234-123456789012"
+      subject_alternative_names = ["api.internal.example.com"]
+      key_algorithm             = "RSA_2048"
     }
   ]
 }
