@@ -15,8 +15,8 @@ locals {
     for item in flatten([
       for nacl in var.nacls : [
         for subnet_id in nacl.subnet_ids : {
-          key      = "${nacl.key}|${subnet_id}"
-          nacl_key = nacl.key
+          key       = "${nacl.key}|${subnet_id}"
+          nacl_key  = nacl.key
           subnet_id = subnet_id
         }
       ]

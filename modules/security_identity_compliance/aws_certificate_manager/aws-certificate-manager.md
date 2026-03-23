@@ -1,5 +1,7 @@
 # AWS Certificate Manager (ACM)
 
+🔧 Terraform Module: [AWS Certificate Manager Module](README.md) | Wrapper: [tf-plans/aws_certificate_manager](../../../tf-plans/aws_certificate_manager/README.md) | Pricing: [AWS Services Pricing Guide](../../../AWS-Services-Pricing-Guide.md)
+
 AWS Certificate Manager (ACM) is a service that lets you easily provision, manage, and deploy public and private SSL/TLS certificates for use with AWS services and your internal connected resources. ACM removes the time-consuming manual process of purchasing, uploading, and renewing SSL/TLS certificates.
 
 ## Core Concepts

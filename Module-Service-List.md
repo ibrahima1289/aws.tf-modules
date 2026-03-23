@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **132** |
-|**Terraform Modules Available** | **32** |
+|**Terraform Modules Available** | **33** |
 |**Resource Guides Available** | **130** |
 
 ---
@@ -124,7 +124,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | VPC Lattice | - | [VPC Lattice Overview](modules/networking_content_delivery/aws_vpc_lattice/aws-vpc-lattice.md) | ✅ [aws_vpclattice_service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpclattice_service) |
 | **Security** | Artifact | - | [Artifact Overview](modules/security_identity_compliance/aws_artifact/aws-artifact.md) | — Compliance reports portal; no TF resource |
 | | Audit Manager | - | [Audit Manager Overview](modules/security_identity_compliance/aws_audit_manager/aws-audit-manager.md) | ✅ [aws_auditmanager_framework](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/auditmanager_framework) |
-| | Certificate Manager (ACM) | - | [ACM Overview](modules/security_identity_compliance/aws_certificate_manager/aws-certificate-manager.md) | ✅ [aws_acm_certificate](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate) |
+| | Certificate Manager (ACM) | [Certificate Manager Module](modules/security_identity_compliance/aws_certificate_manager/README.md) | [ACM Overview](modules/security_identity_compliance/aws_certificate_manager/aws-certificate-manager.md) | ✅ [aws_acm_certificate](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate) |
 | | CloudHSM | - | [CloudHSM Overview](modules/security_identity_compliance/aws_cloudHSM/aws-cloudhsm.md) | ✅ [aws_cloudhsm_v2_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudhsm_v2_cluster) |
 | | Cognito | - | [Cognito Overview](modules/security_identity_compliance/aws_cognito/aws-cognito.md) | ✅ [aws_cognito_user_pool](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool) |
 | | Detective | - | [Detective Overview](modules/security_identity_compliance/aws_detective/aws-detective.md) | ✅ [aws_detective_graph](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/detective_graph) |
@@ -167,6 +167,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_asg](tf-plans/aws_asg/README.md) | ASG | Auto Scaling Groups; multi-ASG via `asgs`; hooks & policies |
 | [tf-plans/aws_aurora](tf-plans/aws_aurora/README.md) | Aurora | Aurora MySQL/PostgreSQL; provisioned, Serverless v1/v2, global databases; auto-scaling |
 | [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
+| [tf-plans/aws_certificate_manager](tf-plans/aws_certificate_manager/README.md) | Certificate Manager (ACM) | Multiple ACM certificates (public/imported); optional DNS validation; map-based scaling |
 | [tf-plans/aws_cloudfront](tf-plans/aws_cloudfront/README.md) | CloudFront | CDN distributions; S3/custom origins; cache behaviors; SSL/TLS certificates |
 | [tf-plans/aws_cloudtrail](tf-plans/aws_cloudtrail/README.md) | CloudTrail | Trails; management events; data events (S3/Lambda/DynamoDB); standard and advanced event selectors; Insights anomaly detection; CloudWatch Logs delivery; KMS encryption; log file validation |
 | [tf-plans/aws_cloudwatch](tf-plans/aws_cloudwatch/README.md) | CloudWatch | Log groups; standard + expression-based metric alarms; composite alarms; dashboards (inline `jsonencode()` or external `.json` files via `file()`); log metric filters; log subscription filters |
