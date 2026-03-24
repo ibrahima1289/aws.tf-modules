@@ -15,17 +15,17 @@
 # Create one or more KMS keys based on user input
 # Each entry in var.keys defines a key and its settings
 resource "aws_kms_key" "key" {
-  for_each                           = { for k in var.keys : k.name => k }
-  description                        = lookup(each.value, "description", "Managed by Terraform")
-  key_usage                          = lookup(each.value, "key_usage", "ENCRYPT_DECRYPT")
-  customer_master_key_spec           = lookup(each.value, "key_spec", "SYMMETRIC_DEFAULT")
-  policy                             = lookup(each.value, "policy_json", null)
-  deletion_window_in_days            = lookup(each.value, "deletion_window_in_days", 10)
-  enable_key_rotation                = lookup(each.value, "enable_key_rotation", false)
-  is_enabled                         = lookup(each.value, "is_enabled", true)
-  multi_region                       = lookup(each.value, "multi_region", false)
-  bypass_policy_lockout_safety_check = lookup(each.value, "bypass_policy_lockout_safety_check", false)
-  tags = merge(var.tags, lookup(each.value, "tags", {}), {
+  for_each                           = local.resolved_keys
+  description                        = each.value.description != null ? each.value.description : "Managed by Terraform"
+  key_usage                          = each.value.key_usage
+  customer_master_key_spec           = each.value.key_spec
+  policy                             = each.value.policy_json
+  deletion_window_in_days            = each.value.deletion_window_in_days != null ? each.value.deletion_window_in_days : 10
+  enable_key_rotation                = each.value.enable_key_rotation
+  is_enabled                         = each.value.is_enabled != null ? each.value.is_enabled : true
+  multi_region                       = each.value.multi_region != null ? each.value.multi_region : false
+  bypass_policy_lockout_safety_check = each.value.bypass_policy_lockout_safety_check != null ? each.value.bypass_policy_lockout_safety_check : false
+  tags = merge(var.tags, each.value.tags != null ? each.value.tags : {}, {
     created_date = local.created_date,
     Name         = each.value.name
   })
@@ -33,7 +33,7 @@ resource "aws_kms_key" "key" {
 
 # Optional aliases for keys
 resource "aws_kms_alias" "alias" {
-  for_each      = { for k in var.keys : k.name => k if contains(keys(k), "aliases") && length(k.aliases) > 0 }
+  for_each      = { for k, v in local.resolved_keys : k => v if v.aliases != null && length(v.aliases) > 0 }
   name          = format("alias/%s", each.value.aliases[0])
   target_key_id = aws_kms_key.key[each.key].key_id
 }
@@ -44,13 +44,13 @@ resource "aws_kms_alias" "alias_additional" {
   # Build a map of additional aliases (beyond the first) keyed by "key_name|alias"
   for_each = {
     for pair in flatten([
-      for k in var.keys : [
-        for a in slice(lookup(k, "aliases", []), 1, length(lookup(k, "aliases", []))) : {
-          key_name = k.name
+      for k, v in local.resolved_keys : [
+        for a in slice(v.aliases, 1, length(v.aliases)) : {
+          key_name = k
           alias    = a
         }
       ]
-      if contains(keys(k), "aliases") && length(k.aliases) > 1
+      if v.aliases != null && length(v.aliases) > 1
     ]) : format("%s|%s", pair.key_name, pair.alias) => pair
   }
   name          = format("alias/%s", each.value.alias)

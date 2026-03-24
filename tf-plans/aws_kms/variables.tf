@@ -14,6 +14,7 @@ variable "keys" {
   type = list(object({
     name                               = string
     description                        = optional(string)
+    key_type                           = optional(string, "SYMMETRIC_ENCRYPTION")
     key_usage                          = optional(string)
     key_spec                           = optional(string)
     policy_json                        = optional(string)
