@@ -17,7 +17,7 @@ aws.tf-modules/
 │  ├─ management_and_governance/    # Organizations, CloudFormation, Config, Systems Manager, Migration (MGN, 6 R's)
 │  ├─ monitoring/                   # CloudWatch (log groups, alarms, dashboards, filters), CloudTrail (trails, event selectors, insights)
 │  ├─ networking_content_delivery/  # VPC, Route 53, Route Table, Internet Gateway, CloudFront, API Gateway
-│  ├─ security_identity_compliance/ # IAM, KMS, Security Group, NACL
+│  ├─ security_identity_compliance/ # IAM, KMS, Security Group, NACL, Certificate Manager
 │  └─ storage/                      # S3, Backup, Snow Family, DataSync, Storage Gateway, Transfer Family, Lake Formation
 ├─ tf-plans/                        # Wrapper examples for each module
 │  ├─ aws_*/ 
@@ -52,7 +52,7 @@ module "vpc" {
 
 Wrapper plans are available under `tf-plans/`. See the full wrapper list in **[Module-Service-List.md](Module-Service-List.md#wrappers-examples)**.
 
-> Includes the [AWS Organizations wrapper](tf-plans/aws_organizations/README.md) for scalable multi-account landing zone setup and the [AWS NACL wrapper](tf-plans/aws_nacl/README.md) for subnet-level stateless filtering patterns.
+> Includes the [AWS Organizations wrapper](tf-plans/aws_organizations/README.md) for scalable multi-account landing zone setup, the [AWS NACL wrapper](tf-plans/aws_nacl/README.md) for subnet-level stateless filtering patterns, and the [AWS Certificate Manager wrapper](tf-plans/aws_certificate_manager/README.md) for scalable certificate provisioning.
 
 > All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.  
 > Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`, CloudWatch resources via `log_groups`, `metric_alarms`, `dashboards`, etc.) expose outputs as maps keyed by the resource key.  

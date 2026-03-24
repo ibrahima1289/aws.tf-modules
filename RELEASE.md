@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-03-23)
+- New: [AWS Certificate Manager module](modules/security_identity_compliance/aws_certificate_manager/README.md) with multi-certificate support, public and imported certificate flows, optional DNS validation resources, and map-based scaling via `for_each`.
+- New: [AWS Certificate Manager wrapper](tf-plans/aws_certificate_manager/README.md) with complete example files (`main.tf`, `variables.tf`, `locals.tf`, `provider.tf`, `outputs.tf`, `terraform.tfvars`) for repeatable plan/apply workflows.
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md), and [modules/security_identity_compliance/aws_certificate_manager/aws-certificate-manager.md](modules/security_identity_compliance/aws_certificate_manager/aws-certificate-manager.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) to include the ACM module reference and refreshed module index coverage.
+
 ## Repository Updates (2026-03-18)
 - New: [AWS NACL module](modules/security_identity_compliance/aws_nacl/README.md) with multi-NACL support, subnet associations, IPv4/IPv6 ingress and egress rules, map-based scaling via `for_each`, and consistent tagging via `created_date` + common tags.
 - New: [AWS NACL wrapper](tf-plans/aws_nacl/README.md) with complete example files (`main.tf`, `variables.tf`, `locals.tf`, `provider.tf`, `outputs.tf`, `terraform.tfvars`) for safe, repeatable plan/apply workflows.
