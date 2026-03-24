@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-03-24) — AWS Fargate
+- New: [AWS Fargate module](modules/compute/aws_serverless/aws_fargate/README.md) with ECS clusters (Container Insights, FARGATE + FARGATE_SPOT capacity providers), task definitions (awsvpc network mode, runtime platform, EFS volumes, caller-supplied container definitions JSON), and services (launch_type or capacity_provider_strategy, ALB integration, Cloud Map, deployment circuit breaker) via map-based `for_each`.
+- New: [AWS Fargate wrapper](tf-plans/aws_fargate/README.md) with container definitions loaded from `templates/` JSON files; 2 `terraform.tfvars` patterns: API service (standard FARGATE, ALB, 2 tasks) and order-processing worker (FARGATE + FARGATE_SPOT mix, 3 tasks, no load balancer).
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md) (count 39→40, Fargate module link added), and [aws-fargate.md](modules/compute/aws_serverless/aws_fargate/aws-fargate.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) Fargate row with module and wrapper reference links.
+
 ## Repository Updates (2026-03-24) — AWS Elastic Beanstalk
 - New: [AWS Elastic Beanstalk module](modules/compute/aws_elastic_beanstalk/README.md) with multiple applications and environments via `for_each`; WebServer and Worker tier support; `SingleInstance` and `LoadBalanced` environment types; convenience variables for instance type, VPC/subnets, ASG capacity, load balancer, deployment policy, and env vars; `custom_settings` escape-hatch for any EBS namespace.
 - New: [AWS Elastic Beanstalk wrapper](tf-plans/aws_elastic_beanstalk/README.md) with 3 `terraform.tfvars` patterns: Node.js staging (single-instance, t3.micro, AllAtOnce), Node.js production (load-balanced ALB, t3.small, Rolling, multi-AZ VPC, CPU scaling triggers), and Python Worker (SQS-backed Worker tier, private subnets).

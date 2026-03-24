@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **133** |
-|**Terraform Modules Available** | **39** |
+|**Terraform Modules Available** | **40** |
 |**Resource Guides Available** | **131** |
 
 ---
@@ -48,7 +48,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | EKS | - | [EKS Overview](modules/compute/aws_containers/aws_eks/aws-eks.md) | ✅ [aws_eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster) |
 | | Elastic Beanstalk | [Elastic Beanstalk Module](modules/compute/aws_elastic_beanstalk/README.md) | [Elastic Beanstalk Overview](modules/compute/aws_elastic_beanstalk/aws-elastic-beanstalk.md) | ✅ [aws_elastic_beanstalk_application](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elastic_beanstalk_application) |
 | | ELB Overview | - | [ELB Overview](modules/compute/aws_elb/aws-elb.md) | — See ALB, NLB, GWLB |
-| | Fargate | - | [Fargate Overview](modules/compute/aws_serverless/aws_fargate/aws-fargate.md) | ✅ [aws_ecs_task_definition](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) |
+| | Fargate | [Fargate Module](modules/compute/aws_serverless/aws_fargate/README.md) | [Fargate Overview](modules/compute/aws_serverless/aws_fargate/aws-fargate.md) | ✅ [aws_ecs_task_definition](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) |
 | | GWLB | [GWLB Module](modules/compute/aws_elb/aws_glb/README.md) | [GLB Overview](modules/compute/aws_elb/aws_glb/aws-glb.md) | ✅ [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) |
 | | Image Builder | - | [Image Builder Overview](modules/compute/aws_EC2s/aws_image_builder/aws-image-builder.md) | ✅ [aws_imagebuilder_image_pipeline](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/imagebuilder_image_pipeline) |
 | | Lambda | [Lambda Module](modules/compute/aws_serverless/aws_lambda/README.md) | [Lambda Overview](modules/compute/aws_serverless/aws_lambda/aws-lambda.md) | ✅ [aws_lambda_function](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) |
@@ -180,6 +180,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_elastic_beanstalk](tf-plans/aws_elastic_beanstalk/README.md) | Elastic Beanstalk | Multiple applications and environments; WebServer and Worker tiers; SingleInstance and LoadBalanced types; VPC networking; env vars; CPU-based auto-scaling; custom EBS settings escape-hatch |
 | [tf-plans/aws_eventbridge](tf-plans/aws_eventbridge/README.md) | EventBridge | Custom event buses; event-pattern and scheduled rules; multi-target routing (Lambda, SQS, SNS, Step Functions, ECS); input transformers; dead-letter queues; event archives |
 | [tf-plans/aws_elasticache](tf-plans/aws_elasticache/README.md) | ElastiCache | Redis/Memcached/Valkey clusters; replication groups; HA, cluster mode, encryption |
+| [tf-plans/aws_fargate](tf-plans/aws_fargate/README.md) | Fargate | ECS clusters with FARGATE + FARGATE_SPOT capacity providers; task definitions (JSON template files); API service with ALB; worker service with Spot cost-optimisation; deployment circuit breaker; Container Insights |
 | [tf-plans/aws_firewall_manager](tf-plans/aws_firewall_manager/README.md) | Firewall Manager | Multi-policy FMS: WAFv2, Shield Advanced, Network Firewall, DNS Firewall, Security Groups — org-wide or scoped to accounts/OUs via `include_map`/`exclude_map` |
 | [tf-plans/aws_glb](tf-plans/aws_glb/README.md) | GWLB | Gateway Load Balancer; multi-GLB via `glbs` |
 | [tf-plans/aws_iam](tf-plans/aws_iam/README.md) | IAM | Users, groups, policies; access keys & console options |
