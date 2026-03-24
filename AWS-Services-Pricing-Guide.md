@@ -103,7 +103,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 |---------|--------------|---------------|---------------|
 | 🟡 **SQS** | [aws-sqs.md](modules/application_integration/aws_sqs/aws-sqs.md) | Per request | **Free Tier (Always Free):** 1M requests/month<br>• Standard: $0.40 per million requests (after free tier)<br>• FIFO: $0.50 per million requests<br>• 100M requests = $39.60 (Standard, 99M billable) or $49.50 (FIFO)<br>• Data transfer: Standard AWS rates |
 | 🔴 **SNS** | [aws-sns.md](modules/application_integration/aws_sns/aws-sns.md) | Per request + delivery | **Free Tier (Always Free):** 1M publishes + 100K HTTP deliveries + 1,000 emails<br>• Publish: $0.50 per million requests (after free tier)<br>• Email: $2.00 per 100,000 notifications<br>• SMS: $0.00645 per message (US)<br>• Mobile push: $0.50 per million<br>• 10M publishes + 5M emails = $4.50 + $98 = $102.50/month |
-| 🔴 **EventBridge** | [aws-eventbridge.md](modules/application_integration/aws_eventbridge/aws-eventbridge.md) | Per event published | **Free Tier:** All AWS service events free, 3rd party SaaS events included<br>• Custom events: $1.00 per million<br>• Archive: $0.023/GB/month<br>• Replay: $0.023/GB<br>• 100M custom events + 100 GB archive = $100 + $2.30 = $102.30/month |
+| 🔴 **EventBridge** | [aws-eventbridge.md](modules/application_integration/aws_eventbridge/aws-eventbridge.md) · [Module](modules/application_integration/aws_eventbridge/README.md) · [Wrapper](tf-plans/aws_eventbridge/README.md) | Per event published | **Free Tier:** All AWS service events free, 3rd party SaaS events included<br>• Custom events: $1.00 per million<br>• Archive: $0.023/GB/month<br>• Replay: $0.023/GB<br>• 100M custom events + 100 GB archive = $100 + $2.30 = $102.30/month |
 | 🔴 **Step Functions** | [aws-step-functions.md](modules/application_integration/aws_step_function/aws-step-functions.md) | Per state transition | **Free Tier (Always Free):** 4,000 state transitions/month<br>• Standard: $0.025 per 1,000 state transitions (after free tier)<br>• Express: $1.00 per million requests + $0.000083 per GB-second<br>• 10M transitions = $249.90/month (Standard, 9.996M billable)<br>• 100M Express (1s, 512MB) = $100 + $41.50 = $141.50/month |
 | 🔴 **MQ** | [aws-mq.md](modules/application_integration/aws_mq/aws-mq.md) | Broker instance hours | • mq.t3.micro: $0.033/hour = $24.09/month<br>• mq.m5.large: $0.391/hour = $285.43/month<br>• Storage: $0.10/GB/month<br>• Active/standby pair: 2× instance cost<br>• Single m5.large + 20GB = $285.43 + $2 = $287.43/month |
 
@@ -209,6 +209,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 | 🟡 **Secrets Manager** | [aws-secrets-manager.md](modules/security_identity_compliance/aws_secrets_manager/aws-secrets-manager.md) · [Module](modules/security_identity_compliance/aws_secrets_manager/README.md) | Per secret per month + API calls | **Free Tier:** None<br>• $0.40 per secret per month<br>• $0.05 per 10,000 API calls<br>• 10 secrets = $4/month<br>• 10 secrets + 1M API calls = $4 + $5 = $9/month<br>• Rotation enabled: uses Lambda invocations (Lambda pricing applies)<br>• Multi-region replica: $0.40 per replica per month<br>• [Secrets Manager Pricing](https://aws.amazon.com/secrets-manager/pricing/) |
 | 🔴 **Shield Advanced** | [aws-shield.md](modules/security_identity_compliance/aws_shield/aws-shield.md) · [Module](modules/security_identity_compliance/aws_shield/README.md) | Subscription + data transfer | **Free Tier:** None<br>• $3,000/month subscription (billed annually = $36,000/year)<br>• Data transfer: $0.025/GB for protected resource traffic<br>• Includes 24/7 DRT access, attack forensics reports, cost protection for scaling spikes<br>• Proactive engagement: included with subscription<br>• 1-year minimum commitment; auto-renews unless disabled<br>• [Shield Pricing](https://aws.amazon.com/shield/pricing/) |
 | 🟢 **Budgets** | [aws-budget.md](modules/cloud_financial_management/aws_budget/aws-budget.md) · [Module](modules/cloud_financial_management/aws_budget/README.md) | Per budget per month | **Free Tier (Always Free):** First 2 budgets/account free<br>• $0.10 per additional budget per month<br>• $0.10 per budget action per month<br>• 10 budgets = (8 × $0.10) = $0.80/month<br>• 10 budgets + 5 actions = $0.80 + $0.50 = $1.30/month<br>• [Budgets Pricing](https://aws.amazon.com/aws-cost-management/aws-budgets/pricing/) |
+| 🟢 **Savings Plans** | [aws-savings-plan.md](modules/cloud_financial_management/aws_savings_plan/aws-savings-plan.md) | Hourly commitment (1- or 3-year) | **Free Tier:** No charge for the commitment itself — pay only the committed hourly rate<br>• **Compute SP (1yr, No Upfront):** ~40–66% savings vs On-Demand; covers EC2, Fargate, Lambda (any region/family)<br>• **EC2 Instance SP (1yr, All Upfront):** up to 72% savings; region + family locked<br>• **SageMaker SP (1yr, No Upfront):** ~35–64% savings on ML instances<br>• **3-year plans:** ~15% deeper discount than equivalent 1-year<br>• [Savings Plans Pricing](https://aws.amazon.com/savingsplans/pricing/) |
 
 ## Cost Optimization Tips
 
@@ -398,6 +399,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 - **AppSync Pricing:** https://aws.amazon.com/appsync/pricing/
 - **Cognito Pricing:** https://aws.amazon.com/cognito/pricing/
 - **AWS Backup:** https://aws.amazon.com/backup/pricing/
+- **Savings Plans Pricing:** https://aws.amazon.com/savingsplans/pricing/
 
 ### Additional Documentation
 - **AWS Well-Architected Framework - Cost Optimization:** https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/
@@ -405,6 +407,8 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 - **AWS Cost Explorer:** https://aws.amazon.com/aws-cost-management/aws-cost-explorer/
 - **AWS Budgets:** https://aws.amazon.com/aws-cost-management/aws-budgets/
 - **AWS Budgets Pricing:** https://aws.amazon.com/aws-cost-management/aws-budgets/pricing/
+- **AWS Savings Plans:** https://aws.amazon.com/savingsplans/
+- **Savings Plans FAQ:** https://aws.amazon.com/savingsplans/faq/
 - **AWS Trusted Advisor:** https://aws.amazon.com/premiumsupport/technology/trusted-advisor/
 - **AWS Compute Optimizer:** https://aws.amazon.com/compute-optimizer/
 

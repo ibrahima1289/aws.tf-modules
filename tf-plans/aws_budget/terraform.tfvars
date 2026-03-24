@@ -22,12 +22,14 @@ budgets = [
   # Alerts at 80% actual, 100% actual, and 110% forecasted spend.
   # Sends email alerts to the FinOps team.
   {
-    key          = "monthly-total"
-    name         = "Monthly Total Account Spend"
-    budget_type  = "COST"
-    limit_amount = 500
-    limit_unit   = "USD"
-    time_unit    = "MONTHLY"
+    key               = "monthly-total"
+    name              = "Monthly Total Account Spend"
+    budget_type       = "COST"
+    limit_amount      = 500
+    limit_unit        = "USD"
+    time_unit         = "MONTHLY"
+    time_period_start = "2026-01-01_00:00"
+    time_period_end   = "2030-12-31_00:00"
 
     notifications = [
       {

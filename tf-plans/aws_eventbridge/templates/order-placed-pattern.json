@@ -1,0 +1,7 @@
+{
+  "source": ["com.myapp.orders"],
+  "detail-type": ["OrderPlaced"],
+  "detail": {
+    "status": ["CONFIRMED"]
+  }
+}

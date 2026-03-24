@@ -1,5 +1,16 @@
 # Release Notes
 
+## Repository Updates (2026-03-24) — AWS EventBridge
+- New: [AWS EventBridge module](modules/application_integration/aws_eventbridge/README.md) with custom event buses, event-pattern and scheduled rules, multi-target routing (Lambda, SQS, SNS, Step Functions, ECS Fargate tasks), input transformers, retry policies, dead-letter queues, FIFO SQS targets, and event archives via map-based `for_each`.
+- New: [AWS EventBridge wrapper](tf-plans/aws_eventbridge/README.md) with 4 `terraform.tfvars` patterns: scheduled Lambda trigger, EC2 state-change to SQS+Lambda with DLQ and input transformer, OrderPlaced to Step Functions on a custom bus, and a disabled S3-upload rule; plus a 90-day event archive.
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md) (count 37→38, EventBridge module link added), and [aws-eventbridge.md](modules/application_integration/aws_eventbridge/aws-eventbridge.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) EventBridge row with module and wrapper reference links.
+
+## Repository Updates (2026-03-24) — AWS Savings Plans
+- Docs: New [AWS Savings Plans resource guide](modules/cloud_financial_management/aws_savings_plan/aws-savings-plan.md) covering all three plan types (Compute SP, EC2 Instance SP, SageMaker SP), term and payment options, SP vs Reserved Instances comparison, utilisation/coverage metrics, hourly application algorithm, recommendations workflow, Budgets integration patterns, and 5 real-life examples.
+- Docs: Updated [Module-Service-List.md](Module-Service-List.md) (Total Services 132→133, Resource Guides 130→131; Savings Plans row added to Cloud Financial Management section).
+- Docs: Updated [README.md](README.md) `cloud_financial_management/` comment and [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) with Savings Plans pricing row and reference links.
+
 ## Repository Updates (2026-03-24) — AWS Budgets
 - New: [AWS Budget module](modules/cloud_financial_management/aws_budget/README.md) with multi-budget support via `for_each`; COST, USAGE, RI_UTILIZATION, RI_COVERAGE, SAVINGS_PLANS_UTILIZATION, SAVINGS_PLANS_COVERAGE types; cost filters, cost types, multi-threshold notifications (email + SNS), and automated actions (IAM policy, SCP, SSM).
 - New: [AWS Budget wrapper](tf-plans/aws_budget/README.md) with 5 `terraform.tfvars` patterns: account-wide monthly spend, EC2-scoped, auto-adjusting historical, RI utilization governance, and IAM deny-all auto-remediation action.

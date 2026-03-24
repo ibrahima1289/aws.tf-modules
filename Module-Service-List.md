@@ -10,9 +10,9 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 
 | Metric | Count |
 |--------|-------|
-|**Total AWS Services Documented** | **132** |
-|**Terraform Modules Available** | **37** |
-|**Resource Guides Available** | **130** |
+|**Total AWS Services Documented** | **133** |
+|**Terraform Modules Available** | **38** |
+|**Resource Guides Available** | **131** |
 
 ---
 
@@ -21,6 +21,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | AWS Service Type | Module Name | Documentation Link | Resource Guide | Terraform |
 |------------------|-------------|-------------------|----------------|-----------|
 | **Cloud Financial Management** | Budget | [Budget Module](modules/cloud_financial_management/aws_budget/README.md) | [Budget Overview](modules/cloud_financial_management/aws_budget/aws-budget.md) | ✅ [aws_budgets_budget](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget) |
+| | Savings Plans | - | [Savings Plans Overview](modules/cloud_financial_management/aws_savings_plan/aws-savings-plan.md) | — Purchase via Console/CLI; data source: [aws_savingsplans_plan](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/savingsplans_plan) |
 | **Analytics** | Athena | - | [Athena Overview](modules/analytics/aws_athena/aws-athena.md) | ✅ [aws_athena_workgroup](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/athena_workgroup) |
 | | EMR (MapReduce) | - | [EMR Overview](modules/analytics/aws_mapreduce/aws-emr.md) | ✅ [aws_emr_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/emr_cluster) |
 | | Glue | - | [Glue Overview](modules/analytics/aws_glue/aws-glue.md) | ✅ [aws_glue_catalog_database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/glue_catalog_database) |
@@ -30,7 +31,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | OpenSearch Service | - | [OpenSearch Overview](modules/analytics/aws_opensearch_service/aws-opensearch.md) | ✅ [aws_opensearch_domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearch_domain) |
 | | QuickSight | - | [QuickSight Overview](modules/analytics/aws_quicksight/aws-quicksight.md) | ✅ [aws_quicksight_data_source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_data_source) |
 | | Redshift | - | [Redshift Overview](modules/analytics/aws_redshift/aws-redshift.md) | ✅ [aws_redshift_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/redshift_cluster) |
-| **Application Integration** | EventBridge | - | [EventBridge Overview](modules/application_integration/aws_eventbridge/aws-eventbridge.md) | ✅ [aws_cloudwatch_event_bus](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_bus) |
+| **Application Integration** | EventBridge | [EventBridge Module](modules/application_integration/aws_eventbridge/README.md) | [EventBridge Overview](modules/application_integration/aws_eventbridge/aws-eventbridge.md) | ✅ [aws_cloudwatch_event_bus](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_bus) |
 | | MQ | [MQ Module](modules/application_integration/aws_mq/README.md) | [MQ Overview](modules/application_integration/aws_mq/aws-mq.md) | ✅ [aws_mq_broker](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/mq_broker) |
 | | SNS | [SNS Module](modules/application_integration/aws_sns/README.md) | [SNS Overview](modules/application_integration/aws_sns/aws-sns.md) | ✅ [aws_sns_topic](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) |
 | | SQS | [SQS Module](modules/application_integration/aws_sqs/README.md) | [SQS Overview](modules/application_integration/aws_sqs/aws-sqs.md) | ✅ [aws_sqs_queue](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) |
@@ -176,6 +177,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_documentdb](tf-plans/aws_documentdb/README.md) | DocumentDB | MongoDB-compatible clusters; multi-node HA; I/O-Optimized storage; custom parameter groups; CloudWatch log exports |
 | [tf-plans/aws_dynamodb](tf-plans/aws_dynamodb/README.md) | DynamoDB | NoSQL tables; on-demand/provisioned billing; GSI/LSI; streams, TTL, global tables |
 | [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |
+| [tf-plans/aws_eventbridge](tf-plans/aws_eventbridge/README.md) | EventBridge | Custom event buses; event-pattern and scheduled rules; multi-target routing (Lambda, SQS, SNS, Step Functions, ECS); input transformers; dead-letter queues; event archives |
 | [tf-plans/aws_elasticache](tf-plans/aws_elasticache/README.md) | ElastiCache | Redis/Memcached/Valkey clusters; replication groups; HA, cluster mode, encryption |
 | [tf-plans/aws_firewall_manager](tf-plans/aws_firewall_manager/README.md) | Firewall Manager | Multi-policy FMS: WAFv2, Shield Advanced, Network Firewall, DNS Firewall, Security Groups — org-wide or scoped to accounts/OUs via `include_map`/`exclude_map` |
 | [tf-plans/aws_glb](tf-plans/aws_glb/README.md) | GWLB | Gateway Load Balancer; multi-GLB via `glbs` |
