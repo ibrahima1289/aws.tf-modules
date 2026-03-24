@@ -23,7 +23,10 @@ secrets = [
     recovery_window_in_days = 7
     rotation_lambda_arn     = "arn:aws:lambda:ca-central-1:123456789012:function:rotate-rds-secret"
     rotation_days           = 30
-    tags                    = { Team = "platform", App = "webapp" }
+    tags = {
+      Team = "platform",
+      App  = "webapp"
+    }
   },
 
   # Static third-party payment API key stored as a plain-text string.
@@ -33,18 +36,21 @@ secrets = [
     name          = "prod/integrations/payment-api-key"
     description   = "Payment gateway API key — update via Console or SDK, not Terraform"
     secret_string = "sk_live_REPLACE_ME"
-    tags          = { Team = "payments" }
+    tags = {
+      Team = "payments"
+    }
   },
 
   # JSON application config bundle with a cross-account read policy.
-  # The policy grants a second account read-only access.
+  # Policy is loaded from policies/app-config-policy.json via locals.tf — not set here.
   {
     key           = "app-config"
     name          = "prod/app/config"
     description   = "Application configuration bundle shared with analytics account"
     secret_string = "{\"db_host\":\"db.example.com\",\"db_port\":5432,\"cache_ttl\":300}"
-    policy        = "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::987654321098:root\"},\"Action\":[\"secretsmanager:GetSecretValue\"],\"Resource\":\"*\"}]}"
-    tags          = { Team = "platform" }
+    tags = {
+      Team = "platform"
+    }
   },
 
   # Multi-region JWT signing key replicated to us-east-1 for disaster recovery.
@@ -60,6 +66,8 @@ secrets = [
         kms_key_id = "arn:aws:kms:us-east-1:123456789012:key/mrk-ghi789"
       }
     ]
-    tags = { Team = "security" }
+    tags = {
+      Team = "security"
+    }
   }
 ]

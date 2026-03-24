@@ -15,7 +15,7 @@ This module creates and manages **AWS Secrets Manager** secrets with full suppor
 │  var.secrets (list)                                                     │
 │       │                                                                 │
 │       ▼                                                                 │
-│  locals.secrets_map ──────────────────────────────────────────┐        │
+│  locals.secrets_map ──────────────────────────────────────────┐         │
 │       │                           │                            │        │
 │       ▼                           ▼                            ▼        │
 │  aws_secretsmanager_secret    secrets_with_           secrets_with_     │
@@ -33,8 +33,8 @@ This module creates and manages **AWS Secrets Manager** secrets with full suppor
 │       │                  secret_policy                                  │
 │       │                  (resource-based policy)                        │
 │       │                                                                 │
-│  Outputs: secret_ids · secret_arns · secret_names                      │
-│           secret_version_ids · rotation_enabled_keys                   │
+│  Outputs: secret_ids · secret_arns · secret_names                       │
+│           secret_version_ids · rotation_enabled_keys                    │
 └─────────────────────────────────────────────────────────────────────────┘
 
   Downstream consumers (read secret value at runtime):
