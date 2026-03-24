@@ -18,7 +18,8 @@ variable "tags" {
 # - key_type (optional): SYMMETRIC_ENCRYPTION | RSA_ENCRYPT_DECRYPT | RSA_SIGN_VERIFY | ECC_SIGN_VERIFY | HMAC
 # - key_usage (optional): ENCRYPT_DECRYPT | SIGN_VERIFY | GENERATE_VERIFY_MAC (auto-set from key_type when omitted)
 # - key_spec (optional): SYMMETRIC_DEFAULT | RSA_2048 | RSA_3072 | RSA_4096 | ECC_NIST_P256 | ECC_NIST_P384 | ECC_NIST_P521 | ECC_SECG_P256K1 | HMAC_224 | HMAC_256 | HMAC_384 | HMAC_512
-# - policy_json (optional)
+# - policy_json (optional): Inline JSON string for the key policy
+# - policy_file (optional): Path to a JSON file containing the key policy (relative to the root module). Takes precedence over policy_json.
 # - deletion_window_in_days (optional)
 # - enable_key_rotation (optional; true only for SYMMETRIC_DEFAULT)
 # - is_enabled (optional)
@@ -35,6 +36,7 @@ variable "keys" {
     key_usage                          = optional(string)
     key_spec                           = optional(string)
     policy_json                        = optional(string)
+    policy_file                        = optional(string)
     deletion_window_in_days            = optional(number)
     enable_key_rotation                = optional(bool)
     is_enabled                         = optional(bool)

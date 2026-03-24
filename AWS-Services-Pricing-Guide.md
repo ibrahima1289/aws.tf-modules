@@ -206,6 +206,7 @@ A comprehensive reference for AWS service pricing with links to detailed documen
 | 🟡 **AppSync** | [aws-appsync.md](modules/frontend_web_and_mobile_devices/aws_appSync/aws-appsync.md) | Query + real-time updates | • Query/mutation: $4.00 per million<br>• Real-time updates: $2.00 per million<br>• 5M queries + 10M updates = $20 + $20 = $40/month |
 | 🔴 **Cognito** | [aws-cognito.md](modules/security_identity_compliance/aws_cognito/aws-cognito.md) | Per MAU (Monthly Active User) | **Free Tier (Always Free):** 50,000 MAUs/month<br>• 50,001-100,000: $0.0055/MAU<br>• 100,001-1,000,000: $0.0046/MAU<br>• 500K MAUs = Free (50K) + $275 + $1,840 = $2,115/month |
 | 🟡 **Backup** | [aws-backup.md](modules/storage/aws_backup/aws-backup.md) | Storage + restore | • Warm backup: $0.05/GB/month<br>• Cold backup: $0.01/GB/month<br>• Restore: $0.02/GB<br>• 1 TB warm + monthly 100 GB restore = $51.20 + $2 = $53.20/month |
+| 🟡 **Secrets Manager** | [aws-secrets-manager.md](modules/security_identity_compliance/aws_secrets_manager/aws-secrets-manager.md) · [Module](modules/security_identity_compliance/aws_secrets_manager/README.md) | Per secret per month + API calls | **Free Tier:** None<br>• $0.40 per secret per month<br>• $0.05 per 10,000 API calls<br>• 10 secrets = $4/month<br>• 10 secrets + 1M API calls = $4 + $5 = $9/month<br>• Rotation enabled: uses Lambda invocations (Lambda pricing applies)<br>• Multi-region replica: $0.40 per replica per month<br>• [Secrets Manager Pricing](https://aws.amazon.com/secrets-manager/pricing/) |
 
 ## Cost Optimization Tips
 

@@ -15,6 +15,7 @@ locals {
   # Resolved keys map — explicit key_usage / key_spec override key_type defaults.
   # enable_key_rotation is automatically forced to false for any non-SYMMETRIC_DEFAULT key
   # because AWS KMS does not support rotation on asymmetric or HMAC keys.
+  # policy resolution order: policy_file (file path) → policy_json (inline) → null (AWS default)
   resolved_keys = {
     for k in var.keys : k.name => merge(k, {
       key_usage = k.key_usage != null ? k.key_usage : local.key_type_defaults[k.key_type].key_usage
@@ -23,6 +24,10 @@ locals {
         (k.key_spec != null ? k.key_spec : local.key_type_defaults[k.key_type].key_spec) == "SYMMETRIC_DEFAULT"
         ? coalesce(k.enable_key_rotation, false)
         : false
+      )
+      policy_json = (
+        k.policy_file != null ? file(k.policy_file)
+        : k.policy_json
       )
     })
   }

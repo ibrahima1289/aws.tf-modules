@@ -32,6 +32,7 @@ keys = [
     enable_key_rotation     = true
     aliases                 = ["app-key"]
     deletion_window_in_days = 7
+    policy_file             = "policies/app-key-policy.json"
     tags                    = { Team = "platform" }
   },
   # CMK — Asymmetric RSA key used for digital signing and verification. Rotation not supported.
@@ -42,6 +43,7 @@ keys = [
     aliases                 = ["signing-key"]
     multi_region            = true
     deletion_window_in_days = 7
+    policy_file             = "policies/signing-key-policy.json"
     tags                    = { Team = "security" }
   },
   # CMK — Symmetric key scheduled for deletion (long deletion window for safety).
