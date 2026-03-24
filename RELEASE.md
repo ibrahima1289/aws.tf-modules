@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-03-24) — AWS Elastic Beanstalk
+- New: [AWS Elastic Beanstalk module](modules/compute/aws_elastic_beanstalk/README.md) with multiple applications and environments via `for_each`; WebServer and Worker tier support; `SingleInstance` and `LoadBalanced` environment types; convenience variables for instance type, VPC/subnets, ASG capacity, load balancer, deployment policy, and env vars; `custom_settings` escape-hatch for any EBS namespace.
+- New: [AWS Elastic Beanstalk wrapper](tf-plans/aws_elastic_beanstalk/README.md) with 3 `terraform.tfvars` patterns: Node.js staging (single-instance, t3.micro, AllAtOnce), Node.js production (load-balanced ALB, t3.small, Rolling, multi-AZ VPC, CPU scaling triggers), and Python Worker (SQS-backed Worker tier, private subnets).
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md) (count 38→39, Elastic Beanstalk module link added), and [aws-elastic-beanstalk.md](modules/compute/aws_elastic_beanstalk/aws-elastic-beanstalk.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) Elastic Beanstalk row with module and wrapper reference links.
+
 ## Repository Updates (2026-03-24) — AWS EventBridge
 - New: [AWS EventBridge module](modules/application_integration/aws_eventbridge/README.md) with custom event buses, event-pattern and scheduled rules, multi-target routing (Lambda, SQS, SNS, Step Functions, ECS Fargate tasks), input transformers, retry policies, dead-letter queues, FIFO SQS targets, and event archives via map-based `for_each`.
 - New: [AWS EventBridge wrapper](tf-plans/aws_eventbridge/README.md) with 4 `terraform.tfvars` patterns: scheduled Lambda trigger, EC2 state-change to SQS+Lambda with DLQ and input transformer, OrderPlaced to Step Functions on a custom bus, and a disabled S3-upload rule; plus a 90-day event archive.

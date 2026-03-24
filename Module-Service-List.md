@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **133** |
-|**Terraform Modules Available** | **38** |
+|**Terraform Modules Available** | **39** |
 |**Resource Guides Available** | **131** |
 
 ---
@@ -46,7 +46,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | ECR | - | [ECR Overview](modules/compute/aws_containers/aws_ecr/aws-ecr.md) | ✅ [aws_ecr_repository](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository) |
 | | ECS | - | [ECS Overview](modules/compute/aws_containers/aws_ecs/aws-ecs.md) | ✅ [aws_ecs_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster) |
 | | EKS | - | [EKS Overview](modules/compute/aws_containers/aws_eks/aws-eks.md) | ✅ [aws_eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster) |
-| | Elastic Beanstalk | - | [Elastic Beanstalk Overview](modules/compute/aws_elastic_beanstalk/aws-elastic-beanstalk.md) | ✅ [aws_elastic_beanstalk_application](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elastic_beanstalk_application) |
+| | Elastic Beanstalk | [Elastic Beanstalk Module](modules/compute/aws_elastic_beanstalk/README.md) | [Elastic Beanstalk Overview](modules/compute/aws_elastic_beanstalk/aws-elastic-beanstalk.md) | ✅ [aws_elastic_beanstalk_application](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elastic_beanstalk_application) |
 | | ELB Overview | - | [ELB Overview](modules/compute/aws_elb/aws-elb.md) | — See ALB, NLB, GWLB |
 | | Fargate | - | [Fargate Overview](modules/compute/aws_serverless/aws_fargate/aws-fargate.md) | ✅ [aws_ecs_task_definition](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) |
 | | GWLB | [GWLB Module](modules/compute/aws_elb/aws_glb/README.md) | [GLB Overview](modules/compute/aws_elb/aws_glb/aws-glb.md) | ✅ [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) |
@@ -177,6 +177,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_documentdb](tf-plans/aws_documentdb/README.md) | DocumentDB | MongoDB-compatible clusters; multi-node HA; I/O-Optimized storage; custom parameter groups; CloudWatch log exports |
 | [tf-plans/aws_dynamodb](tf-plans/aws_dynamodb/README.md) | DynamoDB | NoSQL tables; on-demand/provisioned billing; GSI/LSI; streams, TTL, global tables |
 | [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |
+| [tf-plans/aws_elastic_beanstalk](tf-plans/aws_elastic_beanstalk/README.md) | Elastic Beanstalk | Multiple applications and environments; WebServer and Worker tiers; SingleInstance and LoadBalanced types; VPC networking; env vars; CPU-based auto-scaling; custom EBS settings escape-hatch |
 | [tf-plans/aws_eventbridge](tf-plans/aws_eventbridge/README.md) | EventBridge | Custom event buses; event-pattern and scheduled rules; multi-target routing (Lambda, SQS, SNS, Step Functions, ECS); input transformers; dead-letter queues; event archives |
 | [tf-plans/aws_elasticache](tf-plans/aws_elasticache/README.md) | ElastiCache | Redis/Memcached/Valkey clusters; replication groups; HA, cluster mode, encryption |
 | [tf-plans/aws_firewall_manager](tf-plans/aws_firewall_manager/README.md) | Firewall Manager | Multi-policy FMS: WAFv2, Shield Advanced, Network Firewall, DNS Firewall, Security Groups — org-wide or scoped to accounts/OUs via `include_map`/`exclude_map` |
