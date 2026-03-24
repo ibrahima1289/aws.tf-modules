@@ -32,37 +32,32 @@ Terraform Module (aws_certificate_manager)
   +---------+
 ```
 
-## Required Variables
+## Input Variables
 
-| Name | Type | Description |
-|------|------|-------------|
-| `region` | `string` | AWS region where ACM resources are managed |
-
-## Optional Variables
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| `tags` | `map(string)` | `{}` | Common tags for all ACM resources |
-| `certificates` | `list(object)` | `[]` | List of ACM certificate definitions |
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `region` | `string` | ✅ Yes | n/a | AWS region where ACM resources are managed |
+| `tags` | `map(string)` | No | `{}` | Common tags applied to all ACM resources |
+| `certificates` | `list(object)` | No | `[]` | List of ACM certificate definitions — see object fields below |
 
 ### `certificates` object fields
 
 | Field | Type | Required | Default | Description |
 |-------|------|----------|---------|-------------|
-| `key` | `string` | ✅ Yes | n/a | Unique key for map-based scaling |
-| `type` | `string` | No | `"AMAZON_ISSUED"` | `AMAZON_ISSUED`, `PRIVATE_ISSUED`, or `IMPORTED` |
-| `domain_name` | `string` | ✅ Yes (`AMAZON_ISSUED`) | `""` | Primary domain name |
-| `certificate_authority_arn` | `string` | ✅ Yes (`PRIVATE_ISSUED`) | `""` | ACM Private CA ARN for managed renewal |
-| `validation_method` | `string` | No | `"DNS"` | `DNS` or `EMAIL` for `AMAZON_ISSUED` |
-| `subject_alternative_names` | `list(string)` | No | `[]` | Subject alternative names |
-| `key_algorithm` | `string` | No | `"RSA_2048"` | Public certificate key algorithm |
-| `certificate_transparency_logging_preference` | `string` | No | `""` | `ENABLED`, `DISABLED`, or `""` |
-| `certificate_body` | `string` | ✅ Yes (`IMPORTED`) | `""` | PEM certificate body |
-| `private_key` | `string` | ✅ Yes (`IMPORTED`) | `""` | PEM private key |
-| `certificate_chain` | `string` | No | `""` | PEM certificate chain |
-| `validate_certificate` | `bool` | No | `false` | Create ACM validation resource when `true` |
-| `validation_record_fqdns` | `list(string)` | Conditional | `[]` | Required when `validate_certificate = true` |
-| `tags` | `map(string)` | No | `{}` | Certificate-specific tags |
+| `key` | `string` | ✅ Yes | n/a | Unique identifier used as the `for_each` map key |
+| `type` | `string` | No | `"AMAZON_ISSUED"` | Certificate type: `AMAZON_ISSUED`, `PRIVATE_ISSUED`, or `IMPORTED` |
+| `domain_name` | `string` | ✅ `AMAZON_ISSUED` / `PRIVATE_ISSUED` | `""` | Primary domain name (FQDN) for the certificate |
+| `certificate_authority_arn` | `string` | ✅ `PRIVATE_ISSUED` only | `""` | ARN of the ACM Private CA used to issue and renew the certificate |
+| `validation_method` | `string` | No | `"DNS"` | Domain ownership validation method: `DNS` or `EMAIL` (`AMAZON_ISSUED` only) |
+| `subject_alternative_names` | `list(string)` | No | `[]` | Additional domain names (SANs) to include in the certificate |
+| `key_algorithm` | `string` | No | `"RSA_2048"` | Key algorithm: `RSA_2048`, `RSA_4096`, `EC_prime256v1`, `EC_secp384r1`, etc. |
+| `certificate_transparency_logging_preference` | `string` | No | `""` | CT logging: `ENABLED`, `DISABLED`, or `""` (`AMAZON_ISSUED` only) |
+| `certificate_body` | `string` | ✅ `IMPORTED` only | `""` | PEM-encoded certificate body |
+| `private_key` | `string` | ✅ `IMPORTED` only | `""` | PEM-encoded private key matching the certificate |
+| `certificate_chain` | `string` | No | `""` | PEM-encoded issuing CA certificate chain (`IMPORTED` only) |
+| `validate_certificate` | `bool` | No | `false` | When `true`, creates an `aws_acm_certificate_validation` resource |
+| `validation_record_fqdns` | `list(string)` | ✅ when `validate_certificate = true` | `[]` | DNS validation FQDNs supplied by your DNS provider after domain validation |
+| `tags` | `map(string)` | No | `{}` | Resource-level tags merged with common `tags` and `created_date` |
 
 ## Outputs
 
