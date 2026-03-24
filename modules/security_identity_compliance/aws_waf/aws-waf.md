@@ -1,5 +1,7 @@
 # AWS WAF (Web Application Firewall)
 
+> **Terraform Module:** [aws_waf](README.md) &nbsp;|&nbsp; **Wrapper Plan:** [tf-plans/aws_waf](../../../../tf-plans/aws_waf/README.md) &nbsp;|&nbsp; **Pricing:** [aws.amazon.com/waf/pricing](https://aws.amazon.com/waf/pricing/) &nbsp;|&nbsp; **AWS Docs:** [docs.aws.amazon.com/waf](https://docs.aws.amazon.com/waf/latest/developerguide/)
+
 AWS WAF is a web application firewall that helps protect your web applications or APIs from common web exploits that may affect availability, compromise security, or consume excessive resources. WAF gives you control over how traffic reaches your applications by enabling you to create security rules that block common attack patterns, such as SQL injection or cross-site scripting, and to filter traffic based on conditions that you define, such as IP addresses, HTTP headers, and custom URI strings.
 
 ## Core Concepts

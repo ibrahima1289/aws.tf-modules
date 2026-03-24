@@ -1,5 +1,7 @@
 # AWS Network Firewall
 
+> **Terraform Module:** [modules/security_identity_compliance/aws_network_firewall](README.md) &nbsp;|&nbsp; **Wrapper Plan:** [tf-plans/aws_network_firewall](../../../../tf-plans/aws_network_firewall/README.md) &nbsp;|&nbsp; **AWS Docs:** [Network Firewall Developer Guide](https://docs.aws.amazon.com/network-firewall/latest/developerguide/what-is-aws-network-firewall.html)
+
 AWS Network Firewall is a fully managed, highly available network security service for your Amazon Virtual Private Cloud (VPC). It makes it easier to deploy essential network protections for all your VPCs without the need to deploy and manage a fleet of third-party firewalls. Network Firewall provides granular control over network traffic, including intrusion prevention and detection capabilities.
 
 ## Core Concepts

@@ -9,12 +9,19 @@ locals {
     app-config = file("${path.module}/policies/app-config-policy.json")
   }
 
-  # Step: Merge file-based policies into the secrets list before passing to the module.
-  # Any secret whose key matches a policies entry gets its policy overridden with the file content.
-  # Secrets without a matching key pass through unchanged.
+  # Step: Load secret_string values from external JSON files under secrets/.
+  # Keeping secret templates in separate files makes structure changes readable
+  # and allows syntax highlighting and validation in the editor.
+  secret_strings = {
+    app-config = file("${path.module}/secrets/app-config.json")
+  }
+
+  # Step: Merge file-based policies and secret_strings into the secrets list
+  # before passing to the module. Secrets without a matching key pass through unchanged.
   secrets_with_policies = [
     for s in var.secrets : merge(s, {
-      policy = lookup(local.policies, s.key, s.policy)
+      policy        = lookup(local.policies, s.key, s.policy)
+      secret_string = lookup(local.secret_strings, s.key, s.secret_string)
     })
   ]
 }

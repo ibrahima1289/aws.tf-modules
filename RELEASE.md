@@ -1,5 +1,34 @@
 # Release Notes
 
+## Repository Updates (2026-03-24) — AWS Budgets
+- New: [AWS Budget module](modules/cloud_financial_management/aws_budget/README.md) with multi-budget support via `for_each`; COST, USAGE, RI_UTILIZATION, RI_COVERAGE, SAVINGS_PLANS_UTILIZATION, SAVINGS_PLANS_COVERAGE types; cost filters, cost types, multi-threshold notifications (email + SNS), and automated actions (IAM policy, SCP, SSM).
+- New: [AWS Budget wrapper](tf-plans/aws_budget/README.md) with 5 `terraform.tfvars` patterns: account-wide monthly spend, EC2-scoped, auto-adjusting historical, RI utilization governance, and IAM deny-all auto-remediation action.
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md) (count 36→37, new Cloud Financial Management category), and [aws-budget.md](modules/cloud_financial_management/aws_budget/aws-budget.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) with Budgets pricing row (first 2 free, $0.10/budget/month, $0.10/action/month).
+
+## Repository Updates (2026-03-23) — AWS WAF v2
+- New: [AWS WAF v2 module](modules/security_identity_compliance/aws_waf/README.md) with multi-Web-ACL support (REGIONAL and CLOUDFRONT scopes), IP sets, regex pattern sets, AWS managed rule groups, rate-based rules, IP set reference rules, geo match rules, resource associations, and Kinesis Firehose logging via map-based `for_each`.
+- New: [AWS WAF wrapper](tf-plans/aws_waf/README.md) with complete example files (`main.tf`, `variables.tf`, `locals.tf`, `provider.tf`, `outputs.tf`, `terraform.tfvars`) covering 2 Web ACLs (REGIONAL + CLOUDFRONT), 2 IP sets (blocklist + allowlist), 1 regex pattern set, rate limiting, geo-blocking, and redacted-header log configuration.
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md) (count 35→36), and [aws-waf.md](modules/security_identity_compliance/aws_waf/aws-waf.md) with Terraform module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) WAF row with module and wrapper reference links.
+
+## Repository Updates (2026-03-23) — AWS Network Firewall
+- New: [AWS Network Firewall module](modules/security_identity_compliance/aws_network_firewall/README.md) with multi-firewall support via `for_each`, all four rule source types (stateless 5-tuple, Suricata IPS strings, domain allow/deny lists, stateful 5-tuple), optional KMS encryption, and configurable logging to CloudWatch Logs, S3, or Kinesis Data Firehose.
+- New: [AWS Network Firewall wrapper](tf-plans/aws_network_firewall/README.md) with `terraform.tfvars` covering a production two-AZ HA egress firewall (stateless forwarding, domain allowlist, Suricata IPS rules, 5-tuple pass rules, dual-destination logging) and a commented dev/staging minimal pattern.
+- Docs: Updated [Module-Service-List.md](Module-Service-List.md) (count 34→35) with Network Firewall module and wrapper links; updated [aws-network-firewall.md](modules/security_identity_compliance/aws_network_firewall/aws-network-firewall.md) with module and wrapper header links.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) Network Firewall row with module link; updated root [README.md](README.md) security section and wrapper table.
+## Repository Updates (2026-03-24)
+- New: [AWS Shield Advanced module](modules/security_identity_compliance/aws_shield/README.md) with `aws_shield_subscription` (cost-gated, default disabled), `aws_shield_protection` (multi-resource via `for_each`), `aws_shield_protection_group` (ALL / BY_RESOURCE_TYPE / ARBITRARY patterns with ARN resolution at plan time), DRT role + log bucket associations, and proactive engagement with emergency contacts.
+- New: [AWS Shield Advanced wrapper](tf-plans/aws_shield/README.md) with complete example files (`main.tf`, `variables.tf`, `locals.tf`, `provider.tf`, `outputs.tf`, `terraform.tfvars`) covering ALB, CloudFront, and EIP protections; ALL and ARBITRARY protection groups; DRT access; and proactive engagement.
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md) (count 34→35), and [aws-shield.md](modules/security_identity_compliance/aws_shield/aws-shield.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) with Shield Advanced pricing row ($3,000/month subscription + $0.025/GB data transfer, 1-year commitment, no free tier).
+
+## Repository Updates (2026-03-23) — AWS Firewall Manager
+- New: [AWS Firewall Manager module](modules/security_identity_compliance/aws_firwall_manager/README.md) with multi-policy support via `for_each`, FMS admin-account designation, dynamic `include_map`/`exclude_map` scoping, and all policy types (WAFV2, SHIELD_ADVANCED, NETWORK_FIREWALL, DNS_FIREWALL, SECURITY_GROUPS, NETWORK_ACL_COMMON).
+- New: [AWS Firewall Manager wrapper](tf-plans/aws_firewall_manager/README.md) with complete example files (`main.tf`, `variables.tf`, `locals.tf`, `provider.tf`, `outputs.tf`, `terraform.tfvars`) covering three policy patterns: Shield Advanced org-wide, WAFv2 with AWS Managed Rules scoped to prod accounts, and Network Firewall for a production OU.
+- Docs: Updated [Module-Service-List.md](Module-Service-List.md) (count 34→35), [aws-firewall-manager.md](modules/security_identity_compliance/aws_firwall_manager/aws-firewall-manager.md) with module and wrapper hyperlinks, and root [README.md](README.md) security tree entry.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) Firewall Manager row with module link and refreshed Last Updated date.
+
 ## Repository Updates (2026-03-23)
 - New: [AWS Secrets Manager module](modules/security_identity_compliance/aws_secrets_manager/README.md) with multi-secret support, optional static values, Lambda-based rotation, resource-based policies, and multi-region replication via map-based `for_each`.
 - New: [AWS Secrets Manager wrapper](tf-plans/aws_secrets_manager/README.md) with complete example files (`main.tf`, `variables.tf`, `locals.tf`, `provider.tf`, `outputs.tf`, `terraform.tfvars`) covering 4 secret patterns: rotated DB credentials, static API key, JSON config with cross-account policy, and multi-region JWT signing key.

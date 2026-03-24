@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **132** |
-|**Terraform Modules Available** | **34** |
+|**Terraform Modules Available** | **36** |
 |**Resource Guides Available** | **130** |
 
 ---
@@ -20,6 +20,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 
 | AWS Service Type | Module Name | Documentation Link | Resource Guide | Terraform |
 |------------------|-------------|-------------------|----------------|-----------|
+| **Cloud Financial Management** | Budget | [Budget Module](modules/cloud_financial_management/aws_budget/README.md) | [Budget Overview](modules/cloud_financial_management/aws_budget/aws-budget.md) | ✅ [aws_budgets_budget](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget) |
 | **Analytics** | Athena | - | [Athena Overview](modules/analytics/aws_athena/aws-athena.md) | ✅ [aws_athena_workgroup](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/athena_workgroup) |
 | | EMR (MapReduce) | - | [EMR Overview](modules/analytics/aws_mapreduce/aws-emr.md) | ✅ [aws_emr_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/emr_cluster) |
 | | Glue | - | [Glue Overview](modules/analytics/aws_glue/aws-glue.md) | ✅ [aws_glue_catalog_database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/glue_catalog_database) |
@@ -129,22 +130,22 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | Cognito | - | [Cognito Overview](modules/security_identity_compliance/aws_cognito/aws-cognito.md) | ✅ [aws_cognito_user_pool](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cognito_user_pool) |
 | | Detective | - | [Detective Overview](modules/security_identity_compliance/aws_detective/aws-detective.md) | ✅ [aws_detective_graph](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/detective_graph) |
 | | Directory Service | - | [Directory Service Overview](modules/security_identity_compliance/aws_directory_service/aws-directory-service.md) | ✅ [aws_directory_service_directory](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/directory_service_directory) |
-| | Firewall Manager | - | [Firewall Manager Overview](modules/security_identity_compliance/aws_firwall_manager/aws-firewall-manager.md) | ✅ [aws_fms_admin_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/fms_admin_account) |
+| | Firewall Manager | [Firewall Manager Module](modules/security_identity_compliance/aws_firwall_manager/README.md) | [Firewall Manager Overview](modules/security_identity_compliance/aws_firwall_manager/aws-firewall-manager.md) | ✅ [aws_fms_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/fms_policy) |
 | | GuardDuty | - | [GuardDuty Overview](modules/security_identity_compliance/aws_guardDuty/aws-guardduty.md) | ✅ [aws_guardduty_detector](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) |
 | | IAM | [IAM Module](modules/security_identity_compliance/aws_iam/README.md) | [IAM Overview](modules/security_identity_compliance/aws_iam/aws-iam.md) | ✅ [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) |
 | | Inspector | - | [Inspector Overview](modules/security_identity_compliance/aws_inspector/aws-inspector.md) | ✅ [aws_inspector2_enabler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_enabler) |
 | | KMS | [KMS Module](modules/security_identity_compliance/aws_kms/README.md) | [KMS Overview](modules/security_identity_compliance/aws_kms/aws-kms.md) | ✅ [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) |
 | | Macie | - | [Macie Overview](modules/security_identity_compliance/aws_macie/aws-macie.md) | ✅ [aws_macie2_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/macie2_account) |
 | | NACLs | [NACL Module](modules/security_identity_compliance/aws_nacl/README.md) | [NACLs Overview](modules/security_identity_compliance/aws_nacl/aws-nacls.md) | ✅ [aws_network_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl) |
-| | Network Firewall | - | [Network Firewall Overview](modules/security_identity_compliance/aws_network_firewall/aws-network-firewall.md) | ✅ [aws_networkfirewall_firewall](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/networkfirewall_firewall) |
+| | Network Firewall | [Network Firewall Module](modules/security_identity_compliance/aws_network_firewall/README.md) | [Network Firewall Overview](modules/security_identity_compliance/aws_network_firewall/aws-network-firewall.md) | ✅ [aws_networkfirewall_firewall](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/networkfirewall_firewall) |
 | | RAM | - | [RAM Overview](modules/security_identity_compliance/aws_ram/aws-ram.md) | ✅ [aws_ram_resource_share](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share) |
 | | Secrets Manager | [Secrets Manager Module](modules/security_identity_compliance/aws_secrets_manager/README.md) | [Secrets Manager Overview](modules/security_identity_compliance/aws_secrets_manager/aws-secrets-manager.md) | ✅ [aws_secretsmanager_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) |
 | | Security Group | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) | [Security Groups Overview](modules/security_identity_compliance/aws_security_group/aws-security-groups.md) | ✅ [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) |
 | | Security Hub | - | [Security Hub Overview](modules/security_identity_compliance/aws_security_hub_CSPM/aws-security-hub.md) | ✅ [aws_securityhub_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_account) |
 | | Security Lake | - | [Security Lake Overview](modules/security_identity_compliance/aws_security_lake/aws-security-lake.md) | ✅ [aws_securitylake_data_lake](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securitylake_data_lake) |
-| | Shield | - | [Shield Overview](modules/security_identity_compliance/aws_shield/aws-shield.md) | ✅ [aws_shield_protection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) |
+| | Shield | [Shield Module](modules/security_identity_compliance/aws_shield/README.md) | [Shield Overview](modules/security_identity_compliance/aws_shield/aws-shield.md) | ✅ [aws_shield_protection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) |
 | | Verified Permissions | - | [Verified Permissions Overview](modules/security_identity_compliance/aws_verified_permission/aws-verified-permissions.md) | ✅ [aws_verifiedpermissions_policy_store](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/verifiedpermissions_policy_store) |
-| | WAF | - | [WAF Overview](modules/security_identity_compliance/aws_waf/aws-waf.md) | ✅ [aws_wafv2_web_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl) |
+| | WAF | [WAF Module](modules/security_identity_compliance/aws_waf/README.md) | [WAF Overview](modules/security_identity_compliance/aws_waf/aws-waf.md) | ✅ [aws_wafv2_web_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl) |
 | **Storage** | Backup | - | [Backup Overview](modules/storage/aws_backup/aws-backup.md) | ✅ [aws_backup_plan](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_plan) |
 | | EBS | - | [EBS Overview](modules/storage/aws_ebs/aws-ebs.md) | ✅ [aws_ebs_volume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_volume) |
 | | EFS | - | [EFS Overview](modules/storage/aws_efs/aws-efs.md) | ✅ [aws_efs_file_system](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_file_system) |
@@ -167,6 +168,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_asg](tf-plans/aws_asg/README.md) | ASG | Auto Scaling Groups; multi-ASG via `asgs`; hooks & policies |
 | [tf-plans/aws_aurora](tf-plans/aws_aurora/README.md) | Aurora | Aurora MySQL/PostgreSQL; provisioned, Serverless v1/v2, global databases; auto-scaling |
 | [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
+| [tf-plans/aws_budget](tf-plans/aws_budget/README.md) | Budget | Multiple budgets (COST/USAGE/RI/Savings Plans); multi-tier notifications; automated IAM/SCP/SSM actions |
 | [tf-plans/aws_certificate_manager](tf-plans/aws_certificate_manager/README.md) | Certificate Manager (ACM) | Multiple ACM certificates (public/imported); optional DNS validation; map-based scaling |
 | [tf-plans/aws_cloudfront](tf-plans/aws_cloudfront/README.md) | CloudFront | CDN distributions; S3/custom origins; cache behaviors; SSL/TLS certificates |
 | [tf-plans/aws_cloudtrail](tf-plans/aws_cloudtrail/README.md) | CloudTrail | Trails; management events; data events (S3/Lambda/DynamoDB); standard and advanced event selectors; Insights anomaly detection; CloudWatch Logs delivery; KMS encryption; log file validation |
@@ -175,6 +177,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_dynamodb](tf-plans/aws_dynamodb/README.md) | DynamoDB | NoSQL tables; on-demand/provisioned billing; GSI/LSI; streams, TTL, global tables |
 | [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |
 | [tf-plans/aws_elasticache](tf-plans/aws_elasticache/README.md) | ElastiCache | Redis/Memcached/Valkey clusters; replication groups; HA, cluster mode, encryption |
+| [tf-plans/aws_firewall_manager](tf-plans/aws_firewall_manager/README.md) | Firewall Manager | Multi-policy FMS: WAFv2, Shield Advanced, Network Firewall, DNS Firewall, Security Groups — org-wide or scoped to accounts/OUs via `include_map`/`exclude_map` |
 | [tf-plans/aws_glb](tf-plans/aws_glb/README.md) | GWLB | Gateway Load Balancer; multi-GLB via `glbs` |
 | [tf-plans/aws_iam](tf-plans/aws_iam/README.md) | IAM | Users, groups, policies; access keys & console options |
 | [tf-plans/aws_internet_gateway](tf-plans/aws_internet_gateway/README.md) | Internet Gateway | IGW attach examples; route integration |
@@ -184,6 +187,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_mq](tf-plans/aws_mq/README.md) | MQ | Message brokers; ActiveMQ/RabbitMQ |
 | [tf-plans/aws_msk](tf-plans/aws_msk/README.md) | MSK | Managed Kafka clusters; configurations |
 | [tf-plans/aws_nacl](tf-plans/aws_nacl/README.md) | NACL | Multi-NACL subnet associations; stateless ingress/egress rule sets (IPv4/IPv6) |
+| [tf-plans/aws_network_firewall](tf-plans/aws_network_firewall/README.md) | Network Firewall | Multi-firewall via `firewalls` list; all four rule source types (stateless 5-tuple, Suricata IPS, domain lists, stateful 5-tuple); dual-destination logging; AZ-keyed endpoint ID outputs for route table wiring |
 | [tf-plans/aws_nlb](tf-plans/aws_nlb/README.md) | NLB | Network Load Balancer; multi-NLB via `nlbs`; cross-zone option |
 | [tf-plans/aws_organizations](tf-plans/aws_organizations/README.md) | Organizations | Organization bootstrap/adoption; multi-OU, multi-account, policies, and policy attachments |
 | [tf-plans/aws_rds](tf-plans/aws_rds/README.md) | RDS | Relational databases; MySQL/PostgreSQL/MariaDB/Oracle/SQL Server; Multi-AZ, read replicas, autoscaling |
@@ -192,10 +196,12 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_s3](tf-plans/aws_s3/README.md) | S3 | Buckets; SSE-KMS/SSE-S3 options; logging examples |
 | [tf-plans/aws_secrets_manager](tf-plans/aws_secrets_manager/README.md) | Secrets Manager | Multiple secrets (credentials, API keys, config bundles); optional rotation via Lambda, resource-based policies, multi-region replication |
 | [tf-plans/aws_sec_grp](tf-plans/aws_sec_grp/README.md) | Security Group | Security rules; ingress/egress configurations |
+| [tf-plans/aws_shield](tf-plans/aws_shield/README.md) | Shield Advanced | DDoS protections, protection groups (ALL/BY_RESOURCE_TYPE/ARBITRARY), DRT access, proactive engagement |
 | [tf-plans/aws_sns](tf-plans/aws_sns/README.md) | SNS | Topics; subscriptions; message publishing |
 | [tf-plans/aws_sqs](tf-plans/aws_sqs/README.md) | SQS | Queues; FIFO/standard; DLQ support |
 | [tf-plans/aws_step_function](tf-plans/aws_step_function/README.md) | Step Functions | State machines; STANDARD/EXPRESS types; logging, tracing, encryption |
 | [tf-plans/aws_vpc](tf-plans/aws_vpc/README.md) | VPC | Virtual networks; subnets, CIDR blocks |
+| [tf-plans/aws_waf](tf-plans/aws_waf/README.md) | WAF | Multiple Web ACLs (REGIONAL/CLOUDFRONT); IP sets; regex pattern sets; AWS managed rule groups; rate-based rules; geo match rules; IP blocklists; logging to Kinesis Firehose |
 
 > All modules consistently tag resources with a `CreatedDate` sourced from a one-time timestamp via the `time_static` provider.  
 > Modules that support multi-resource creation (e.g., ALB via `albs`, NLB via `nlbs`, GWLB via `glbs`, ASG via `asgs`, CloudWatch resources via `log_groups`, `metric_alarms`, `dashboards`, etc.) expose outputs as maps keyed by the resource key.

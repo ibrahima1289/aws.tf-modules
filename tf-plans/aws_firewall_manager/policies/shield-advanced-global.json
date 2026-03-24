@@ -1,0 +1,8 @@
+{
+  "type": "SHIELD_ADVANCED",
+  "automaticResponseConfiguration": {
+    "automaticResponseStatus": "ENABLED",
+    "automaticResponseAction": "COUNT"
+  },
+  "overrideCustomerWebaclClassic": false
+}
