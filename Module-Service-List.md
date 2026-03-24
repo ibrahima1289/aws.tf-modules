@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **132** |
-|**Terraform Modules Available** | **36** |
+|**Terraform Modules Available** | **37** |
 |**Resource Guides Available** | **130** |
 
 ---
