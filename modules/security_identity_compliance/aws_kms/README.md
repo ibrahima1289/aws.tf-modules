@@ -1,9 +1,58 @@
 # AWS KMS Terraform Module
 
-This module creates AWS KMS keys with aliases and grants. It supports symmetric/asymmetric keys, optional rotation, custom policies, multi-region keys.
+> **Service:** AWS Key Management Service (KMS) &nbsp;|&nbsp; **Module path:** `modules/security_identity_compliance/aws_kms` &nbsp;|&nbsp; **Wrapper path:** `tf-plans/aws_kms`
+
+This module creates **Customer Managed Keys (CMK)** in AWS KMS with full control over aliases, grants, key policies, rotation, and multi-region replication.
+
+---
+
+## KMS Key Ownership Models
+
+Understanding the three key ownership models helps you choose when to use this module vs. relying on AWS-managed defaults.
+
+| Model | Owned & Managed by | Visible in Account | Creatable via Terraform | Cost |
+|---|---|---|---|---|
+| **AWS Owned Keys** | AWS (internal only) | ❌ No | ❌ No | Free |
+| **AWS Managed Keys** | AWS (on your behalf) | ✅ Yes — `alias/aws/<service>` | ❌ No — auto-created by AWS services | Free |
+| **Customer Managed Keys (CMK)** | **You** | ✅ Yes — full control | ✅ **Yes — this module** | ~$1/key/month + API call fees |
+
+> **This module creates CMKs only.** To use an AWS Managed Key (e.g. `alias/aws/s3`), reference it directly in your resource's `kms_key_id` argument — no Terraform resource is needed.
+
+---
+
+## CMK Key Types
+
+| `key_type` | AWS `key_usage` | Default `key_spec` | Rotation Supported | Typical Use Case |
+|---|---|---|---|---|
+| `SYMMETRIC_ENCRYPTION` *(default)* | `ENCRYPT_DECRYPT` | `SYMMETRIC_DEFAULT` | ✅ Yes (annual) | S3, EBS, RDS, Secrets Manager, general-purpose encryption |
+| `RSA_ENCRYPT_DECRYPT` | `ENCRYPT_DECRYPT` | `RSA_2048` | ❌ No | Envelope encryption with external RSA public key |
+| `RSA_SIGN_VERIFY` | `SIGN_VERIFY` | `RSA_2048` | ❌ No | JWT signing, document signing, code signing |
+| `ECC_SIGN_VERIFY` | `SIGN_VERIFY` | `ECC_NIST_P256` | ❌ No | ECDSA signatures, TLS client auth |
+| `HMAC` | `GENERATE_VERIFY_MAC` | `HMAC_256` | ❌ No | Message authentication codes (MAC), API request signing |
+
+**Key spec options per type:**
+
+| Type | Available `key_spec` values |
+|---|---|
+| Symmetric | `SYMMETRIC_DEFAULT` |
+| RSA | `RSA_2048` · `RSA_3072` · `RSA_4096` |
+| ECC | `ECC_NIST_P256` · `ECC_NIST_P384` · `ECC_NIST_P521` · `ECC_SECG_P256K1` |
+| HMAC | `HMAC_224` · `HMAC_256` · `HMAC_384` · `HMAC_512` |
+
+---
+
+## Terraform & Provider Requirements
+
+| Requirement | Version |
+|---|---|
+| Terraform | `>= 1.3` (required for `optional()` with defaults in object types) |
+| AWS Provider | `>= 4.0` |
+| AWS Region | Set via `var.region` |
+
+---
 
 ## Requirements
-- Terraform >= 1.0
+- Terraform >= 1.3
 - AWS Provider >= 4.0
 
 ## Input Variables
