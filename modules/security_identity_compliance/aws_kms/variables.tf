@@ -15,7 +15,8 @@ variable "tags" {
 # Each object supports:
 # - name (string, required): Logical name for tagging and lookups
 # - description (optional)
-# - key_usage (optional): ENCRYPT_DECRYPT | SIGN_VERIFY
+# - key_type (optional): SYMMETRIC_ENCRYPTION | RSA_ENCRYPT_DECRYPT | RSA_SIGN_VERIFY | ECC_SIGN_VERIFY | HMAC
+# - key_usage (optional): ENCRYPT_DECRYPT | SIGN_VERIFY | GENERATE_VERIFY_MAC (auto-set from key_type when omitted)
 # - key_spec (optional): SYMMETRIC_DEFAULT | RSA_2048 | RSA_3072 | RSA_4096 | ECC_NIST_P256 | ECC_NIST_P384 | ECC_NIST_P521 | ECC_SECG_P256K1 | HMAC_224 | HMAC_256 | HMAC_384 | HMAC_512
 # - policy_json (optional)
 # - deletion_window_in_days (optional)
@@ -30,6 +31,7 @@ variable "keys" {
   type = list(object({
     name                               = string
     description                        = optional(string)
+    key_type                           = optional(string, "SYMMETRIC_ENCRYPTION")
     key_usage                          = optional(string)
     key_spec                           = optional(string)
     policy_json                        = optional(string)
@@ -41,6 +43,15 @@ variable "keys" {
     aliases                            = optional(list(string))
     tags                               = optional(map(string))
   }))
+  validation {
+    condition = alltrue([
+      for k in var.keys : contains(
+        ["SYMMETRIC_ENCRYPTION", "RSA_ENCRYPT_DECRYPT", "RSA_SIGN_VERIFY", "ECC_SIGN_VERIFY", "HMAC"],
+        k.key_type
+      )
+    ])
+    error_message = "key_type must be one of: SYMMETRIC_ENCRYPTION, RSA_ENCRYPT_DECRYPT, RSA_SIGN_VERIFY, ECC_SIGN_VERIFY, HMAC."
+  }
 }
 
 # KMS grants configuration

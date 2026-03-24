@@ -21,8 +21,9 @@ This module creates AWS KMS keys with aliases and grants. It supports symmetric/
 |-------|------|----------|---------|-------------|
 | `name` | `string` | ✅ Yes | n/a | Logical name used for tagging, aliases, and grant lookups |
 | `description` | `string` | No | `""` | Human-readable description of the key |
-| `key_usage` | `string` | No | `"ENCRYPT_DECRYPT"` | Key usage: `ENCRYPT_DECRYPT` or `SIGN_VERIFY` |
-| `key_spec` | `string` | No | `"SYMMETRIC_DEFAULT"` | Key spec: `SYMMETRIC_DEFAULT`, `RSA_2048`, `RSA_3072`, `RSA_4096`, `ECC_NIST_P256`, `ECC_NIST_P384`, `ECC_NIST_P521`, `ECC_SECG_P256K1`, `HMAC_256`, etc. |
+| `key_type` | `string` | No | `"SYMMETRIC_ENCRYPTION"` | High-level key type that auto-sets `key_usage` and a default `key_spec`. Values: `SYMMETRIC_ENCRYPTION`, `RSA_ENCRYPT_DECRYPT`, `RSA_SIGN_VERIFY`, `ECC_SIGN_VERIFY`, `HMAC` |
+| `key_usage` | `string` | No | *(derived from `key_type`)* | Override the AWS key usage directly: `ENCRYPT_DECRYPT`, `SIGN_VERIFY`, or `GENERATE_VERIFY_MAC`. Ignored when `key_type` is sufficient |
+| `key_spec` | `string` | No | *(derived from `key_type`)* | Key spec override: `SYMMETRIC_DEFAULT`, `RSA_2048`, `RSA_3072`, `RSA_4096`, `ECC_NIST_P256`, `ECC_NIST_P384`, `ECC_NIST_P521`, `ECC_SECG_P256K1`, `HMAC_224`, `HMAC_256`, `HMAC_384`, `HMAC_512`. When omitted, `key_type` supplies the default |
 | `policy_json` | `string` | No | `null` | JSON-encoded IAM key policy; defaults to AWS-managed default policy when omitted |
 | `deletion_window_in_days` | `number` | No | `10` | Days before key is permanently deleted after scheduling deletion (7–30) |
 | `enable_key_rotation` | `bool` | No | `false` | Enable automatic annual key rotation — only valid for `SYMMETRIC_DEFAULT` keys |
@@ -62,13 +63,24 @@ module "aws_kms" {
 
   keys = [
     {
-      name                        = "app-key"
-      description                 = "App encryption key"
-      key_usage                   = "ENCRYPT_DECRYPT"
-      key_spec                    = "SYMMETRIC_DEFAULT"
-      enable_key_rotation         = true
-      aliases                     = ["app-key", "app-key-v2"]
-      tags                        = { Team = "platform" }
+      name                = "app-key"
+      description         = "Symmetric encryption key for application data"
+      key_type            = "SYMMETRIC_ENCRYPTION"   # key_usage + key_spec auto-set
+      enable_key_rotation = true
+      aliases             = ["app-key", "app-key-v2"]
+      tags                = { Team = "platform" }
+    },
+    {
+      name     = "signing-key"
+      key_type = "RSA_SIGN_VERIFY"                   # key_usage = SIGN_VERIFY
+      key_spec = "RSA_4096"                          # override default RSA_2048
+      aliases  = ["signing-key"]
+    },
+    {
+      name     = "mac-key"
+      key_type = "HMAC"                              # key_usage = GENERATE_VERIFY_MAC
+      key_spec = "HMAC_256"
+      aliases  = ["mac-key"]
     }
   ]
 
