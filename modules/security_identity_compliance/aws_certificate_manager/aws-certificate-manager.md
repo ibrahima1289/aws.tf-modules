@@ -21,7 +21,7 @@ AWS Certificate Manager (ACM) is a service that lets you easily provision, manag
     *   **DNS Validation (Recommended):** You add a CNAME record to your domain's DNS configuration. This is fully automated by ACM.
     *   **Email Validation:** ACM sends validation emails to registered contacts for your domain. You click a link in the email to approve.
 *   **Automatic Renewal:** Certificates provisioned by ACM are automatically renewed as long as the domain validation remains active (especially easy with DNS validation and Route 53).
-*   **Usage with AWS Services:** Public ACM certificates can only be used with integrated AWS services (ALB, CloudFront, API Gateway, etc.). They cannot be directly installed on EC2 instances or on-premises servers.
+*   **Usage with AWS Services:** Public ACM certificates can only be used with integrated AWS services (ALB, CloudFront, API Gateway, etc.). They **cannot be directly installed on EC2 instances** or on-premises servers.
 *   **Real-life Example:** You have a website `www.example.com` hosted behind an Application Load Balancer. You request a public SSL certificate for `www.example.com` from ACM. You use DNS validation with Route 53, and ACM automatically provisions and renews the certificate. The ALB then uses this certificate to handle HTTPS traffic.
 
 ### 2. Private Certificates (ACM Private Certificate Authority - ACM PCA)
