@@ -1,5 +1,7 @@
 # AWS Shield
 
+> 🔧 **Terraform Module:** [Shield Advanced Module](README.md) | **Wrapper:** [tf-plans/aws_shield](../../../../../tf-plans/aws_shield/README.md) | **Pricing:** [Shield Pricing](https://aws.amazon.com/shield/pricing/)
+
 AWS Shield is a managed Distributed Denial of Service (DDoS) protection service that safeguards applications running on AWS. Shield provides always-on detection and automatic inline mitigations that minimize application downtime and latency. There are two tiers of AWS Shield: Standard and Advanced.
 
 ## Core Concepts

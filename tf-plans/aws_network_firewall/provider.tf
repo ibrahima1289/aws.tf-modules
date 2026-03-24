@@ -1,0 +1,14 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.0"
+    }
+  }
+  required_version = ">= 1.3"
+}
+
+# Wrapper provider — delegates region to the module via var.region.
+provider "aws" {
+  region = var.region
+}

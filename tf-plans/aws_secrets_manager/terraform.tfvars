@@ -43,11 +43,11 @@ secrets = [
 
   # JSON application config bundle with a cross-account read policy.
   # Policy is loaded from policies/app-config-policy.json via locals.tf — not set here.
+  # secret_string is loaded from secrets/app-config.json via locals.tf — not set here.
   {
-    key           = "app-config"
-    name          = "prod/app/config"
-    description   = "Application configuration bundle shared with analytics account"
-    secret_string = "{\"db_host\":\"db.example.com\",\"db_port\":5432,\"cache_ttl\":300}"
+    key         = "app-config"
+    name        = "prod/app/config"
+    description = "Application configuration bundle shared with analytics account"
     tags = {
       Team = "platform"
     }

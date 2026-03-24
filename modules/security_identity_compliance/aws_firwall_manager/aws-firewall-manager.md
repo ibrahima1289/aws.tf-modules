@@ -1,5 +1,7 @@
 # AWS Firewall Manager
 
+> [Terraform Module](README.md) · [Wrapper Plan](../../../../tf-plans/aws_firewall_manager/README.md) · [AWS Documentation](https://docs.aws.amazon.com/firewall-manager/latest/devguide/what-is-aws-fms.html) · [Pricing](https://aws.amazon.com/firewall-manager/pricing/)
+
 AWS Firewall Manager is a security management service that allows you to centrally configure and manage firewall rules across your AWS accounts and applications. With Firewall Manager, you can deploy and manage AWS WAF rules, AWS Shield Advanced protections, VPC security groups, AWS Network Firewall rules, and Amazon Route 53 Resolver DNS Firewall rules from a single master account in AWS Organizations.
 
 ## Core Concepts

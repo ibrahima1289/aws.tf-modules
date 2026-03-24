@@ -1,0 +1,17 @@
+{
+  "type": "NETWORK_FIREWALL",
+  "networkFirewallStatelessRuleGroupReferences": [],
+  "networkFirewallStatelessDefaultActions": ["aws:forward_to_sfe"],
+  "networkFirewallStatelessFragmentDefaultActions": ["aws:forward_to_sfe"],
+  "networkFirewallStatelessCustomActions": [],
+  "networkFirewallStatefulRuleGroupReferences": [
+    {
+      "resourceARN": "arn:aws:network-firewall:us-east-1:123456789012:stateful-rulegroup/block-malware-domains"
+    }
+  ],
+  "networkFirewallOrchestrationConfig": {
+    "singleFirewallEndpointPerVPC": false,
+    "allowedIPV4CidrList": null,
+    "routeManagementAction": "OFF"
+  }
+}
