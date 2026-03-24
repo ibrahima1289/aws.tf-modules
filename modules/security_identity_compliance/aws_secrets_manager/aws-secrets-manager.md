@@ -1,5 +1,7 @@
 # AWS Secrets Manager
 
+> 🔧 **Terraform Module:** [aws_secrets_manager/README.md](README.md) &nbsp;|&nbsp; **Wrapper:** [tf-plans/aws_secrets_manager/README.md](../../../tf-plans/aws_secrets_manager/README.md) &nbsp;|&nbsp; **Pricing:** [aws.amazon.com/secrets-manager/pricing](https://aws.amazon.com/secrets-manager/pricing/)
+
 AWS Secrets Manager helps you protect access to your applications, services, and IT resources. This service enables you to easily rotate, manage, and retrieve database credentials, API keys, and other secrets throughout their lifecycle. Secrets Manager also enables you to more easily meet your security and compliance requirements by helping you retrieve secrets programmatically with an API call, eliminating the need to hardcode sensitive information.
 
 ## Core Concepts

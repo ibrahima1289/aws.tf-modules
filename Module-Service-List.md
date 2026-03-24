@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **132** |
-|**Terraform Modules Available** | **33** |
+|**Terraform Modules Available** | **34** |
 |**Resource Guides Available** | **130** |
 
 ---
@@ -138,7 +138,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | NACLs | [NACL Module](modules/security_identity_compliance/aws_nacl/README.md) | [NACLs Overview](modules/security_identity_compliance/aws_nacl/aws-nacls.md) | ✅ [aws_network_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl) |
 | | Network Firewall | - | [Network Firewall Overview](modules/security_identity_compliance/aws_network_firewall/aws-network-firewall.md) | ✅ [aws_networkfirewall_firewall](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/networkfirewall_firewall) |
 | | RAM | - | [RAM Overview](modules/security_identity_compliance/aws_ram/aws-ram.md) | ✅ [aws_ram_resource_share](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share) |
-| | Secrets Manager | - | [Secrets Manager Overview](modules/security_identity_compliance/aws_secrets_manager/aws-secrets-manager.md) | ✅ [aws_secretsmanager_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) |
+| | Secrets Manager | [Secrets Manager Module](modules/security_identity_compliance/aws_secrets_manager/README.md) | [Secrets Manager Overview](modules/security_identity_compliance/aws_secrets_manager/aws-secrets-manager.md) | ✅ [aws_secretsmanager_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) |
 | | Security Group | [Security Group Module](modules/security_identity_compliance/aws_security_group/README.md) | [Security Groups Overview](modules/security_identity_compliance/aws_security_group/aws-security-groups.md) | ✅ [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) |
 | | Security Hub | - | [Security Hub Overview](modules/security_identity_compliance/aws_security_hub_CSPM/aws-security-hub.md) | ✅ [aws_securityhub_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_account) |
 | | Security Lake | - | [Security Lake Overview](modules/security_identity_compliance/aws_security_lake/aws-security-lake.md) | ✅ [aws_securitylake_data_lake](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securitylake_data_lake) |
@@ -190,6 +190,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_route_53](tf-plans/aws_route_53/README.md) | Route 53 | Zones & records; alias examples |
 | [tf-plans/aws_route_table](tf-plans/aws_route_table/README.md) | Route Table | Routes, associations; VPC/Subnet wiring |
 | [tf-plans/aws_s3](tf-plans/aws_s3/README.md) | S3 | Buckets; SSE-KMS/SSE-S3 options; logging examples |
+| [tf-plans/aws_secrets_manager](tf-plans/aws_secrets_manager/README.md) | Secrets Manager | Multiple secrets (credentials, API keys, config bundles); optional rotation via Lambda, resource-based policies, multi-region replication |
 | [tf-plans/aws_sec_grp](tf-plans/aws_sec_grp/README.md) | Security Group | Security rules; ingress/egress configurations |
 | [tf-plans/aws_sns](tf-plans/aws_sns/README.md) | SNS | Topics; subscriptions; message publishing |
 | [tf-plans/aws_sqs](tf-plans/aws_sqs/README.md) | SQS | Queues; FIFO/standard; DLQ support |

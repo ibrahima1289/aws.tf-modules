@@ -18,6 +18,7 @@ variable "keys" {
     key_usage                          = optional(string)
     key_spec                           = optional(string)
     policy_json                        = optional(string)
+    policy_file                        = optional(string)
     deletion_window_in_days            = optional(number)
     enable_key_rotation                = optional(bool)
     is_enabled                         = optional(bool)

@@ -1,6 +1,12 @@
 # Release Notes
 
 ## Repository Updates (2026-03-23)
+- New: [AWS Secrets Manager module](modules/security_identity_compliance/aws_secrets_manager/README.md) with multi-secret support, optional static values, Lambda-based rotation, resource-based policies, and multi-region replication via map-based `for_each`.
+- New: [AWS Secrets Manager wrapper](tf-plans/aws_secrets_manager/README.md) with complete example files (`main.tf`, `variables.tf`, `locals.tf`, `provider.tf`, `outputs.tf`, `terraform.tfvars`) covering 4 secret patterns: rotated DB credentials, static API key, JSON config with cross-account policy, and multi-region JWT signing key.
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md) (count 33→34), and [aws-secrets-manager.md](modules/security_identity_compliance/aws_secrets_manager/aws-secrets-manager.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) with Secrets Manager pricing row ($0.40/secret/month + API call costs + multi-region replica pricing).
+
+
 - New: [AWS Certificate Manager module](modules/security_identity_compliance/aws_certificate_manager/README.md) with multi-certificate support, public and imported certificate flows, optional DNS validation resources, and map-based scaling via `for_each`.
 - New: [AWS Certificate Manager wrapper](tf-plans/aws_certificate_manager/README.md) with complete example files (`main.tf`, `variables.tf`, `locals.tf`, `provider.tf`, `outputs.tf`, `terraform.tfvars`) for repeatable plan/apply workflows.
 - Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md), and [modules/security_identity_compliance/aws_certificate_manager/aws-certificate-manager.md](modules/security_identity_compliance/aws_certificate_manager/aws-certificate-manager.md) with module and wrapper hyperlinks.
