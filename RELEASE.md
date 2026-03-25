@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-03-24) — AWS Athena
+- New: [AWS Athena module](modules/analytics/aws_athena/README.md) with workgroups (result S3 location, SSE-S3/SSE-KMS/CSE-KMS encryption, ACL configuration, engine version AUTO/v2/v3, byte-scan cutoff, CloudWatch metrics, enforce-workgroup-config), Glue-backed databases (optional DDL encryption), named saved queries, and federated data catalogs (GLUE, LAMBDA, HIVE) via map-based `for_each`.
+- New: [AWS Athena wrapper](tf-plans/aws_athena/README.md) with SQL query strings loaded from `templates/` files via `file()` in `locals.tf`; 2 workgroup patterns (production SSE-S3 engine v3 with 1 TB scan limit; developer SSE-KMS with 100 GB limit and config override allowed), 1 analytics database, 2 named queries (CUR cost report, CloudTrail security audit), and 1 GLUE federated catalog.
+- Docs: Updated [README.md](README.md), [Module-Service-List.md](Module-Service-List.md) (count 40→41, Athena module link added, Athena wrapper row inserted alphabetically), and [aws-athena.md](modules/analytics/aws_athena/aws-athena.md) with module and wrapper hyperlinks.
+- Docs: Updated [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) Athena row with module and wrapper reference links.
+
 ## Repository Updates (2026-03-24) — AWS Fargate
 - New: [AWS Fargate module](modules/compute/aws_serverless/aws_fargate/README.md) with ECS clusters (Container Insights, FARGATE + FARGATE_SPOT capacity providers), task definitions (awsvpc network mode, runtime platform, EFS volumes, caller-supplied container definitions JSON), and services (launch_type or capacity_provider_strategy, ALB integration, Cloud Map, deployment circuit breaker) via map-based `for_each`.
 - New: [AWS Fargate wrapper](tf-plans/aws_fargate/README.md) with container definitions loaded from `templates/` JSON files; 2 `terraform.tfvars` patterns: API service (standard FARGATE, ALB, 2 tasks) and order-processing worker (FARGATE + FARGATE_SPOT mix, 3 tasks, no load balancer).

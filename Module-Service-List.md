@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **133** |
-|**Terraform Modules Available** | **40** |
+|**Terraform Modules Available** | **41** |
 |**Resource Guides Available** | **131** |
 
 ---
@@ -22,7 +22,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 |------------------|-------------|-------------------|----------------|-----------|
 | **Cloud Financial Management** | Budget | [Budget Module](modules/cloud_financial_management/aws_budget/README.md) | [Budget Overview](modules/cloud_financial_management/aws_budget/aws-budget.md) | ✅ [aws_budgets_budget](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget) |
 | | Savings Plans | - | [Savings Plans Overview](modules/cloud_financial_management/aws_savings_plan/aws-savings-plan.md) | — Purchase via Console/CLI; data source: [aws_savingsplans_plan](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/savingsplans_plan) |
-| **Analytics** | Athena | - | [Athena Overview](modules/analytics/aws_athena/aws-athena.md) | ✅ [aws_athena_workgroup](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/athena_workgroup) |
+| **Analytics** | Athena | [Athena Module](modules/analytics/aws_athena/README.md) | [Athena Overview](modules/analytics/aws_athena/aws-athena.md) | ✅ [aws_athena_workgroup](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/athena_workgroup) |
 | | EMR (MapReduce) | - | [EMR Overview](modules/analytics/aws_mapreduce/aws-emr.md) | ✅ [aws_emr_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/emr_cluster) |
 | | Glue | - | [Glue Overview](modules/analytics/aws_glue/aws-glue.md) | ✅ [aws_glue_catalog_database](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/glue_catalog_database) |
 | | Kinesis | [Kinesis Module](modules/analytics/aws_kinesis/README.md) | [Kinesis Overview](modules/analytics/aws_kinesis/aws-kinesis.md) | ✅ [aws_kinesis_stream](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_stream) |
@@ -167,6 +167,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_alb](tf-plans/aws_alb/README.md) | ALB | Application Load Balancer; multi-ALB via `albs` |
 | [tf-plans/aws_api_gateway](tf-plans/aws_api_gateway/README.md) | API Gateway | HTTP/WebSocket APIs; integrations, routes, stages |
 | [tf-plans/aws_asg](tf-plans/aws_asg/README.md) | ASG | Auto Scaling Groups; multi-ASG via `asgs`; hooks & policies |
+| [tf-plans/aws_athena](tf-plans/aws_athena/README.md) | Athena | Workgroups (SSE-S3/KMS, engine v3, byte-scan limits, CloudWatch metrics); databases; named queries (SQL loaded from `templates/`); federated GLUE/LAMBDA/HIVE data catalogs |
 | [tf-plans/aws_aurora](tf-plans/aws_aurora/README.md) | Aurora | Aurora MySQL/PostgreSQL; provisioned, Serverless v1/v2, global databases; auto-scaling |
 | [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
 | [tf-plans/aws_budget](tf-plans/aws_budget/README.md) | Budget | Multiple budgets (COST/USAGE/RI/Savings Plans); multi-tier notifications; automated IAM/SCP/SSM actions |
