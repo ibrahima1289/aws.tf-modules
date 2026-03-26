@@ -76,3 +76,13 @@ Designed for throughput-intensive workloads where large sequential reads/writes 
 *   **Development and Test Environments:** Creating and managing storage for various development and testing needs.
 
 EBS is a foundational service for any application that requires persistent, high-performance block storage attached to EC2 instances.
+
+---
+
+## See Also
+
+- [EBS Terraform Module](README.md)
+- [EBS Wrapper Plan](../../../tf-plans/aws_ebs/README.md)
+- [AWS EBS documentation](https://docs.aws.amazon.com/ebs/latest/userguide/)
+- [Terraform aws_ebs_volume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_volume)
+- [EBS pricing](https://aws.amazon.com/ebs/pricing/)

@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **133** |
-|**Terraform Modules Available** | **41** |
+|**Terraform Modules Available** | **42** |
 |**Resource Guides Available** | **131** |
 
 ---
@@ -148,7 +148,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | Verified Permissions | - | [Verified Permissions Overview](modules/security_identity_compliance/aws_verified_permission/aws-verified-permissions.md) | ✅ [aws_verifiedpermissions_policy_store](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/verifiedpermissions_policy_store) |
 | | WAF | [WAF Module](modules/security_identity_compliance/aws_waf/README.md) | [WAF Overview](modules/security_identity_compliance/aws_waf/aws-waf.md) | ✅ [aws_wafv2_web_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl) |
 | **Storage** | Backup | - | [Backup Overview](modules/storage/aws_backup/aws-backup.md) | ✅ [aws_backup_plan](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_plan) |
-| | EBS | - | [EBS Overview](modules/storage/aws_ebs/aws-ebs.md) | ✅ [aws_ebs_volume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_volume) |
+| | EBS | [EBS Module](modules/storage/aws_ebs/README.md) | [EBS Overview](modules/storage/aws_ebs/aws-ebs.md) | ✅ [aws_ebs_volume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_volume) |
 | | EFS | - | [EFS Overview](modules/storage/aws_efs/aws-efs.md) | ✅ [aws_efs_file_system](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_file_system) |
 | | S3 | [S3 Module](modules/storage/aws_s3/README.md) | [S3 Overview](modules/storage/aws_s3/aws-s3.md) | ✅ [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) |
 | | Snow Family | - | [Snow Family Overview](modules/storage/aws_snow_family/aws-snow-family.md) | Physical device — order via Console or CLI: `aws snowball create-job` |
@@ -177,6 +177,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_cloudwatch](tf-plans/aws_cloudwatch/README.md) | CloudWatch | Log groups; standard + expression-based metric alarms; composite alarms; dashboards (inline `jsonencode()` or external `.json` files via `file()`); log metric filters; log subscription filters |
 | [tf-plans/aws_documentdb](tf-plans/aws_documentdb/README.md) | DocumentDB | MongoDB-compatible clusters; multi-node HA; I/O-Optimized storage; custom parameter groups; CloudWatch log exports |
 | [tf-plans/aws_dynamodb](tf-plans/aws_dynamodb/README.md) | DynamoDB | NoSQL tables; on-demand/provisioned billing; GSI/LSI; streams, TTL, global tables |
+| [tf-plans/aws_ebs](tf-plans/aws_ebs/README.md) | EBS | Persistent block-storage volumes (gp3/io2/st1/sc1); volume-to-EC2 attachments (stop-before-detach); point-in-time snapshots; encryption with AWS-managed or customer-managed KMS keys |
 | [tf-plans/aws_ec2](tf-plans/aws_ec2/README.md) | EC2 | Instances; AMIs, EBS, networking examples |
 | [tf-plans/aws_elastic_beanstalk](tf-plans/aws_elastic_beanstalk/README.md) | Elastic Beanstalk | Multiple applications and environments; WebServer and Worker tiers; SingleInstance and LoadBalanced types; VPC networking; env vars; CPU-based auto-scaling; custom EBS settings escape-hatch |
 | [tf-plans/aws_eventbridge](tf-plans/aws_eventbridge/README.md) | EventBridge | Custom event buses; event-pattern and scheduled rules; multi-target routing (Lambda, SQS, SNS, Step Functions, ECS); input transformers; dead-letter queues; event archives |
