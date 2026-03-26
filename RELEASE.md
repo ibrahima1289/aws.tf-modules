@@ -1,5 +1,11 @@
 # Release Notes
 
+## Repository Updates (2026-03-26) — AWS Backup
+- New: [AWS Backup module](modules/storage/aws_backup/README.md) — backup vaults (KMS encryption, optional Vault Lock/WORM); backup plans with multiple rules (schedule, lifecycle, cold-storage transition); tag-based and ARN-based resource selections; cross-region copy actions for DR.
+- New: [AWS Backup wrapper](tf-plans/aws_backup/README.md) — 3 patterns: daily/weekly with cold-storage lifecycle, cross-region DR copy, and Vault Lock compliance vault.
+- Docs: Updated [Module-Service-List.md](Module-Service-List.md) (count 42→43) with module and wrapper links for Backup.
+- Docs: Updated [README.md](README.md) and [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) with Backup module and wrapper links.
+
 ## Repository Updates (2026-03-25) — AWS Elastic Block Store (EBS)
 - New: [AWS EBS module](modules/storage/aws_ebs/README.md) — six volume types, encryption, multi-attach, snapshot restore, and attachments via `for_each`.
 - New: [AWS EBS wrapper](tf-plans/aws_ebs/README.md) — gp3 web-app, io2 database, st1 big-data volumes; two attachments; one compliance snapshot.

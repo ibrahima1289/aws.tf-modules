@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **133** |
-|**Terraform Modules Available** | **42** |
+|**Terraform Modules Available** | **43** |
 |**Resource Guides Available** | **131** |
 
 ---
@@ -147,7 +147,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | Shield | [Shield Module](modules/security_identity_compliance/aws_shield/README.md) | [Shield Overview](modules/security_identity_compliance/aws_shield/aws-shield.md) | ✅ [aws_shield_protection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_protection) |
 | | Verified Permissions | - | [Verified Permissions Overview](modules/security_identity_compliance/aws_verified_permission/aws-verified-permissions.md) | ✅ [aws_verifiedpermissions_policy_store](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/verifiedpermissions_policy_store) |
 | | WAF | [WAF Module](modules/security_identity_compliance/aws_waf/README.md) | [WAF Overview](modules/security_identity_compliance/aws_waf/aws-waf.md) | ✅ [aws_wafv2_web_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl) |
-| **Storage** | Backup | - | [Backup Overview](modules/storage/aws_backup/aws-backup.md) | ✅ [aws_backup_plan](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_plan) |
+| **Storage** | Backup | [Backup Module](modules/storage/aws_backup/README.md) | [Backup Overview](modules/storage/aws_backup/aws-backup.md) | ✅ [aws_backup_plan](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/backup_plan) |
 | | EBS | [EBS Module](modules/storage/aws_ebs/README.md) | [EBS Overview](modules/storage/aws_ebs/aws-ebs.md) | ✅ [aws_ebs_volume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_volume) |
 | | EFS | - | [EFS Overview](modules/storage/aws_efs/aws-efs.md) | ✅ [aws_efs_file_system](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_file_system) |
 | | S3 | [S3 Module](modules/storage/aws_s3/README.md) | [S3 Overview](modules/storage/aws_s3/aws-s3.md) | ✅ [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) |
@@ -169,6 +169,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_asg](tf-plans/aws_asg/README.md) | ASG | Auto Scaling Groups; multi-ASG via `asgs`; hooks & policies |
 | [tf-plans/aws_athena](tf-plans/aws_athena/README.md) | Athena | Workgroups (SSE-S3/KMS, engine v3, byte-scan limits, CloudWatch metrics); databases; named queries (SQL loaded from `templates/`); federated GLUE/LAMBDA/HIVE data catalogs |
 | [tf-plans/aws_aurora](tf-plans/aws_aurora/README.md) | Aurora | Aurora MySQL/PostgreSQL; provisioned, Serverless v1/v2, global databases; auto-scaling |
+| [tf-plans/aws_backup](tf-plans/aws_backup/README.md) | Backup | Backup vaults (KMS encryption, optional Vault Lock/WORM); backup plans with daily/weekly rules and cold-storage lifecycle; tag-based and ARN-based resource selections; cross-region copy actions for DR |
 | [tf-plans/aws_batch](tf-plans/aws_batch/README.md) | Batch | Compute environments, job queues, job definitions; EC2/SPOT/FARGATE support |
 | [tf-plans/aws_budget](tf-plans/aws_budget/README.md) | Budget | Multiple budgets (COST/USAGE/RI/Savings Plans); multi-tier notifications; automated IAM/SCP/SSM actions |
 | [tf-plans/aws_certificate_manager](tf-plans/aws_certificate_manager/README.md) | Certificate Manager (ACM) | Multiple ACM certificates (public/imported); optional DNS validation; map-based scaling |
