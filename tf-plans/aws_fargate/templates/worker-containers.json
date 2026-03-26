@@ -1,0 +1,25 @@
+[
+  {
+    "name": "worker",
+    "image": "python:3.11-slim",
+    "essential": true,
+    "portMappings": [],
+    "environment": [
+      { "name": "ENVIRONMENT", "value": "production" },
+      { "name": "LOG_LEVEL", "value": "info" },
+      { "name": "SQS_QUEUE_URL", "value": "https://sqs.us-east-1.amazonaws.com/123456789012/order-processing" },
+      { "name": "WORKER_THREADS", "value": "4" }
+    ],
+    "secrets": [],
+    "command": ["python", "-m", "worker.main"],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/order-worker",
+        "awslogs-region": "us-east-1",
+        "awslogs-stream-prefix": "worker"
+      }
+    },
+    "readonlyRootFilesystem": false
+  }
+]

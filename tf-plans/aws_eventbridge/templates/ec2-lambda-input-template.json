@@ -1,0 +1,5 @@
+{
+  "instanceId": "<instance_id>",
+  "newState": "<state>",
+  "awsRegion": "<region>"
+}
