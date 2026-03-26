@@ -9,9 +9,9 @@ Reusable Terraform module for [AWS Athena](https://docs.aws.amazon.com/athena/la
 ## Architecture
 
 ```
-                          ┌─────────────────────────────────────────────────────┐
-                          │               AWS Athena Module                     │
-                          │                                                     │
+                          ┌────────────────────────────────────────────────────┐
+                          │               AWS Athena Module                    │
+                          │                                                    │
   ┌──────────────┐        │  ┌─────────────────────────────────────────────┐   │
   │  Query Client│──SQL──►│  │           Workgroup (per-team/env)          │   │
   │ (Console/SDK)│        │  │  ─ Result S3 location                       │   │
@@ -20,23 +20,23 @@ Reusable Terraform module for [AWS Athena](https://docs.aws.amazon.com/athena/la
   ┌──────────────┐        │  │  ─ Byte-scan cutoff (cost control)          │   │
   │ Named Queries│──ref──►│  │  ─ CloudWatch metrics toggle                │   │
   │  (saved SQL) │        │  └──────────────────┬──────────────────────────┘   │
-  └──────────────┘        │                     │                               │
-                          │                     ▼                               │
+  └──────────────┘        │                     │                              │
+                          │                     ▼                              │
   ┌──────────────┐        │  ┌─────────────────────────────────────────────┐   │
   │  Data Catalog│──fed──►│  │       Athena Database (Glue-backed)         │   │
   │ GLUE/LAMBDA/ │        │  │  ─ Maps to AWS Glue Data Catalog DB         │   │
   │    HIVE      │        │  │  ─ DDL results stored in S3 bucket          │   │
   └──────────────┘        │  │  ─ Optional encryption for DDL output       │   │
                           │  └──────────────────┬──────────────────────────┘   │
-                          │                     │                               │
-                          │                     ▼                               │
+                          │                     │                              │
+                          │                     ▼                              │
                           │  ┌─────────────────────────────────────────────┐   │
-                          │  │       Query Execution (serverless)           │   │
+                          │  │       Query Execution (serverless)          │   │
                           │  │  ─ Scans S3 data (CSV, Parquet, ORC, JSON)  │   │
                           │  │  ─ Billed per TB scanned                    │   │
                           │  │  ─ Results written to result S3 location    │   │
                           │  └─────────────────────────────────────────────┘   │
-                          └─────────────────────────────────────────────────────┘
+                          └────────────────────────────────────────────────────┘
                                         │                     │
                                ┌────────▼────────┐  ┌────────▼────────┐
                                │   S3 Data Lake  │  │   CloudWatch    │
