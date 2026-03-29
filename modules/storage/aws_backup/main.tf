@@ -84,10 +84,10 @@ resource "aws_backup_plan" "plan" {
       schedule = rule.value.schedule
 
       # How long after the scheduled time AWS Backup will attempt to start the job.
-      start_window_minutes = rule.value.start_window
+      start_window = rule.value.start_window
 
       # Maximum duration for the backup job before it is marked as failed.
-      completion_window_minutes = rule.value.completion_window
+      completion_window = rule.value.completion_window
 
       # Enable continuous backups for point-in-time restore (S3 only).
       # Incompatible with lifecycle rules — do not set both.
