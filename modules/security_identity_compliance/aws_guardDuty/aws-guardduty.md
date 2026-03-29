@@ -74,3 +74,13 @@ When GuardDuty detects a potential threat, it generates a "finding."
 *   **Cloud Security Operations:** A foundational service for any robust cloud security strategy.
 
 Amazon GuardDuty acts as a vigilant security guard for your AWS environment, providing intelligent and automated threat detection to protect your valuable resources and data.
+
+---
+
+## See Also
+
+- [GuardDuty Module](README.md) — Terraform module for detectors, filters, IP sets, threat intel sets, publishing destinations, and members
+- [GuardDuty Wrapper](../../../tf-plans/aws_guardduty/README.md) — example wrapper with production detector, suppression filter, and commented patterns
+- [AWS GuardDuty Documentation](https://docs.aws.amazon.com/guardduty/latest/ug/)
+- [Terraform aws_guardduty_detector](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector)
+- [GuardDuty Pricing](https://aws.amazon.com/guardduty/pricing/)

@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **133** |
-|**Terraform Modules Available** | **43** |
+|**Terraform Modules Available** | **44** |
 |**Resource Guides Available** | **131** |
 
 ---
@@ -132,7 +132,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | Detective | - | [Detective Overview](modules/security_identity_compliance/aws_detective/aws-detective.md) | ✅ [aws_detective_graph](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/detective_graph) |
 | | Directory Service | - | [Directory Service Overview](modules/security_identity_compliance/aws_directory_service/aws-directory-service.md) | ✅ [aws_directory_service_directory](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/directory_service_directory) |
 | | Firewall Manager | [Firewall Manager Module](modules/security_identity_compliance/aws_firwall_manager/README.md) | [Firewall Manager Overview](modules/security_identity_compliance/aws_firwall_manager/aws-firewall-manager.md) | ✅ [aws_fms_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/fms_policy) |
-| | GuardDuty | - | [GuardDuty Overview](modules/security_identity_compliance/aws_guardDuty/aws-guardduty.md) | ✅ [aws_guardduty_detector](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) |
+| | GuardDuty | [GuardDuty Module](modules/security_identity_compliance/aws_guardDuty/README.md) | [GuardDuty Overview](modules/security_identity_compliance/aws_guardDuty/aws-guardduty.md) | ✅ [aws_guardduty_detector](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) |
 | | IAM | [IAM Module](modules/security_identity_compliance/aws_iam/README.md) | [IAM Overview](modules/security_identity_compliance/aws_iam/aws-iam.md) | ✅ [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) |
 | | Inspector | - | [Inspector Overview](modules/security_identity_compliance/aws_inspector/aws-inspector.md) | ✅ [aws_inspector2_enabler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inspector2_enabler) |
 | | KMS | [KMS Module](modules/security_identity_compliance/aws_kms/README.md) | [KMS Overview](modules/security_identity_compliance/aws_kms/aws-kms.md) | ✅ [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) |
@@ -185,6 +185,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_elasticache](tf-plans/aws_elasticache/README.md) | ElastiCache | Redis/Memcached/Valkey clusters; replication groups; HA, cluster mode, encryption |
 | [tf-plans/aws_fargate](tf-plans/aws_fargate/README.md) | Fargate | ECS clusters with FARGATE + FARGATE_SPOT capacity providers; task definitions (JSON template files); API service with ALB; worker service with Spot cost-optimisation; deployment circuit breaker; Container Insights |
 | [tf-plans/aws_firewall_manager](tf-plans/aws_firewall_manager/README.md) | Firewall Manager | Multi-policy FMS: WAFv2, Shield Advanced, Network Firewall, DNS Firewall, Security Groups — org-wide or scoped to accounts/OUs via `include_map`/`exclude_map` |
+| [tf-plans/aws_guardduty](tf-plans/aws_guardduty/README.md) | GuardDuty | Threat detection detector (CloudTrail/VPC/DNS always-on; S3/EKS/malware opt-in); suppression filters; trusted IP sets; custom threat intel feeds; findings export to S3; member account invitations |
 | [tf-plans/aws_glb](tf-plans/aws_glb/README.md) | GWLB | Gateway Load Balancer; multi-GLB via `glbs` |
 | [tf-plans/aws_iam](tf-plans/aws_iam/README.md) | IAM | Users, groups, policies; access keys & console options |
 | [tf-plans/aws_internet_gateway](tf-plans/aws_internet_gateway/README.md) | Internet Gateway | IGW attach examples; route integration |
