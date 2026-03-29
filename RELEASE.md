@@ -1,10 +1,10 @@
 # Release Notes
 
-## Repository Updates (2026-03-26) — AWS Backup
-- New: [AWS Backup module](modules/storage/aws_backup/README.md) — backup vaults (KMS encryption, optional Vault Lock/WORM); backup plans with multiple rules (schedule, lifecycle, cold-storage transition); tag-based and ARN-based resource selections; cross-region copy actions for DR.
-- New: [AWS Backup wrapper](tf-plans/aws_backup/README.md) — 3 patterns: daily/weekly with cold-storage lifecycle, cross-region DR copy, and Vault Lock compliance vault.
-- Docs: Updated [Module-Service-List.md](Module-Service-List.md) (count 42→43) with module and wrapper links for Backup.
-- Docs: Updated [README.md](README.md) and [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) with Backup module and wrapper links.
+## Repository Updates (2026-03-29) — AWS GuardDuty
+- New: [AWS GuardDuty module](modules/security_identity_compliance/aws_guardDuty/README.md) — detector with opt-in features (S3/EKS/malware), suppression filters, trusted IP sets, threat intel feeds, findings export, and member accounts via `for_each`.
+- New: [AWS GuardDuty wrapper](tf-plans/aws_guardduty/README.md) — production detector with S3 protection and port-probe suppression filter; commented IP set, threat intel, S3 export, and member account patterns.
+- Docs: Updated [Module-Service-List.md](Module-Service-List.md) (count 43→44) and [aws-guardduty.md](modules/security_identity_compliance/aws_guardDuty/aws-guardduty.md) with module and wrapper links.
+- Docs: Updated [README.md](README.md) and [AWS-Services-Pricing-Guide.md](AWS-Services-Pricing-Guide.md) with GuardDuty module, wrapper links, and pricing details.
 
 ## Repository Updates (2026-03-25) — AWS Elastic Block Store (EBS)
 - New: [AWS EBS module](modules/storage/aws_ebs/README.md) — six volume types, encryption, multi-attach, snapshot restore, and attachments via `for_each`.
