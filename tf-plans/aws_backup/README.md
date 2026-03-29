@@ -18,7 +18,7 @@ Terraform wrapper for the [`aws_backup` module](../../modules/storage/aws_backup
   │                                                                          │
   │  Pattern 1: Daily/weekly production backup                               │
   │  ─ vault: "primary" (AWS-managed KMS key)                                │
-  │  ─ plan:  daily cron(0 5 * * ?) + weekly cron(0 5 ? * 1 *)              │
+  │  ─ plan:  daily cron(0 5 * * ?) + weekly cron(0 5 ? * 1 *)               │
   │  ─ selection: tag Environment=production                                 │
   │                                                                          │
   │  Pattern 2 (commented): Cross-region DR copy                             │
@@ -32,11 +32,11 @@ Terraform wrapper for the [`aws_backup` module](../../modules/storage/aws_backup
         │
         ▼
   modules/storage/aws_backup/
-  ┌────────────────────┐   ┌───────────────────┐   ┌──────────────────────┐
-  │  aws_backup_vault  │◀──│  aws_backup_plan   │──▶│ aws_backup_selection │
-  │  (+ policy)        │   │  rules + lifecycle │   │ tag-based / ARN      │
-  │  (+ vault lock)    │   │  + copy_actions    │   └──────────────────────┘
-  └────────────────────┘   └───────────────────┘
+  ┌────────────────────┐    ┌────────────────────┐     ┌──────────────────────┐
+  │  aws_backup_vault  │◀──│  aws_backup_plan    │──▶ │ aws_backup_selection │
+  │  (+ policy)        │    │  rules + lifecycle │     │ tag-based / ARN      │
+  │  (+ vault lock)    │    │  + copy_actions    │     └──────────────────────┘
+  └────────────────────┘    └────────────────────┘
 ```
 
 ---

@@ -18,7 +18,10 @@ vaults = [
     # Primary production vault — encrypted with the AWS-managed Backup key.
     key  = "primary"
     name = "prod-primary-vault"
-    tags = { role = "primary", tier = "production" }
+    tags = { 
+      role = "primary", 
+      tier = "production" 
+    }
     # kms_key_id = "arn:aws:kms:us-east-1:123456789012:key/mrk-abc123def456"
   }
   # ,
