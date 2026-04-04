@@ -4,6 +4,10 @@
 variable "region" {
   type        = string
   description = "AWS region for the provider"
+  validation {
+    condition     = can(regex("^[a-z]{2}-[a-z]+-[0-9]$", var.region))
+    error_message = "region must be a valid AWS region format (e.g. us-east-1, eu-west-2)."
+  }
 }
 
 # Global tags applied across resources
@@ -11,6 +15,11 @@ variable "tags" {
   type        = map(string)
   default     = {}
   description = "Global tags applied to all resources in this module"
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 # Define one or more API Gateway v2 APIs via a keyed map
@@ -41,9 +50,9 @@ variable "apis" {
 
     # Routes targeting integrations by key
     routes = optional(list(object({
-      route_key              = string           # e.g., "GET /items"
-      target_integration_key = string           # references an entry in `integrations`
-      authorization_type     = optional(string) # defaults to NONE if omitted
+      route_key              = string # e.g., "GET /items"
+      target_integration_key = string # references an entry in `integrations`
+      authorization_type     = string # required: JWT, AWS_IAM, CUSTOM, or NONE (must be explicit)
     })))
 
     # Optional per-API stage configuration
@@ -65,6 +74,15 @@ variable "apis" {
     tags = optional(map(string))
   }))
   description = "Map of APIs keyed by unique names, each with integrations, routes, and optional stage settings"
+
+  validation {
+    condition = alltrue([
+      for api_key, api in var.apis :
+      try(api.cors_configuration, null) == null ||
+      !contains(try(api.cors_configuration.allow_origins, []), "*")
+    ])
+    error_message = "cors_configuration.allow_origins must not contain '*'. Specify explicit allowed origins to prevent cross-origin security issues."
+  }
 }
 
 # Optional custom domains mapped to APIs

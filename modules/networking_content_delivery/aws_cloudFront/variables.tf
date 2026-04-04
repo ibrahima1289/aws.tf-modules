@@ -4,6 +4,10 @@
 variable "region" {
   type        = string
   description = "AWS region for the provider"
+  validation {
+    condition     = can(regex("^[a-z]{2}-[a-z]+-[0-9]$", var.region))
+    error_message = "region must be a valid AWS region format (e.g. us-east-1, eu-west-2)."
+  }
 }
 
 # Global tags applied across all resources
@@ -11,6 +15,11 @@ variable "tags" {
   type        = map(string)
   default     = {}
   description = "Global tags applied to all CloudFront distributions"
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 # Define one or more CloudFront distributions via a keyed map

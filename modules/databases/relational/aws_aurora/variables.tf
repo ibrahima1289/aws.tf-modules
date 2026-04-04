@@ -66,7 +66,7 @@ variable "aurora_clusters" {
     enable_http_endpoint           = optional(bool, false)           # For Data API (Serverless v1)
     backtrack_window               = optional(number, 0)             # 0-259200 seconds (72 hours), MySQL only
     enable_global_write_forwarding = optional(bool, false)
-    deletion_protection            = optional(bool, false)
+    deletion_protection            = optional(bool, true)
     apply_immediately              = optional(bool, false)
     allow_major_version_upgrade    = optional(bool, false)
     auto_minor_version_upgrade     = optional(bool, true)
@@ -112,6 +112,20 @@ variable "aurora_clusters" {
     tags = optional(map(string), {})
   }))
   default = {}
+
+  validation {
+    condition = alltrue([
+      for k, v in var.aurora_clusters : alltrue([
+        for ik, iv in try(v.instances, {}) : try(iv.publicly_accessible, false) == false
+      ])
+    ])
+    error_message = "publicly_accessible must remain false. Aurora instances must not be exposed to the public internet."
+  }
+
+  validation {
+    condition     = alltrue([for k, v in var.aurora_clusters : try(v.storage_encrypted, true) == true])
+    error_message = "storage_encrypted must remain true. Disabling encryption at rest is not permitted."
+  }
 }
 
 # DB Subnet Groups (optional, create new ones)
@@ -165,7 +179,7 @@ variable "global_clusters" {
     engine                       = optional(string)
     engine_version               = optional(string)
     database_name                = optional(string)
-    deletion_protection          = optional(bool, false)
+    deletion_protection          = optional(bool, true)
     storage_encrypted            = optional(bool, true)
     source_db_cluster_identifier = optional(string)      # For adding secondary regions
     force_destroy                = optional(bool, false) # Required when source_db_cluster_identifier is set

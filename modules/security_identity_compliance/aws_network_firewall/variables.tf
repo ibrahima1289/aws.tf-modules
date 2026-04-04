@@ -13,6 +13,11 @@ variable "tags" {
   description = "Common tags applied to all resources created by this module."
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 # ─── Rule Groups ─────────────────────────────────────────────────────────────
@@ -122,6 +127,17 @@ variable "rule_groups" {
       )
     ])
     error_message = "rules_source_type must be one of: STATELESS_5TUPLE, SURICATA_STRING, DOMAIN_LIST, STATEFUL_5TUPLE."
+  }
+
+  validation {
+    condition = alltrue([
+      for rg in var.rule_groups : alltrue([
+        for ip_set in rg.ip_sets : alltrue([
+          for cidr in ip_set.definition : can(cidrhost(cidr, 0))
+        ])
+      ])
+    ])
+    error_message = "All ip_set definition entries must be valid CIDR blocks (e.g. 10.0.0.0/8)."
   }
 }
 

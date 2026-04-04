@@ -11,6 +11,11 @@ variable "tags" {
   type        = map(string)
   default     = {}
   description = "Global tags applied to all resources in this module"
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 # Define one or more Batch compute environments via a keyed map
