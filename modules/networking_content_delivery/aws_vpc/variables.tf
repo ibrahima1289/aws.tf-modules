@@ -6,6 +6,11 @@ variable "region" {
 variable "vpc_cidr_block" {
   description = "The IPv4 CIDR block for the VPC. Required if not using IPAM."
   type        = string
+  default     = null
+  validation {
+    condition     = var.vpc_cidr_block == null || can(cidrnetmask(var.vpc_cidr_block))
+    error_message = "vpc_cidr_block must be a valid IPv4 CIDR notation (e.g. 10.0.0.0/16)."
+  }
 }
 
 variable "defined_name" {

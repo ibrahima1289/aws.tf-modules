@@ -66,6 +66,12 @@ variable "buckets" {
       }))
     }))
   }))
+  validation {
+    condition = alltrue([
+      for b in var.buckets : can(regex("^[a-z0-9][a-z0-9\\-]{1,61}[a-z0-9]$", b.name))
+    ])
+    error_message = "Each bucket name must be 3-63 characters, lowercase letters, numbers, and hyphens only, and cannot start or end with a hyphen."
+  }
 }
 
 variable "bucket_defaults" {

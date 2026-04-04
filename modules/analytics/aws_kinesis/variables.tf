@@ -20,7 +20,7 @@ variable "streams" {
     retention_period_hours = optional(number)
     shard_level_metrics    = optional(list(string))
 
-    encryption_enabled = optional(bool)
+    encryption_enabled = optional(bool, true)
     kms_key_arn        = optional(string)
 
     tags = optional(map(string))

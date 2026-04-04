@@ -42,8 +42,8 @@ variable "rule_groups" {
       priority = number
       # Valid actions: aws:pass, aws:drop, aws:forward_to_sfe, aws:publish_to_sns
       actions      = list(string)
-      sources      = optional(list(string), ["0.0.0.0/0"])
-      destinations = optional(list(string), ["0.0.0.0/0"])
+      sources      = optional(list(string), [])
+      destinations = optional(list(string), [])
       # IANA protocol numbers: 6=TCP, 17=UDP, 1=ICMP. Empty list matches all protocols.
       protocols         = optional(list(number), [])
       source_ports      = optional(list(object({ from_port = number, to_port = number })), [])
