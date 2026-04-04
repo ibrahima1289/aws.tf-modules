@@ -50,9 +50,9 @@ variable "apis" {
 
     # Routes targeting integrations by key
     routes = optional(list(object({
-      route_key              = string           # e.g., "GET /items"
-      target_integration_key = string           # references an entry in `integrations`
-      authorization_type     = string           # required: JWT, AWS_IAM, CUSTOM, or NONE (must be explicit)
+      route_key              = string # e.g., "GET /items"
+      target_integration_key = string # references an entry in `integrations`
+      authorization_type     = string # required: JWT, AWS_IAM, CUSTOM, or NONE (must be explicit)
     })))
 
     # Optional per-API stage configuration

@@ -1,7 +1,7 @@
 # AWS Terraform Modules — Risk Assessment
 
-**Repository:** `ibrahima1289/aws.tf-modules`  
-**Branch:** `dev-branch`  
+**Repository:** `aws.tf-modules`  
+**Branch:** `main`  
 **Assessment Date:** 2026-04-04  
 **Scope:** 45 complete modules (modules with `main.tf` + `variables.tf` + `outputs.tf`)  
 **Assessment Categories:** Security · Reliability · Compliance · CI/CD · Version Hygiene
@@ -411,4 +411,4 @@
 
 ---
 
-*Assessment generated on 2026-04-04 against branch `dev-branch` of `ibrahima1289/aws.tf-modules`.*
+*Assessment generated on 2026-04-04 against branch `main` of `aws.tf-modules`.*
