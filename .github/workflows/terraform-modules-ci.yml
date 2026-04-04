@@ -10,7 +10,7 @@ env:
 
 on:
   push:
-    branches: [ "main", "dev-branch" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -54,7 +54,7 @@ jobs:
             if [ -f "$dir/main.tf" ] && [ -f "$dir/variables.tf" ] && [ -f "$dir/outputs.tf" ]; then
               echo "Validating $dir ..."
               cd "$dir"
-              terraform init -backend=false -input=false -no-color > /dev/null 2>&1 || true
+              terraform init -backend=false -input=false -no-color > /dev/null 2>&1
               terraform validate -no-color || FAILED=1
               cd "$GITHUB_WORKSPACE"
             fi
@@ -69,8 +69,7 @@ jobs:
           checkov -d modules --framework terraform \
             --quiet \
             --compact \
-            --skip-check CKV_TF_1 \
-            || true
+            --skip-check CKV_TF_1
 
       - name: Install tfsec
         run: |

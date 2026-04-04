@@ -1,7 +1,7 @@
 // Terraform provider configuration for AWS DocumentDB resources
 
 terraform {
-  required_version = ">= 6.0, < 7.0"
+  required_version = ">= 1.14.0, < 2.0.0"
 
   required_providers {
     aws = {
