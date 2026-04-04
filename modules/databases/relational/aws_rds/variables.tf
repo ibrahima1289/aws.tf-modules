@@ -69,7 +69,7 @@ variable "rds_instances" {
 
     # Advanced options
     allow_major_version_upgrade = optional(bool, false)
-    deletion_protection         = optional(bool, false)
+    deletion_protection         = optional(bool, true)
     replicate_source_db         = optional(string) # For read replicas
     restore_to_point_in_time = optional(object({
       source_db_instance_identifier = string
@@ -86,9 +86,19 @@ variable "rds_instances" {
     tags = optional(map(string), {})
   }))
   default = {}
+
+  validation {
+    condition     = alltrue([for k, v in var.rds_instances : try(v.publicly_accessible, false) == false])
+    error_message = "publicly_accessible must remain false. RDS instances must not be exposed to the public internet."
+  }
+
+  validation {
+    condition     = alltrue([for k, v in var.rds_instances : try(v.storage_encrypted, true) == true])
+    error_message = "storage_encrypted must remain true. Disabling encryption at rest is not permitted."
+  }
 }
 
-# DB Subnet Groups (optional, create new ones)
+# DB Subnet Groups(optional, create new ones)
 variable "db_subnet_groups" {
   description = "Map of DB subnet groups to create"
   type = map(object({

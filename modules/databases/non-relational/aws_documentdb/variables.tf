@@ -60,7 +60,7 @@ variable "clusters" {
     })))
 
     # ── Operational settings ──────────────────────────────────────────────
-    deletion_protection             = optional(bool)         # Prevent accidental deletion; default false
+    deletion_protection             = optional(bool, true)        # Prevent accidental deletion; default true
     apply_immediately               = optional(bool)         # Apply changes immediately; default false
     auto_minor_version_upgrade      = optional(bool)         # Auto-apply minor engine upgrades; default true
     enabled_cloudwatch_logs_exports = optional(list(string)) # ["audit"] | ["audit","profiler"]

@@ -123,6 +123,17 @@ variable "rule_groups" {
     ])
     error_message = "rules_source_type must be one of: STATELESS_5TUPLE, SURICATA_STRING, DOMAIN_LIST, STATEFUL_5TUPLE."
   }
+
+  validation {
+    condition = alltrue([
+      for rg in var.rule_groups : alltrue([
+        for ip_set in rg.ip_sets : alltrue([
+          for cidr in ip_set.definition : can(cidrhost(cidr, 0))
+        ])
+      ])
+    ])
+    error_message = "All ip_set definition entries must be valid CIDR blocks (e.g. 10.0.0.0/8)."
+  }
 }
 
 # ─── Firewall Policies ───────────────────────────────────────────────────────

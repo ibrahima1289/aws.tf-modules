@@ -3,6 +3,7 @@
 output "secret_ids" {
   description = "Map of secret key to Secrets Manager secret ID."
   value       = { for k, v in aws_secretsmanager_secret.secret : k => v.id }
+  sensitive   = true
 }
 
 output "secret_arns" {
@@ -14,6 +15,7 @@ output "secret_arns" {
 output "secret_names" {
   description = "Map of secret key to Secrets Manager secret name (path)."
   value       = { for k, v in aws_secretsmanager_secret.secret : k => v.name }
+  sensitive   = true
 }
 
 output "secret_version_ids" {
