@@ -11,7 +11,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | Metric | Count |
 |--------|-------|
 |**Total AWS Services Documented** | **133** |
-|**Terraform Modules Available** | **44** |
+|**Terraform Modules Available** | **45** |
 |**Resource Guides Available** | **131** |
 
 ---
@@ -152,7 +152,7 @@ Complete list of all Terraform modules and wrapper plans available in this repos
 | | EFS | - | [EFS Overview](modules/storage/aws_efs/aws-efs.md) | ✅ [aws_efs_file_system](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_file_system) |
 | | S3 | [S3 Module](modules/storage/aws_s3/README.md) | [S3 Overview](modules/storage/aws_s3/aws-s3.md) | ✅ [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) |
 | | Snow Family | - | [Snow Family Overview](modules/storage/aws_snow_family/aws-snow-family.md) | Physical device — order via Console or CLI: `aws snowball create-job` |
-| | Storage Gateway | - | [Storage Gateway Overview](modules/storage/aws-storage-gateway/aws-storage-gateway.md) | ✅ [aws_storagegateway_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/storagegateway_gateway) |
+| | Storage Gateway | [Storage Gateway Module](modules/storage/aws-storage-gateway/README.md) | [Storage Gateway Overview](modules/storage/aws-storage-gateway/aws-storage-gateway.md) | ✅ [aws_storagegateway_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/storagegateway_gateway) |
 
 > Each module directory contains its own README file with usage instructions, input/output variables, and examples.
 
@@ -202,6 +202,7 @@ Wrapper plans are available under `tf-plans/` to demonstrate usage with sensible
 | [tf-plans/aws_route_53](tf-plans/aws_route_53/README.md) | Route 53 | Zones & records; alias examples |
 | [tf-plans/aws_route_table](tf-plans/aws_route_table/README.md) | Route Table | Routes, associations; VPC/Subnet wiring |
 | [tf-plans/aws_s3](tf-plans/aws_s3/README.md) | S3 | Buckets; SSE-KMS/SSE-S3 options; logging examples |
+| [tf-plans/aws_storage_gateway](tf-plans/aws_storage_gateway/README.md) | Storage Gateway | S3 File Gateway (NFS + SMB, KMS, AD); VTL Tape Gateway (Glacier + Deep Archive pools with GOVERNANCE/COMPLIANCE retention lock) |
 | [tf-plans/aws_secrets_manager](tf-plans/aws_secrets_manager/README.md) | Secrets Manager | Multiple secrets (credentials, API keys, config bundles); optional rotation via Lambda, resource-based policies, multi-region replication |
 | [tf-plans/aws_sec_grp](tf-plans/aws_sec_grp/README.md) | Security Group | Security rules; ingress/egress configurations |
 | [tf-plans/aws_shield](tf-plans/aws_shield/README.md) | Shield Advanced | DDoS protections, protection groups (ALL/BY_RESOURCE_TYPE/ARBITRARY), DRT access, proactive engagement |

@@ -1,5 +1,7 @@
 # AWS Storage Gateway
 
+> **Terraform:** [Storage Gateway Module](README.md) · [Wrapper Plan](../../../tf-plans/aws_storage_gateway/README.md) · [aws_storagegateway_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/storagegateway_gateway)
+
 [AWS Storage Gateway](https://aws.amazon.com/storagegateway/) is a hybrid cloud storage service that gives your on-premises applications access to virtually unlimited AWS cloud storage through standard storage protocols (NFS, SMB, iSCSI, VTL). The gateway runs as a virtual machine (VM) on your on-premises hypervisor or as a dedicated hardware appliance, providing a local cache for low-latency access to frequently used data while seamlessly tiering cold data to Amazon S3, Amazon FSx for Windows File Server, Amazon EBS snapshots, or Amazon S3 Glacier.
 
 ## Core Concepts
@@ -93,25 +95,25 @@ AWS Storage Gateway offers four distinct gateway types:
 
 ```
   On-Premises
-┌──────────────────────────────────────────────────────────────────────┐
-│  Application Servers / Backup Software / File Clients                │
-│       │ NFS/SMB         │ iSCSI           │ iSCSI VTL                │
+┌─────────────────────────────────────────────────────────────────────┐
+│  Application Servers / Backup Software / File Clients               │
+│       │ NFS/SMB          │ iSCSI           │ iSCSI VTL              │
 │  ┌────▼──────────────────▼─────────────────▼────────────────────┐   │
 │  │         Storage Gateway VM (VMware / Hyper-V / KVM)          │   │
-│  │         or Hardware Appliance                                  │   │
+│  │         or Hardware Appliance                                │   │
 │  │   ┌─────────────────────────────────────────────────────┐    │   │
-│  │   │  Local Cache (SSD / NVMe)  ← hot data served here  │    │   │
+│  │   │  Local Cache (SSD / NVMe)  ← hot data served here   │    │   │
 │  │   └───────────────────────┬─────────────────────────────┘    │   │
-│  └───────────────────────────│────────────────────────────────── │   │
-└───────────────────────────── │ ──────────────────────────────────┘
+│  └───────────────────────────│──────────────────────────────────┘   │
+└───────────────────────────── │ ─────────────────────────────────────┘
                                │ Internet / Direct Connect / VPN
-              ┌────────────────▼───────────────────────────────────┐
-              │  AWS Storage Backend                               │
+              ┌────────────────▼──────────────────────────────────┐
+              │  AWS Storage Backend                              │
               │  S3 File → Amazon S3 (any class)                  │
               │  FSx File → Amazon FSx for Windows                │
               │  Volume  → Amazon S3 + EBS Snapshots              │
               │  Tape    → Amazon S3 → S3 Glacier Deep Archive    │
-              └────────────────────────────────────────────────────┘
+              └───────────────────────────────────────────────────┘
 ```
 
 ---
