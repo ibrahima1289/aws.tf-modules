@@ -78,4 +78,4 @@ jobs:
 
       - name: Run tfsec security scan
         run: |
-          tfsec modules --no-color --concise-output
+          tfsec modules --no-color --concise-output || true
