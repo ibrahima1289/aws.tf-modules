@@ -19,7 +19,7 @@ aws.tf-modules/
 │  ├─ monitoring/                   # CloudWatch (log groups, alarms, dashboards, filters), CloudTrail (trails, event selectors, insights)
 │  ├─ networking_content_delivery/  # VPC, Route 53, Route Table, Internet Gateway, CloudFront, API Gateway
 │  ├─ security_identity_compliance/ # IAM, KMS, Security Group, NACL, Certificate Manager, Secrets Manager, Shield, Network Firewall, Firewall Manager, GuardDuty, WAF
-│  └─ storage/                      # S3, Backup, Snow Family, DataSync, Storage Gateway, Transfer Family, Lake Formation
+│  └─ storage/                      # S3, EBS, Backup, Snow Family, DataSync, Storage Gateway (FILE_S3/FSx/Volume/VTL), Transfer Family, Lake Formation
 ├─ tf-plans/                        # Wrapper examples for each module
 │  ├─ aws_*/ 
 │  └─ ...

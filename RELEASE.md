@@ -1,6 +1,12 @@
 # Release Notes
 
-## Repository Updates (2026-03-29) — AWS GuardDuty
+## Repository Updates (2026-04-04) — AWS Storage Gateway
+- New: [AWS Storage Gateway module](modules/storage/aws-storage-gateway/README.md) — five gateway types (FILE_S3, FILE_FSX_SMB, CACHED, STORED, VTL) with NFS/SMB file shares, cached/stored iSCSI volumes, virtual tape pools, upload buffers, and cache disks via `for_each`.
+- New: [AWS Storage Gateway wrapper](tf-plans/aws_storage_gateway/README.md) — two-gateway plan: S3 File Gateway (2 NFS + 2 SMB shares, KMS encryption, GuestAccess and AD patterns) and VTL Tape Gateway (Glacier + Deep Archive pools with GOVERNANCE/COMPLIANCE retention lock).
+- Docs: Updated [aws-module-service-list.md](aws-module-service-list.md) (count 44→45) and [aws-storage-gateway.md](modules/storage/aws-storage-gateway/aws-storage-gateway.md) with module and wrapper links.
+- Docs: Updated [README.md](README.md) and [aws-services-pricing-guide.md](aws-services-pricing-guide.md) with Storage Gateway module, wrapper links, and expanded pricing details.
+
+
 - New: [AWS GuardDuty module](modules/security_identity_compliance/aws_guardDuty/README.md) — detector with opt-in features (S3/EKS/malware), suppression filters, trusted IP sets, threat intel feeds, findings export, and member accounts via `for_each`.
 - New: [AWS GuardDuty wrapper](tf-plans/aws_guardduty/README.md) — production detector with S3 protection and port-probe suppression filter; commented IP set, threat intel, S3 export, and member account patterns.
 - Docs: Updated [Module-Service-List.md](Module-Service-List.md) (count 43→44) and [aws-guardduty.md](modules/security_identity_compliance/aws_guardDuty/aws-guardduty.md) with module and wrapper links.
