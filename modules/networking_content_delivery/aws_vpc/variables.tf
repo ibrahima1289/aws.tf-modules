@@ -83,6 +83,11 @@ variable "tags" {
   description = "A map of tags to assign to the resource."
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 variable "public_subnet_cidrs" {

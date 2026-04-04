@@ -74,6 +74,11 @@ variable "tags" {
   type        = map(string)
   description = "tags map merged with standard tags; caller-supplied keys can override."
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 # DNS records to create. Each element supports either basic (ttl+records)

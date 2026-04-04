@@ -7,6 +7,11 @@ variable "tags" {
   description = "Global tags to apply to all resources."
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 variable "buckets" {
@@ -90,6 +95,16 @@ variable "bucket_defaults" {
     bucket_key_enabled        = optional(bool)
   })
   default = {}
+
+  validation {
+    condition = (
+      try(var.bucket_defaults.block_public_acls, true) == true &&
+      try(var.bucket_defaults.block_public_policy, true) == true &&
+      try(var.bucket_defaults.ignore_public_acls, true) == true &&
+      try(var.bucket_defaults.restrict_public_buckets, true) == true
+    )
+    error_message = "All four public access block flags (block_public_acls, block_public_policy, ignore_public_acls, restrict_public_buckets) must remain true. Disabling public access protections is not permitted."
+  }
 }
 
 variable "replication_role_arn" {

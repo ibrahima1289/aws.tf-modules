@@ -9,6 +9,11 @@ variable "tags" {
   description = "Global tags applied to all DocumentDB resources."
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 variable "clusters" {
@@ -69,4 +74,12 @@ variable "clusters" {
     tags = optional(map(string))
   }))
   default = {}
+
+  validation {
+    condition = alltrue([
+      for k, c in var.clusters :
+      c.kms_key_id == null || can(regex("^arn:aws[a-z-]*:kms:", c.kms_key_id))
+    ])
+    error_message = "kms_key_id must be a valid KMS key ARN (e.g. arn:aws:kms:us-east-1:123456789012:key/...)."
+  }
 }
