@@ -3,6 +3,10 @@
 variable "region" {
   description = "AWS region to use for Amazon MQ brokers."
   type        = string
+  validation {
+    condition     = can(regex("^[a-z]{2}-[a-z]+-[0-9]$", var.region))
+    error_message = "region must be a valid AWS region format (e.g. us-east-1, eu-west-2)."
+  }
 }
 
 variable "tags" {
@@ -25,7 +29,7 @@ variable "brokers" {
 
     # Deployment and behavior
     deployment_mode            = optional(string) # SINGLE_INSTANCE | ACTIVE_STANDBY_MULTI_AZ | CLUSTER_MULTI_AZ
-    publicly_accessible        = optional(bool)
+    publicly_accessible        = optional(bool, false)
     auto_minor_version_upgrade = optional(bool)
     apply_immediately          = optional(bool)
     storage_type               = optional(string) # EBS | EFS (depending on engine)
