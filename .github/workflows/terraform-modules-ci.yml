@@ -2,20 +2,17 @@ name: Terraform Modules Checks
 # CI workflow to enforce Terraform module hygiene:
 # - Only allowed file types in module folders
 # - Terraform formatting (fmt -check)
+# - Terraform validate on all complete modules
+# - Security scanning with checkov and tfsec
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
-  # Run on pushes to main and pull requests targeting main
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
-  workflow_run:
-    workflows: ["Auto Open PR to Main"]
-    types:
-      - completed
+  push:
+    branches: [ "main", "dev-branch" ]
+  pull_request:
+    branches: [ "main" ]
 
 concurrency:
   # Cancel previous runs for the same ref to avoid redundant work
@@ -26,7 +23,7 @@ jobs:
   validate-linux:
     name: Validate (Ubuntu)
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -39,7 +36,7 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: '1.6.6'
+          terraform_version: '1.14.8'
 
       - name: Show tool versions
         run: |
@@ -49,3 +46,36 @@ jobs:
       - name: Run Terraform module checks
         run: |
           python tests/terraform_module_check.py
+
+      - name: Terraform validate (all complete modules)
+        run: |
+          FAILED=0
+          for dir in modules/*/*; do
+            if [ -f "$dir/main.tf" ] && [ -f "$dir/variables.tf" ] && [ -f "$dir/outputs.tf" ]; then
+              echo "Validating $dir ..."
+              cd "$dir"
+              terraform init -backend=false -input=false -no-color > /dev/null 2>&1 || true
+              terraform validate -no-color || FAILED=1
+              cd "$GITHUB_WORKSPACE"
+            fi
+          done
+          exit $FAILED
+
+      - name: Install checkov
+        run: pip install checkov
+
+      - name: Run checkov security scan
+        run: |
+          checkov -d modules --framework terraform \
+            --quiet \
+            --compact \
+            --skip-check CKV_TF_1 \
+            || true
+
+      - name: Install tfsec
+        run: |
+          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+
+      - name: Run tfsec security scan
+        run: |
+          tfsec modules --no-color --concise-output || true
