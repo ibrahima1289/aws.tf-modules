@@ -122,6 +122,11 @@ variable "policies" {
     ])
     error_message = "policies.type must be a valid Organizations policy type supported by the AWS provider."
   }
+
+  validation {
+    condition     = alltrue([for p in var.policies : can(jsondecode(p.content))])
+    error_message = "Each policy content must be valid JSON."
+  }
 }
 
 # Attach policies to root, OUs, or accounts created by this module.

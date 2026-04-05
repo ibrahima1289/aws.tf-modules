@@ -71,7 +71,7 @@ variable "tables" {
     })))
 
     # Point-in-time recovery (PITR)
-    point_in_time_recovery_enabled = optional(bool)
+    point_in_time_recovery_enabled = optional(bool, true)
 
     # Server-side encryption
     encryption_enabled = optional(bool)

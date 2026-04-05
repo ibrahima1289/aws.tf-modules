@@ -27,7 +27,7 @@ variable "trails" {
     sns_topic_name = optional(string) # SNS topic name or ARN for delivery notifications
 
     # ── Trail scope ─────────────────────────────────────────────────────────
-    is_multi_region_trail         = optional(bool, false) # Capture events from all AWS regions
+    is_multi_region_trail         = optional(bool, true)  # Capture events from all AWS regions (CIS Benchmark 3.1)
     include_global_service_events = optional(bool, true)  # Include IAM, STS, CloudFront events
     is_organization_trail         = optional(bool, false) # Apply to all accounts in AWS Org
 

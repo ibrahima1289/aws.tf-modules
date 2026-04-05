@@ -10,7 +10,7 @@ env:
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev-branch", "dev-*", "feature/*" ]
   pull_request:
     branches: [ "main" ]
 
@@ -50,7 +50,7 @@ jobs:
       - name: Terraform validate (all complete modules)
         run: |
           FAILED=0
-          for dir in modules/*/*; do
+          while IFS= read -r dir; do
             if [ -f "$dir/main.tf" ] && [ -f "$dir/variables.tf" ] && [ -f "$dir/outputs.tf" ]; then
               echo "Validating $dir ..."
               cd "$dir"
@@ -58,7 +58,7 @@ jobs:
               terraform validate -no-color || FAILED=1
               cd "$GITHUB_WORKSPACE"
             fi
-          done
+          done < <(find modules -mindepth 2 -maxdepth 4 -type d | sort)
           exit $FAILED
 
       - name: Install checkov

@@ -7,7 +7,7 @@ variable "region" {
 
 # Aurora Cluster Configuration Map
 variable "aurora_clusters" {
-  description = "Map of Aurora cluster configurations. Key is the cluster identifier."
+  description = "Map of Aurora cluster configurations. Key is the cluster identifier. Callers must pass password fields via sensitive variables to prevent exposure in state."
   type = map(object({
     # Required parameters
     engine         = string # aurora-mysql, aurora-postgresql
@@ -15,8 +15,8 @@ variable "aurora_clusters" {
 
     # Database credentials
     master_username = string
-    master_password = string # Consider using AWS Secrets Manager in production
-    database_name   = optional(string)
+    master_password = optional(string)  # Required unless manage_master_password = true
+    manage_master_password = optional(bool, true)    # Use AWS-managed master password rotation (recommended)
 
     # Network configuration
     db_subnet_group_name   = optional(string)
@@ -55,7 +55,7 @@ variable "aurora_clusters" {
 
     # Monitoring and logging
     enabled_cloudwatch_logs_exports       = optional(list(string), [])
-    monitoring_interval                   = optional(number, 0)
+    monitoring_interval                   = optional(number, 60)
     monitoring_role_arn                   = optional(string)
     performance_insights_enabled          = optional(bool, false)
     performance_insights_kms_key_id       = optional(string)
@@ -125,6 +125,15 @@ variable "aurora_clusters" {
   validation {
     condition     = alltrue([for k, v in var.aurora_clusters : try(v.storage_encrypted, true) == true])
     error_message = "storage_encrypted must remain true. Disabling encryption at rest is not permitted."
+  }
+  validation {
+    condition     = alltrue([for k, v in var.aurora_clusters : try(v.monitoring_interval, 60) == 0 || try(v.monitoring_role_arn, null) != null])
+    error_message = "monitoring_role_arn is required when monitoring_interval > 0."
+  }
+
+  validation {
+    condition     = alltrue([for k, v in var.aurora_clusters : try(v.manage_master_password, true) == true || try(v.master_password, null) != null])
+    error_message = "master_password is required when manage_master_password = false."
   }
 }
 
