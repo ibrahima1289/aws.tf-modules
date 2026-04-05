@@ -14,9 +14,9 @@ variable "aurora_clusters" {
     engine_version = optional(string)
 
     # Database credentials
-    master_username = string
-    master_password = optional(string)  # Required unless manage_master_password = true
-    manage_master_password = optional(bool, true)    # Use AWS-managed master password rotation (recommended)
+    master_username        = string
+    master_password        = optional(string)     # Required unless manage_master_password = true
+    manage_master_password = optional(bool, true) # Use AWS-managed master password rotation (recommended)
 
     # Network configuration
     db_subnet_group_name   = optional(string)
