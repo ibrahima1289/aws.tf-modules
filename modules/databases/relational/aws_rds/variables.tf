@@ -7,7 +7,7 @@ variable "region" {
 
 # RDS Instance Configuration Map
 variable "rds_instances" {
-  description = "Map of RDS instance configurations. Key is the instance identifier."
+  description = "Map of RDS instance configurations. Key is the instance identifier. Callers must pass password fields via sensitive variables to prevent exposure in state."
   type = map(object({
     # Required parameters (optional for read replicas when replicate_source_db is set)
     engine         = optional(string) # mysql, postgres, mariadb, oracle-ee, oracle-se2, oracle-se1, oracle-se, sqlserver-ee, sqlserver-se, sqlserver-ex, sqlserver-web
@@ -33,7 +33,7 @@ variable "rds_instances" {
     vpc_security_group_ids = optional(list(string))
     publicly_accessible    = optional(bool, false)
     availability_zone      = optional(string)
-    multi_az               = optional(bool, false)
+    multi_az               = optional(bool, true)
 
     # Database options
     port                                = optional(number)
@@ -61,7 +61,7 @@ variable "rds_instances" {
     auto_minor_version_upgrade            = optional(bool, true)
     apply_immediately                     = optional(bool, false)
     enabled_cloudwatch_logs_exports       = optional(list(string), [])
-    monitoring_interval                   = optional(number, 0)
+    monitoring_interval                   = optional(number, 60)
     monitoring_role_arn                   = optional(string)
     performance_insights_enabled          = optional(bool, false)
     performance_insights_retention_period = optional(number, 7)
@@ -95,6 +95,10 @@ variable "rds_instances" {
   validation {
     condition     = alltrue([for k, v in var.rds_instances : try(v.storage_encrypted, true) == true])
     error_message = "storage_encrypted must remain true. Disabling encryption at rest is not permitted."
+  }
+  validation {
+    condition     = alltrue([for k, v in var.rds_instances : try(v.monitoring_interval, 60) == 0 || try(v.monitoring_role_arn, null) != null])
+    error_message = "monitoring_role_arn is required when monitoring_interval > 0."
   }
 }
 

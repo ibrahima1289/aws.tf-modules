@@ -107,6 +107,12 @@ variable "vpc_security_group_ids" {
   default     = null
 }
 
+variable "dlq_kms_key_id" {
+  description = "Optional KMS key ID for DLQ encryption. When null, SQS-managed SSE is used. Only applies when enable_dlq = true."
+  type        = string
+  default     = null
+}
+
 variable "enable_dlq" {
   description = "Enable SQS dead-letter queue"
   type        = bool
@@ -261,9 +267,13 @@ variable "enable_function_url" {
 }
 
 variable "function_url_auth_type" {
-  description = "Function URL authorization type: NONE or AWS_IAM"
+  description = "Function URL authorization type. AWS_IAM requires SigV4 signed requests; NONE creates a public endpoint. Always use AWS_IAM unless the endpoint is intentionally public."
   type        = string
-  default     = "NONE"
+  default     = "AWS_IAM"
+  validation {
+    condition     = contains(["NONE", "AWS_IAM"], var.function_url_auth_type)
+    error_message = "function_url_auth_type must be AWS_IAM or NONE. Using NONE creates a publicly accessible endpoint with no authentication."
+  }
 }
 
 variable "function_url_cors_allow_credentials" {

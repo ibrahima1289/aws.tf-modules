@@ -83,6 +83,14 @@ variable "apis" {
     ])
     error_message = "cors_configuration.allow_origins must not contain '*'. Specify explicit allowed origins to prevent cross-origin security issues."
   }
+  validation {
+    condition = alltrue([
+      for api_key, api in var.apis :
+      try(api.stage, null) == null ||
+      try(api.stage.default_route_settings.throttling_rate_limit, null) != null
+    ])
+    error_message = "Each API stage must define default_route_settings.throttling_rate_limit to prevent runaway cost and DoS exposure."
+  }
 }
 
 # Optional custom domains mapped to APIs

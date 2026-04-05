@@ -146,5 +146,13 @@ variable "budgets" {
     error_message = "auto_adjust_type must be HISTORICAL, FORECAST, or null (disabled)."
   }
 
+  validation {
+    condition = alltrue([
+      for b in var.budgets :
+      b.notifications != null && length(b.notifications) > 0
+    ])
+    error_message = "Each budget must define at least one notification threshold. Budgets without notifications provide no cost governance alerts."
+  }
+
   default = []
 }

@@ -77,7 +77,12 @@ variable "access_logs" {
     prefix  = optional(string)
   })
   default = {
-    enabled = false
+    enabled = true
+  }
+
+  validation {
+    condition     = !try(var.access_logs.enabled, true) || try(var.access_logs.bucket, null) != null
+    error_message = "access_logs.bucket must be set when access_logs.enabled = true."
   }
 }
 
