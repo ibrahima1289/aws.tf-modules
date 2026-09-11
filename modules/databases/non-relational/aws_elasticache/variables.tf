@@ -9,6 +9,11 @@ variable "tags" {
   description = "Global tags applied to all ElastiCache resources."
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 variable "clusters" {
@@ -89,10 +94,10 @@ variable "replication_groups" {
     preferred_cache_cluster_azs = optional(list(string))
 
     # Encryption
-    at_rest_encryption_enabled = optional(bool)
+    at_rest_encryption_enabled = optional(bool, true)
     kms_key_id                 = optional(string)
-    transit_encryption_enabled = optional(bool)
-    transit_encryption_mode    = optional(string) # "preferred" or "required"
+    transit_encryption_enabled = optional(bool, true)
+    transit_encryption_mode    = optional(string, "required") # "preferred" or "required"
     auth_token                 = optional(string)
     auth_token_update_strategy = optional(string) # "SET", "ROTATE", or "DELETE"
 
@@ -136,4 +141,14 @@ variable "replication_groups" {
     tags = optional(map(string))
   }))
   default = {}
+
+  validation {
+    condition     = alltrue([for k, v in var.replication_groups : try(v.at_rest_encryption_enabled, true) == true])
+    error_message = "at_rest_encryption_enabled must be true for all replication groups."
+  }
+
+  validation {
+    condition     = alltrue([for k, v in var.replication_groups : try(v.transit_encryption_enabled, true) == true])
+    error_message = "transit_encryption_enabled must be true for all replication groups."
+  }
 }

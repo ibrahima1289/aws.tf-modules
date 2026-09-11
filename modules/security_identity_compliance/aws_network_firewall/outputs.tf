@@ -40,6 +40,7 @@ output "firewall_ids" {
 # to an already-deployed firewall. Reference this in subsequent firewall updates.
 output "firewall_update_tokens" {
   description = "Map of firewall key to update token (required for in-place modifications)."
+  sensitive   = true
   value       = { for k, v in aws_networkfirewall_firewall.firewall : k => v.update_token }
 }
 
@@ -52,8 +53,8 @@ output "firewall_endpoint_ids" {
   description = "Map of firewall key to AZ-keyed map of firewall endpoint IDs. Use these in route table entries to direct traffic through the firewall."
   value = {
     for fw_key, fw in aws_networkfirewall_firewall.firewall : fw_key => {
-      for ss in tolist(fw.firewall_status[0].sync_states) :
-      ss.availability_zone => ss.attachment[0].endpoint_id
+      for ss in try(tolist(fw.firewall_status[0].sync_states), []) :
+      ss.availability_zone => try(ss.attachment[0].endpoint_id, null)
     }
   }
 }
@@ -64,8 +65,8 @@ output "firewall_statuses" {
   description = "Map of firewall key to AZ-keyed attachment status (READY / CREATING / DELETING / FAILED)."
   value = {
     for fw_key, fw in aws_networkfirewall_firewall.firewall : fw_key => {
-      for ss in tolist(fw.firewall_status[0].sync_states) :
-      ss.availability_zone => ss.attachment[0].status
+      for ss in try(tolist(fw.firewall_status[0].sync_states), []) :
+      ss.availability_zone => try(ss.attachment[0].status, null)
     }
   }
 }

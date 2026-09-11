@@ -8,6 +8,11 @@ variable "tags" {
   description = "Common tags applied to all CloudTrail resources"
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 # ─── Trails ──────────────────────────────────────────────────────────────────
@@ -22,7 +27,7 @@ variable "trails" {
     sns_topic_name = optional(string) # SNS topic name or ARN for delivery notifications
 
     # ── Trail scope ─────────────────────────────────────────────────────────
-    is_multi_region_trail         = optional(bool, false) # Capture events from all AWS regions
+    is_multi_region_trail         = optional(bool, true)  # Capture events from all AWS regions (CIS Benchmark 3.1)
     include_global_service_events = optional(bool, true)  # Include IAM, STS, CloudFront events
     is_organization_trail         = optional(bool, false) # Apply to all accounts in AWS Org
 

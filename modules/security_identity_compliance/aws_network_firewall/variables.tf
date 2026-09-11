@@ -13,6 +13,11 @@ variable "tags" {
   description = "Common tags applied to all resources created by this module."
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 # ─── Rule Groups ─────────────────────────────────────────────────────────────
@@ -42,8 +47,8 @@ variable "rule_groups" {
       priority = number
       # Valid actions: aws:pass, aws:drop, aws:forward_to_sfe, aws:publish_to_sns
       actions      = list(string)
-      sources      = optional(list(string), ["0.0.0.0/0"])
-      destinations = optional(list(string), ["0.0.0.0/0"])
+      sources      = optional(list(string), [])
+      destinations = optional(list(string), [])
       # IANA protocol numbers: 6=TCP, 17=UDP, 1=ICMP. Empty list matches all protocols.
       protocols         = optional(list(number), [])
       source_ports      = optional(list(object({ from_port = number, to_port = number })), [])
@@ -122,6 +127,17 @@ variable "rule_groups" {
       )
     ])
     error_message = "rules_source_type must be one of: STATELESS_5TUPLE, SURICATA_STRING, DOMAIN_LIST, STATEFUL_5TUPLE."
+  }
+
+  validation {
+    condition = alltrue([
+      for rg in var.rule_groups : alltrue([
+        for ip_set in rg.ip_sets : alltrue([
+          for cidr in ip_set.definition : can(cidrhost(cidr, 0))
+        ])
+      ])
+    ])
+    error_message = "All ip_set definition entries must be valid CIDR blocks (e.g. 10.0.0.0/8)."
   }
 }
 

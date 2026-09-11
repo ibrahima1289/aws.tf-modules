@@ -22,7 +22,7 @@ locals {
       key_spec  = k.key_spec != null ? k.key_spec : local.key_type_defaults[k.key_type].key_spec
       enable_key_rotation = (
         (k.key_spec != null ? k.key_spec : local.key_type_defaults[k.key_type].key_spec) == "SYMMETRIC_DEFAULT"
-        ? coalesce(k.enable_key_rotation, false)
+        ? coalesce(k.enable_key_rotation, true)
         : false
       )
       policy_json = (

@@ -53,8 +53,8 @@ resource "aws_apigatewayv2_route" "route" {
   route_key = each.value.route_key
   target    = "integrations/${aws_apigatewayv2_integration.integration[each.value.integration_comp_key].id}"
 
-  # Default authorization to NONE when not specified
-  authorization_type = try(each.value.authorization_type, "NONE")
+  # authorization_type is required per route (no default — must be explicit: JWT, AWS_IAM, CUSTOM, or NONE)
+  authorization_type = each.value.authorization_type
 }
 
 # Stage per API (when provided); defaults to $default if omitted

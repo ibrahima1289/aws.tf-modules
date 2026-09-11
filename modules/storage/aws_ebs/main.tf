@@ -50,14 +50,14 @@ resource "aws_ebs_volume" "volume" {
     Name = each.value.name
   })
 
-  # lifecycle {
-  #   # Guard: multi_attach_enabled is only supported for io1 and io2 volume types.
-  #   # Terraform will report a clear error at plan time if any other type is used.
-  #   precondition {
-  #     condition     = !each.value.multi_attach_enabled || contains(["io1", "io2"], each.value.type)
-  #     error_message = "multi_attach_enabled = true requires volume type io1 or io2 (volume '${each.key}' uses '${each.value.type}')."
-  #   }
-  # }
+  lifecycle {
+    # Guard: multi_attach_enabled is only supported for io1 and io2 volume types.
+    # Terraform will report a clear error at plan time if any other type is used.
+    precondition {
+      condition     = !each.value.multi_attach_enabled || contains(["io1", "io2"], each.value.type)
+      error_message = "multi_attach_enabled = true requires volume type io1 or io2 (volume '${each.key}' uses '${each.value.type}')."
+    }
+  }
 }
 
 # ── Step 2: Volume Attachments ────────────────────────────────────────────────

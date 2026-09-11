@@ -10,6 +10,11 @@ variable "tags" {
   description = "Global tags applied to all resources."
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 variable "lb_name" {
@@ -72,7 +77,12 @@ variable "access_logs" {
     prefix  = optional(string)
   })
   default = {
-    enabled = false
+    enabled = true
+  }
+
+  validation {
+    condition     = !try(var.access_logs.enabled, true) || try(var.access_logs.bucket, null) != null
+    error_message = "access_logs.bucket must be set when access_logs.enabled = true."
   }
 }
 

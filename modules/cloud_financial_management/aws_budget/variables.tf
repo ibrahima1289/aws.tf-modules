@@ -9,6 +9,11 @@ variable "tags" {
   description = "Global tags applied to all budget resources."
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 # Budget definition list.
@@ -139,6 +144,14 @@ variable "budgets" {
       b.auto_adjust_type == null || contains(["HISTORICAL", "FORECAST"], b.auto_adjust_type)
     ])
     error_message = "auto_adjust_type must be HISTORICAL, FORECAST, or null (disabled)."
+  }
+
+  validation {
+    condition = alltrue([
+      for b in var.budgets :
+      b.notifications != null && length(b.notifications) > 0
+    ])
+    error_message = "Each budget must define at least one notification threshold. Budgets without notifications provide no cost governance alerts."
   }
 
   default = []

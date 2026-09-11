@@ -11,7 +11,7 @@ output "cluster_ids" {
 
 output "cluster_addresses" {
   description = "Map of logical cluster names to their cache cluster addresses"
-  value       = { for k, v in aws_elasticache_cluster.cluster : k => v.cache_nodes[0].address }
+  value       = { for k, v in aws_elasticache_cluster.cluster : k => try(v.cache_nodes[0].address, null) }
 }
 
 output "cluster_configuration_endpoints" {

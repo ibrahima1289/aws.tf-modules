@@ -50,9 +50,11 @@ resource "aws_cloudwatch_log_group" "lambda" {
 
 # Optional Dead Letter Queue (SQS) for async failures
 resource "aws_sqs_queue" "dlq" {
-  count = var.enable_dlq ? 1 : 0
-  name  = "${var.function_name}-dlq"
-  tags  = merge(var.tags, { created_date = local.created_date })
+  count                   = var.enable_dlq ? 1 : 0
+  name                    = "${var.function_name}-dlq"
+  sqs_managed_sse_enabled = var.dlq_kms_key_id == null ? true : false
+  kms_master_key_id       = var.dlq_kms_key_id
+  tags                    = merge(var.tags, { created_date = local.created_date })
 }
 
 # Lambda function definition

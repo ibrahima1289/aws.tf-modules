@@ -16,6 +16,6 @@ output "protection_group_ids" {
 }
 
 output "subscription_id" {
-  description = "Shield Advanced subscription resource ID. Empty string when enable_subscription = false."
-  value       = var.enable_subscription ? aws_shield_subscription.subscription[0].id : ""
+  description = "Shield Advanced subscription resource ID. Null when enable_subscription = false."
+  value       = var.enable_subscription ? aws_shield_subscription.subscription[0].id : null
 }

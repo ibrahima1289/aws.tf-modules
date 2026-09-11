@@ -31,6 +31,11 @@ variable "tags" {
   description = "Common tags for module resources"
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 # Multiple OUs; use parent_key = ROOT for top-level OUs or another OU key for nesting.
@@ -116,6 +121,11 @@ variable "policies" {
       ], p.type)
     ])
     error_message = "policies.type must be a valid Organizations policy type supported by the AWS provider."
+  }
+
+  validation {
+    condition     = alltrue([for p in var.policies : can(jsondecode(p.content))])
+    error_message = "Each policy content must be valid JSON."
   }
 }
 

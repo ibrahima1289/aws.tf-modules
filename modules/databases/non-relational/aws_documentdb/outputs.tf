@@ -7,6 +7,7 @@
 # Full map of cluster details: endpoints, ARNs, and key configuration attributes
 output "clusters" {
   description = "Map of DocumentDB cluster details keyed by the logical cluster name."
+  sensitive   = true
   value = {
     for key, cluster in aws_docdb_cluster.cluster : key => {
       id                              = cluster.id

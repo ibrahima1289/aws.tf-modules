@@ -7,16 +7,16 @@ variable "region" {
 
 # Aurora Cluster Configuration Map
 variable "aurora_clusters" {
-  description = "Map of Aurora cluster configurations. Key is the cluster identifier."
+  description = "Map of Aurora cluster configurations. Key is the cluster identifier. Callers must pass password fields via sensitive variables to prevent exposure in state."
   type = map(object({
     # Required parameters
     engine         = string # aurora-mysql, aurora-postgresql
     engine_version = optional(string)
 
     # Database credentials
-    master_username = string
-    master_password = string # Consider using AWS Secrets Manager in production
-    database_name   = optional(string)
+    master_username        = string
+    master_password        = optional(string)     # Required unless manage_master_password = true
+    manage_master_password = optional(bool, true) # Use AWS-managed master password rotation (recommended)
 
     # Network configuration
     db_subnet_group_name   = optional(string)
@@ -55,7 +55,7 @@ variable "aurora_clusters" {
 
     # Monitoring and logging
     enabled_cloudwatch_logs_exports       = optional(list(string), [])
-    monitoring_interval                   = optional(number, 0)
+    monitoring_interval                   = optional(number, 60)
     monitoring_role_arn                   = optional(string)
     performance_insights_enabled          = optional(bool, false)
     performance_insights_kms_key_id       = optional(string)
@@ -66,7 +66,7 @@ variable "aurora_clusters" {
     enable_http_endpoint           = optional(bool, false)           # For Data API (Serverless v1)
     backtrack_window               = optional(number, 0)             # 0-259200 seconds (72 hours), MySQL only
     enable_global_write_forwarding = optional(bool, false)
-    deletion_protection            = optional(bool, false)
+    deletion_protection            = optional(bool, true)
     apply_immediately              = optional(bool, false)
     allow_major_version_upgrade    = optional(bool, false)
     auto_minor_version_upgrade     = optional(bool, true)
@@ -112,6 +112,29 @@ variable "aurora_clusters" {
     tags = optional(map(string), {})
   }))
   default = {}
+
+  validation {
+    condition = alltrue([
+      for k, v in var.aurora_clusters : alltrue([
+        for ik, iv in try(v.instances, {}) : try(iv.publicly_accessible, false) == false
+      ])
+    ])
+    error_message = "publicly_accessible must remain false. Aurora instances must not be exposed to the public internet."
+  }
+
+  validation {
+    condition     = alltrue([for k, v in var.aurora_clusters : try(v.storage_encrypted, true) == true])
+    error_message = "storage_encrypted must remain true. Disabling encryption at rest is not permitted."
+  }
+  validation {
+    condition     = alltrue([for k, v in var.aurora_clusters : try(v.monitoring_interval, 60) == 0 || try(v.monitoring_role_arn, null) != null])
+    error_message = "monitoring_role_arn is required when monitoring_interval > 0."
+  }
+
+  validation {
+    condition     = alltrue([for k, v in var.aurora_clusters : try(v.manage_master_password, true) == true || try(v.master_password, null) != null])
+    error_message = "master_password is required when manage_master_password = false."
+  }
 }
 
 # DB Subnet Groups (optional, create new ones)
@@ -165,7 +188,7 @@ variable "global_clusters" {
     engine                       = optional(string)
     engine_version               = optional(string)
     database_name                = optional(string)
-    deletion_protection          = optional(bool, false)
+    deletion_protection          = optional(bool, true)
     storage_encrypted            = optional(bool, true)
     source_db_cluster_identifier = optional(string)      # For adding secondary regions
     force_destroy                = optional(bool, false) # Required when source_db_cluster_identifier is set

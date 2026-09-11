@@ -40,7 +40,7 @@ resource "aws_s3_bucket_versioning" "versioning" {
   for_each = aws_s3_bucket.s3_bucket
   bucket   = each.value.id
   versioning_configuration {
-    status = lookup(var.bucket_defaults, "versioning_status", "Disabled")
+    status = lookup(var.bucket_defaults, "versioning_status", "Enabled")
   }
 }
 
@@ -50,7 +50,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encryption" {
   # excluding buckets marked for customer-provided keys (SSE-C), which cannot be set at bucket level.
   for_each = {
     for b in var.buckets : b.name => b
-    if(lookup(var.bucket_defaults, "sse_enable", false) || try(b.encryption.enable, false))
+    if(lookup(var.bucket_defaults, "sse_enable", true) || try(b.encryption.enable, false))
     && !try(b.encryption.customer_provided, false)
   }
   bucket = aws_s3_bucket.s3_bucket[each.key].id
@@ -74,7 +74,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encryption" {
     }
     bucket_key_enabled = coalesce(
       try(each.value.encryption.bucket_key_enabled, null),
-      lookup(var.bucket_defaults, "bucket_key_enabled", false)
+      lookup(var.bucket_defaults, "bucket_key_enabled", true)
     )
   }
 }
@@ -201,7 +201,7 @@ resource "aws_s3_bucket_replication_configuration" "replication" {
       }
 
       destination {
-        bucket        = rules.value.destination_bucket_arn
+        bucket        = rule.value.destination_bucket_arn
         storage_class = lookup(rule.value, "storage_class", "STANDARD")
 
         dynamic "replication_time" {

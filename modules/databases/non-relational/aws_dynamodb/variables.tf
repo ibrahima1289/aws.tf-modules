@@ -9,6 +9,11 @@ variable "tags" {
   description = "Global tags applied to all DynamoDB resources."
   type        = map(string)
   default     = {}
+
+  validation {
+    condition     = contains(keys(var.tags), "Environment") && contains(keys(var.tags), "Owner")
+    error_message = "tags must include at minimum 'Environment' and 'Owner' keys for cost allocation and governance."
+  }
 }
 
 variable "tables" {
@@ -66,7 +71,7 @@ variable "tables" {
     })))
 
     # Point-in-time recovery (PITR)
-    point_in_time_recovery_enabled = optional(bool)
+    point_in_time_recovery_enabled = optional(bool, true)
 
     # Server-side encryption
     encryption_enabled = optional(bool)
