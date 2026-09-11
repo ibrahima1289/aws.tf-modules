@@ -83,9 +83,6 @@ variable "instances" {
     name                        = optional(string)
     tags                        = optional(map(string))
     user_data                   = optional(string)
-    root_volume_size            = optional(number)
-    root_volume_type            = optional(string)
-    root_volume_encrypted       = optional(bool)
   }))
   default = []
 }
@@ -94,22 +91,4 @@ variable "user_data" {
   description = "User data script to run on instance boot (optional)."
   type        = string
   default     = null
-}
-
-variable "root_volume_size" {
-  description = "Size (GiB) of the root EBS volume"
-  type        = number
-  default     = 8
-}
-
-variable "root_volume_type" {
-  description = "Type of the root EBS volume (gp3, gp2, io1, io2)"
-  type        = string
-  default     = "gp3"
-}
-
-variable "root_volume_encrypted" {
-  description = "Whether the root EBS volume is encrypted"
-  type        = bool
-  default     = true
 }
