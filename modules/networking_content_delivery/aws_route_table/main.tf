@@ -12,25 +12,32 @@
 ############################################
 
 locals {
-  # Normalize route table definitions without using multi-line ternary
-  rt_defs = merge(
-    length(var.route_tables) > 0 ? { for idx, rt in var.route_tables : coalesce(try(rt.name, null), "rt-${idx}") => rt } : {},
-    length(var.route_tables) == 0 ? {
-      (var.name != null ? var.name : "rt-0") = {
-        name        = var.name
-        tags        = var.tags
-        routes      = var.routes
-        subnet_ids  = var.subnet_ids
-        set_as_main = var.set_as_main
-      }
-    } : {}
-  )
+  # Normalize route table definitions
+  rt_defs = length(var.route_tables) > 0 ? {
+    for idx, rt in var.route_tables : coalesce(rt.name, "rt-${idx}") => {
+      name         = rt.name
+      tags         = rt.tags != null ? rt.tags : {}
+      routes       = rt.routes != null ? rt.routes : []
+      subnet_group = rt.subnet_group
+      subnet_ids   = rt.subnet_ids != null ? rt.subnet_ids : []
+      set_as_main  = rt.set_as_main != null ? rt.set_as_main : false
+    }
+  } : {
+    (var.name != null ? var.name : "rt-0") = {
+      name         = var.name
+      tags         = var.tags
+      routes       = var.routes
+      subnet_group = null
+      subnet_ids   = var.subnet_ids
+      set_as_main  = var.set_as_main
+    }
+  }
 
   # Build a flattened list of routes across all route tables
   rt_route_list = flatten([
     for rt_key, rt in local.rt_defs : [
-      for idx, r in try(rt.routes, []) : {
-        key    = "${rt_key}:${tostring(idx)}"
+      for idx, r in rt.routes : {
+        key    = "${rt_key}:${idx}"
         rt_key = rt_key
         route  = r
       }
@@ -40,16 +47,16 @@ locals {
   # Determine associations per route table, resolving subnet group or explicit subnet_ids
   rt_assoc_list = flatten([
     for rt_key, rt in local.rt_defs : [
-      for s in(
-        length(coalesce(try(rt.subnet_ids, []), [])) > 0
-        ? coalesce(try(rt.subnet_ids, []), [])
+      for idx, s in(
+        length(rt.subnet_ids) > 0
+        ? rt.subnet_ids
         : (
-          try(rt.subnet_group, null) == "public" ? var.public_subnet_ids : (
-            try(rt.subnet_group, null) == "private" ? var.private_subnet_ids : []
+          rt.subnet_group == "public" ? var.public_subnet_ids : (
+            rt.subnet_group == "private" ? var.private_subnet_ids : []
           )
         )
-        ) : {
-        key    = "${rt_key}:${s}"
+      ) : {
+        key    = "${rt_key}:${idx}"
         rt_key = rt_key
         subnet = s
       }
@@ -57,7 +64,7 @@ locals {
   ])
 
   # Identify the main route table key (first one with set_as_main = true)
-  rt_main_keys = [for rt_key, rt in local.rt_defs : rt_key if try(rt.set_as_main, false)]
+  rt_main_keys = [for rt_key, rt in local.rt_defs : rt_key if rt.set_as_main]
   main_rt_key  = length(local.rt_main_keys) > 0 ? local.rt_main_keys[0] : null
 }
 
@@ -69,8 +76,8 @@ resource "aws_route_table" "route_table" {
 
   tags = merge(
     local.base_tags,
-    try(each.value.name, null) != null ? { Name = each.value.name } : {},
-    try(each.value.tags, {}),
+    each.value.name != null ? { Name = each.value.name } : {},
+    each.value.tags,
   )
 }
 
