@@ -8,14 +8,15 @@ resource "aws_instance" "ec2_each" {
   for_each = { for idx, inst in var.instances : tostring(idx) => inst }
 
   ami                         = each.value.ami_id
-  instance_type               = try(each.value.instance_type, var.instance_type)
-  subnet_id                   = coalesce(try(each.value.subnet_id, null), var.subnet_id)
-  key_name                    = try(each.value.key_name, var.key_name)
-  associate_public_ip_address = try(each.value.associate_public_ip_address, var.associate_public_ip_address)
-  monitoring                  = try(each.value.monitoring, var.monitoring)
-  user_data                   = try(each.value.user_data, var.user_data)
+  instance_type               = each.value.instance_type != null ? each.value.instance_type : var.instance_type
+  subnet_id                   = each.value.subnet_id != null ? each.value.subnet_id : var.subnet_id
+  key_name                    = each.value.key_name != null ? each.value.key_name : var.key_name
+  associate_public_ip_address = each.value.associate_public_ip_address != null ? each.value.associate_public_ip_address : var.associate_public_ip_address
+  monitoring                  = each.value.monitoring != null ? each.value.monitoring : var.monitoring
+  user_data                   = each.value.user_data != null ? each.value.user_data : var.user_data
+  user_data_replace_on_change = true
 
-  vpc_security_group_ids = coalesce(try(each.value.security_group_ids, null), var.security_group_ids)
+  vpc_security_group_ids = each.value.security_group_ids != null ? each.value.security_group_ids : var.security_group_ids
 
   tags = merge(
     local.base_tags,
