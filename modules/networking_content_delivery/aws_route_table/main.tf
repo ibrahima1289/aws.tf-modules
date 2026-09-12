@@ -22,7 +22,7 @@ locals {
       subnet_ids   = rt.subnet_ids != null ? rt.subnet_ids : []
       set_as_main  = rt.set_as_main != null ? rt.set_as_main : false
     }
-  } : {
+    } : {
     (var.name != null ? var.name : "rt-0") = {
       name         = var.name
       tags         = var.tags
@@ -55,7 +55,7 @@ locals {
             rt.subnet_group == "private" ? var.private_subnet_ids : []
           )
         )
-      ) : {
+        ) : {
         key    = "${rt_key}:${idx}"
         rt_key = rt_key
         subnet = s
