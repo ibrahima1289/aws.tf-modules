@@ -18,6 +18,13 @@ resource "aws_instance" "ec2_each" {
 
   vpc_security_group_ids = each.value.security_group_ids != null ? each.value.security_group_ids : var.security_group_ids
 
+  root_block_device {
+    volume_size           = each.value.root_volume_size != null ? each.value.root_volume_size : (var.root_volume_size != null ? var.root_volume_size : 30)
+    volume_type           = each.value.root_volume_type != null ? each.value.root_volume_type : (var.root_volume_type != null ? var.root_volume_type : "gp3")
+    delete_on_termination = each.value.root_volume_delete_on_termination != null ? each.value.root_volume_delete_on_termination : (var.root_volume_delete_on_termination != null ? var.root_volume_delete_on_termination : true)
+    encrypted             = each.value.root_volume_encrypted != null ? each.value.root_volume_encrypted : (var.root_volume_encrypted != null ? var.root_volume_encrypted : true)
+  }
+
   tags = merge(
     local.base_tags,
     try(each.value.tags, {}),
